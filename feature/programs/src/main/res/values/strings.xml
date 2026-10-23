@@ -105,7 +105,11 @@
     <string name="feature_programs_edit_day">Edit workout</string>
     <string name="feature_programs_up_next">Up next</string>
     <string name="feature_programs_make_next">Do this workout next</string>
-    <string name="feature_programs_start_workout_soon">Start workout · Phase 3</string>
+    <string name="feature_programs_start_workout">Start workout</string>
+    <string name="feature_programs_resume_workout">Resume workout in progress</string>
+    <string name="feature_programs_workout_in_progress">“%1$s” is still in progress. Finish it before starting another.</string>
+    <string name="feature_programs_start_empty">Start an empty workout</string>
+    <string name="feature_programs_empty_workout_name">Workout</string>
 
     <plurals name="feature_programs_exercise_count">
         <item quantity="one">%1$d exercise</item>

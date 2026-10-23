@@ -34,7 +34,6 @@ import com.chdjalil.jalilgym.core.designsystem.icon.JgIcons
 import com.chdjalil.jalilgym.core.designsystem.theme.JalilgymTheme
 import com.chdjalil.jalilgym.core.model.ActiveProgram
 import com.chdjalil.jalilgym.core.model.Program
-import com.chdjalil.jalilgym.core.ui.ComingSoonCard
 import com.chdjalil.jalilgym.core.ui.EntryCard
 import com.chdjalil.jalilgym.feature.programs.R
 import com.chdjalil.jalilgym.feature.programs.ui.SectionTitle
@@ -46,10 +45,20 @@ internal fun TrainScreen(
     onOpenTemplates: () -> Unit,
     onOpenProgram: (String) -> Unit,
     onOpenDay: (String) -> Unit,
+    onOpenHistory: () -> Unit,
+    onWorkoutStarted: () -> Unit,
     viewModel: TrainViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val created by viewModel.createdProgramId.collectAsStateWithLifecycle()
+    val workoutStarted by viewModel.workoutStarted.collectAsStateWithLifecycle()
+    val emptyName = stringResource(R.string.feature_programs_empty_workout_name)
+    LaunchedEffect(workoutStarted) {
+        if (workoutStarted) {
+            viewModel.onWorkoutOpened()
+            onWorkoutStarted()
+        }
+    }
     LaunchedEffect(created) {
         created?.let {
             viewModel.onNavigatedToCreated()
@@ -63,6 +72,8 @@ internal fun TrainScreen(
         onOpenProgram = onOpenProgram,
         onOpenDay = onOpenDay,
         onCreateBlank = viewModel::createBlankProgram,
+        onOpenHistory = onOpenHistory,
+        onStartEmpty = { viewModel.startEmptyWorkout(emptyName) },
     )
 }
 
@@ -74,6 +85,8 @@ internal fun TrainContent(
     onOpenProgram: (String) -> Unit,
     onOpenDay: (String) -> Unit,
     onCreateBlank: (String) -> Unit,
+    onOpenHistory: () -> Unit = {},
+    onStartEmpty: () -> Unit = {},
 ) {
     var naming by rememberSaveable { mutableStateOf(false) }
     Column(
@@ -110,17 +123,20 @@ internal fun TrainContent(
             }
 
             SectionTitle(stringResource(R.string.feature_programs_more), Modifier.padding(top = 8.dp))
+            JgSecondaryButton(onClick = onStartEmpty, modifier = Modifier.fillMaxWidth()) {
+                Text(stringResource(R.string.feature_programs_start_empty))
+            }
             EntryCard(
                 title = stringResource(R.string.feature_programs_library_title),
                 description = stringResource(R.string.feature_programs_library_desc),
                 icon = JgIcons.Search,
                 onClick = onOpenLibrary,
             )
-            ComingSoonCard(
+            EntryCard(
                 title = stringResource(R.string.feature_programs_history_title),
                 description = stringResource(R.string.feature_programs_history_desc),
-                phase = 3,
                 icon = JgIcons.Progress,
+                onClick = onOpenHistory,
             )
         }
     }

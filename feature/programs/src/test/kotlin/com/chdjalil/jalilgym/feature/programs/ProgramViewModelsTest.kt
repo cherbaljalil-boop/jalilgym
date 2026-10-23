@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.chdjalil.jalilgym.core.model.Prescription
 import com.chdjalil.jalilgym.core.model.ProgressionRule
 import com.chdjalil.jalilgym.core.testing.MainDispatcherRule
+import com.chdjalil.jalilgym.core.testing.repository.FakeWorkoutRepository
 import com.chdjalil.jalilgym.core.ui.ExercisePickerResult
 import com.chdjalil.jalilgym.feature.programs.builder.ProgramBuilderEvent
 import com.chdjalil.jalilgym.feature.programs.builder.ProgramBuilderUiState
@@ -30,6 +31,7 @@ class ProgramViewModelsTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private val programs = programRepository()
+    private val workouts = FakeWorkoutRepository(exercises = listOf(squat, curl, row), programs = programs)
 
     /** Keeps a WhileSubscribed state flow hot for the duration of the test. */
     private fun <T> TestScope.collect(flow: StateFlow<T>): StateFlow<T> {
@@ -55,7 +57,7 @@ class ProgramViewModelsTest {
 
     @Test
     fun `train screen lists programs and creates blank ones`() = runTest {
-        val viewModel = TrainViewModel(programs)
+        val viewModel = TrainViewModel(programs, workouts)
         val state = collect(viewModel.uiState)
         assertThat(state.value.active).isNull()
 
@@ -65,6 +67,10 @@ class ProgramViewModelsTest {
         assertThat(state.value.programs.map { it.name }).containsExactly("Upper / Lower")
         viewModel.onNavigatedToCreated()
         assertThat(viewModel.createdProgramId.value).isNull()
+
+        viewModel.startEmptyWorkout("Workout")
+        assertThat(viewModel.workoutStarted.value).isTrue()
+        assertThat(workouts.current.single().name).isEqualTo("Workout")
     }
 
     @Test
@@ -132,7 +138,7 @@ class ProgramViewModelsTest {
         val id = programs.copyProgram("tpl-ppl-3")
         programs.activate(id)
         val legs = programs.currentPrograms.single { it.id == id }.days[2]
-        val viewModel = DayPreviewViewModel(SavedStateHandle(mapOf("dayId" to legs.id)), programs)
+        val viewModel = DayPreviewViewModel(SavedStateHandle(mapOf("dayId" to legs.id)), programs, workouts)
         val state = collect(viewModel.uiState)
 
         val ready = state.value as DayPreviewUiState.Ready
@@ -143,5 +149,9 @@ class ProgramViewModelsTest {
 
         assertThat(programs.activeNextDayIndex).isEqualTo(2)
         assertThat((state.value as DayPreviewUiState.Ready).isNext).isTrue()
+
+        viewModel.startWorkout()
+        assertThat(viewModel.startedSessionId.value).isNotNull()
+        assertThat((state.value as DayPreviewUiState.Ready).workoutInProgress).isEqualTo("Legs")
     }
 }

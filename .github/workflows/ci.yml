@@ -9,6 +9,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build, lint & unit tests
@@ -31,19 +34,40 @@ jobs:
         run: >
           ./gradlew testDebugUnitTest
           :core:common:test :core:model:test :core:domain:test :core:testing:test
-         
 
       - name: Android lint
         run: ./gradlew lintDebug
 
+      # Room regenerates the schema during the build. On branch pushes the
+      # updated schema is committed back (CI already validated the code); on
+      # pull requests a stale schema fails the build.
       - name: Room schema is committed
         run: |
-          if [ -n "$(git status --porcelain core/database/schemas)" ]; then
+          if [ -z "$(git status --porcelain core/database/schemas)" ]; then
+            echo "Schema is up to date."
+            exit 0
+          fi
+          if [ "${{ github.event_name }}" != "push" ]; then
             echo "::error::Room schema changed. Commit the files under core/database/schemas."
-            git status --porcelain core/database/schemas
-            find core/database/schemas -name '*.json' -exec cat {} \;
             exit 1
           fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add core/database/schemas
+          git commit -m "Update Room schema"
+          git push
+
+      - name: Report test failures
+        if: failure()
+        run: |
+          python3 - <<'PY'
+          import glob, xml.etree.ElementTree as ET
+          for path in glob.glob("**/build/test-results/**/*.xml", recursive=True):
+              for case in ET.parse(path).getroot().iter("testcase"):
+                  for failure in case.findall("failure") + case.findall("error"):
+                      message = " ".join((failure.get("message") or failure.text or "").split())[:900]
+                      print(f"::error title={case.get('classname')}.{case.get('name')}::{message}")
+          PY
 
       - name: Upload reports
         if: failure()

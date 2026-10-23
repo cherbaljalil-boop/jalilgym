@@ -43,10 +43,14 @@ fun NavGraphBuilder.trainScreens(
     navController: NavController,
     onOpenLibrary: () -> Unit,
     onPickExercises: () -> Unit,
+    onOpenHistory: () -> Unit,
+    onWorkoutStarted: () -> Unit,
 ) {
     composable<TrainRoute> {
         TrainScreen(
             onOpenLibrary = onOpenLibrary,
+            onOpenHistory = onOpenHistory,
+            onWorkoutStarted = onWorkoutStarted,
             onOpenTemplates = { navController.navigate(TemplateGalleryRoute) },
             onOpenProgram = { navController.navigate(ProgramBuilderRoute(it)) },
             onOpenDay = { navController.navigateToDayPreview(it) },
@@ -77,8 +81,12 @@ fun NavGraphBuilder.trainScreens(
 }
 
 /** Outside the Train graph so it can be opened from Today without switching tabs. */
-fun NavGraphBuilder.dayPreviewScreen(navController: NavController, onEditDay: (String) -> Unit) {
+fun NavGraphBuilder.dayPreviewScreen(
+    navController: NavController,
+    onEditDay: (String) -> Unit,
+    onWorkoutStarted: () -> Unit,
+) {
     composable<DayPreviewRoute> {
-        DayPreviewScreen(onBack = navController::popBackStack, onEditDay = onEditDay)
+        DayPreviewScreen(onBack = navController::popBackStack, onEditDay = onEditDay, onWorkoutStarted = onWorkoutStarted)
     }
 }

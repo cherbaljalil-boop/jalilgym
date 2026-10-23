@@ -37,10 +37,11 @@ import com.chdjalil.jalilgym.core.ui.EntryCard
 internal fun TodayScreen(
     onOpenDay: (String) -> Unit,
     onChooseProgram: () -> Unit,
+    onResumeWorkout: () -> Unit,
     viewModel: TodayViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    TodayContent(uiState, onOpenDay, onChooseProgram, onSkip = viewModel::skipToNextDay)
+    TodayContent(uiState, onOpenDay, onChooseProgram, onSkip = viewModel::skipToNextDay, onResumeWorkout = onResumeWorkout)
 }
 
 @Composable
@@ -50,6 +51,7 @@ internal fun TodayContent(
     onChooseProgram: () -> Unit,
     onSkip: () -> Unit,
     modifier: Modifier = Modifier,
+    onResumeWorkout: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -65,7 +67,16 @@ internal fun TodayContent(
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             val active = uiState.active
+            uiState.workoutInProgress?.let { name ->
+                EntryCard(
+                    title = stringResource(R.string.feature_today_in_progress_title),
+                    description = stringResource(R.string.feature_today_in_progress_desc, name),
+                    icon = JgIcons.Play,
+                    onClick = onResumeWorkout,
+                )
+            }
             when {
+                uiState.workoutInProgress != null -> Unit
                 active?.nextDay != null -> TodayWorkoutCard(active, onOpenDay, onSkip)
                 !uiState.isLoading -> EntryCard(
                     title = stringResource(R.string.feature_today_choose_program_title),

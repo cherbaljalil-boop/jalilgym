@@ -29,6 +29,7 @@ dependencies {
     implementation(projects.feature.onboarding)
     implementation(projects.feature.today)
     implementation(projects.feature.exercises)
+    implementation(projects.feature.workout)
     implementation(projects.feature.programs)
     implementation(projects.feature.nutrition)
     implementation(projects.feature.progress)

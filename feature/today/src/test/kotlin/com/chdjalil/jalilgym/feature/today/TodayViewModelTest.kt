@@ -7,6 +7,7 @@ import com.chdjalil.jalilgym.core.testing.MainDispatcherRule
 import com.chdjalil.jalilgym.core.testing.data.sampleExercise
 import com.chdjalil.jalilgym.core.testing.repository.FakeExerciseRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeProgramRepository
+import com.chdjalil.jalilgym.core.testing.repository.FakeWorkoutRepository
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -31,7 +32,8 @@ class TodayViewModelTest {
 
     @Test
     fun `shows the next workout of the active program and can skip it`() = runTest {
-        val viewModel = TodayViewModel(exercises, programs)
+        val workouts = FakeWorkoutRepository(programs = programs)
+        val viewModel = TodayViewModel(exercises, programs, workouts)
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
 
         assertThat(viewModel.uiState.value.active).isNull()
@@ -44,5 +46,8 @@ class TodayViewModelTest {
 
         viewModel.skipToNextDay()
         assertThat(viewModel.uiState.value.active!!.nextDay!!.name).isEqualTo("Pull")
+
+        workouts.startEmpty("Quick")
+        assertThat(viewModel.uiState.value.workoutInProgress).isEqualTo("Quick")
     }
 }

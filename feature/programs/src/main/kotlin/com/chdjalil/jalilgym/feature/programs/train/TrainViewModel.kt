@@ -3,6 +3,7 @@ package com.chdjalil.jalilgym.feature.programs.train
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chdjalil.jalilgym.core.domain.repository.ProgramRepository
+import com.chdjalil.jalilgym.core.domain.repository.WorkoutRepository
 import com.chdjalil.jalilgym.core.model.ActiveProgram
 import com.chdjalil.jalilgym.core.model.Program
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +25,7 @@ data class TrainUiState(
 @HiltViewModel
 class TrainViewModel @Inject constructor(
     private val programRepository: ProgramRepository,
+    private val workoutRepository: WorkoutRepository,
 ) : ViewModel() {
 
     val uiState: StateFlow<TrainUiState> = combine(
@@ -43,5 +45,21 @@ class TrainViewModel @Inject constructor(
 
     fun onNavigatedToCreated() {
         _createdProgramId.value = null
+    }
+
+    private val _workoutStarted = MutableStateFlow(false)
+
+    /** True once an empty workout was started (or an existing one resumed). */
+    val workoutStarted: StateFlow<Boolean> = _workoutStarted.asStateFlow()
+
+    fun startEmptyWorkout(name: String) {
+        viewModelScope.launch {
+            workoutRepository.startEmpty(name)
+            _workoutStarted.value = true
+        }
+    }
+
+    fun onWorkoutOpened() {
+        _workoutStarted.value = false
     }
 }

@@ -20,6 +20,10 @@ import com.chdjalil.jalilgym.feature.programs.navigation.trainScreens
 import com.chdjalil.jalilgym.feature.progress.navigation.progressScreen
 import com.chdjalil.jalilgym.feature.today.navigation.TodayRoute
 import com.chdjalil.jalilgym.feature.today.navigation.todayScreen
+import com.chdjalil.jalilgym.feature.workout.navigation.navigateToActiveWorkout
+import com.chdjalil.jalilgym.feature.workout.navigation.navigateToWorkoutHistory
+import com.chdjalil.jalilgym.feature.workout.navigation.workoutHistoryScreens
+import com.chdjalil.jalilgym.feature.workout.navigation.workoutScreens
 import kotlinx.serialization.Serializable
 
 /** The Train tab: programs plus the exercise library, so the tab stays selected inside the library. */
@@ -48,16 +52,37 @@ fun JalilgymNavHost(
         todayScreen(
             onOpenDay = navController::navigateToDayPreview,
             onChooseProgram = { onSelectTab(TopLevelDestination.TRAIN) },
+            onResumeWorkout = navController::navigateToActiveWorkout,
         )
         navigation<TrainGraph>(startDestination = TrainRoute) {
             trainScreens(
                 navController = navController,
                 onOpenLibrary = { navController.navigateToExerciseLibrary() },
                 onPickExercises = { navController.navigateToExercisePicker() },
+                onOpenHistory = navController::navigateToWorkoutHistory,
+                onWorkoutStarted = navController::navigateToActiveWorkout,
             )
             exerciseScreens(navController)
+            workoutHistoryScreens(navController)
         }
-        dayPreviewScreen(navController, onEditDay = { navController.navigate(DayEditorRoute(it)) })
+        dayPreviewScreen(
+            navController,
+            onEditDay = { navController.navigate(DayEditorRoute(it)) },
+            onWorkoutStarted = {
+                // Replace the preview so "back" from the workout goes to where the user came from.
+                navController.popBackStack()
+                navController.navigateToActiveWorkout()
+            },
+        )
+        workoutScreens(
+            navController,
+            onPickExercises = { navController.navigateToExercisePicker() },
+            onExit = {
+                navController.navigate(TodayRoute) {
+                    popUpTo<TodayRoute> { inclusive = true }
+                }
+            },
+        )
         nutritionScreen()
         progressScreen()
         profileScreen()

@@ -270,8 +270,10 @@ data class SetLogEntity(
     val sessionExerciseId: String,
     val position: Int,
     val setType: SetType,
-    val weightKg: Double,
-    val reps: Int,
+    /** Null until entered; 0 for unloaded/bodyweight sets. */
+    val weightKg: Double?,
+    /** Reps, or seconds/meters for timed/distance exercises. Null until entered. */
+    val reps: Int?,
     val durationSec: Int?,
     val rpe: Double?,
     val rir: Int?,

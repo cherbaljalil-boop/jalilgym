@@ -19,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,10 +40,18 @@ import com.chdjalil.jalilgym.feature.programs.ui.ExerciseSlotRow
 internal fun DayPreviewScreen(
     onBack: () -> Unit,
     onEditDay: (String) -> Unit,
+    onWorkoutStarted: () -> Unit,
     viewModel: DayPreviewViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    DayPreviewContent(uiState, onBack, onEditDay, onMakeNext = viewModel::makeNext)
+    val started by viewModel.startedSessionId.collectAsStateWithLifecycle()
+    LaunchedEffect(started) {
+        if (started != null) {
+            viewModel.onWorkoutOpened()
+            onWorkoutStarted()
+        }
+    }
+    DayPreviewContent(uiState, onBack, onEditDay, onMakeNext = viewModel::makeNext, onStart = viewModel::startWorkout)
 }
 
 @Composable
@@ -51,6 +60,7 @@ internal fun DayPreviewContent(
     onBack: () -> Unit,
     onEditDay: (String) -> Unit,
     onMakeNext: () -> Unit,
+    onStart: () -> Unit = {},
 ) {
     val ready = uiState as? DayPreviewUiState.Ready
     Scaffold(
@@ -68,16 +78,31 @@ internal fun DayPreviewContent(
         bottomBar = {
             if (ready != null) {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    if (ready.canMakeNext) {
+                    if (ready.canMakeNext && ready.workoutInProgress == null) {
                         TextButton(onClick = onMakeNext, modifier = Modifier.fillMaxWidth()) {
                             Icon(painterResource(JgIcons.SkipNext), contentDescription = null)
                             Text(stringResource(R.string.feature_programs_make_next), Modifier.padding(start = 8.dp))
                         }
                     }
-                    // Workout logging arrives in Phase 3; the button is shown so the flow is clear.
-                    JgPrimaryButton(onClick = {}, enabled = false, modifier = Modifier.fillMaxWidth()) {
+                    if (ready.workoutInProgress != null) {
+                        Text(
+                            stringResource(R.string.feature_programs_workout_in_progress, ready.workoutInProgress),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                    JgPrimaryButton(
+                        onClick = onStart,
+                        enabled = ready.workoutInProgress != null || ready.day.exercises.isNotEmpty(),
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
                         Icon(painterResource(JgIcons.Play), contentDescription = null)
-                        Text(stringResource(R.string.feature_programs_start_workout_soon), Modifier.padding(start = 8.dp))
+                        Text(
+                            stringResource(
+                                if (ready.workoutInProgress != null) R.string.feature_programs_resume_workout else R.string.feature_programs_start_workout,
+                            ),
+                            Modifier.padding(start = 8.dp),
+                        )
                     }
                 }
             }

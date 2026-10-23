@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Active workout -->
+    <string name="feature_workout_minimize">Minimize workout</string>
+    <string name="feature_workout_finish">Finish</string>
+    <string name="feature_workout_none">No workout in progress.</string>
+    <string name="feature_workout_close">Close</string>
+    <string name="feature_workout_empty">Add your first exercise to get going.</string>
+    <string name="feature_workout_add_exercise">Add exercise</string>
+    <string name="feature_workout_discard_workout">Discard workout</string>
+    <string name="feature_workout_discard_title">Discard this workout?</string>
+    <string name="feature_workout_discard_body">Everything you logged in this session will be deleted.</string>
+    <string name="feature_workout_discard">Discard</string>
+    <string name="feature_workout_keep_going">Keep going</string>
+    <string name="feature_workout_finish_title">Finish workout?</string>
+    <plurals name="feature_workout_unchecked_sets">
+        <item quantity="one">%1$d set isn\'t checked off and won\'t be saved.</item>
+        <item quantity="other">%1$d sets aren\'t checked off and won\'t be saved.</item>
+    </plurals>
+    <string name="feature_workout_notes">Notes (optional)</string>
+    <string name="feature_workout_superset">Superset</string>
+    <string name="feature_workout_target">Target %1$d × %2$s · %3$s rest</string>
+    <string name="feature_workout_exercise_options">Exercise options</string>
+    <string name="feature_workout_swap_exercise">Swap exercise</string>
+    <string name="feature_workout_remove_exercise">Remove exercise</string>
+    <string name="feature_workout_add_set">Add set</string>
+    <string name="feature_workout_col_set">Set</string>
+    <string name="feature_workout_col_previous">Previous</string>
+    <string name="feature_workout_col_reps">Reps</string>
+    <string name="feature_workout_col_seconds">Sec</string>
+    <string name="feature_workout_col_meters">Meters</string>
+    <string name="feature_workout_rpe">RPE</string>
+    <string name="feature_workout_rir">RIR</string>
+    <string name="feature_workout_effort_clear">Clear</string>
+    <string name="feature_workout_set_warmup_short">W</string>
+    <string name="feature_workout_set_drop_short">D</string>
+    <string name="feature_workout_set_failure_short">F</string>
+    <string name="feature_workout_set_warmup">Warm-up</string>
+    <string name="feature_workout_set_working">Working set</string>
+    <string name="feature_workout_set_drop">Drop set</string>
+    <string name="feature_workout_set_failure">To failure</string>
+    <string name="feature_workout_set_type_description">%1$s. Tap to change type, long-press for more.</string>
+    <string name="feature_workout_delete_set">Delete set</string>
+    <string name="feature_workout_weight_field">Weight, set %1$d</string>
+    <string name="feature_workout_reps_field">Reps, set %1$d</string>
+    <string name="feature_workout_mark_done">Mark set done</string>
+    <string name="feature_workout_mark_not_done">Mark set not done</string>
+
+    <!-- Rest -->
+    <string name="feature_workout_rest">Rest</string>
+    <string name="feature_workout_rest_label">%1$s · set %2$d of %3$d</string>
+    <string name="feature_workout_minus_seconds">−%1$d</string>
+    <string name="feature_workout_plus_seconds">+%1$d s</string>
+    <string name="feature_workout_skip">Skip</string>
+    <string name="feature_workout_skip_rest">Skip rest</string>
+    <string name="feature_workout_rest_over">Rest over</string>
+    <string name="feature_workout_rest_over_body">Time for your next set.</string>
+    <string name="feature_workout_rest_over_next">Up next: %1$s</string>
+
+    <!-- Notification -->
+    <string name="feature_workout_notification_title">Workout in progress</string>
+    <string name="feature_workout_notification_resting">Resting · next %1$s</string>
+    <string name="feature_workout_notification_all_done">All sets done. Finish when you\'re ready.</string>
+    <string name="feature_workout_complete_set">Complete set</string>
+    <string name="feature_workout_channel_workout">Workout in progress</string>
+    <string name="feature_workout_channel_workout_desc">Ongoing notification with the workout timer and rest countdown.</string>
+    <string name="feature_workout_channel_alerts">Rest timer alerts</string>
+    <string name="feature_workout_channel_alerts_desc">Tells you when your rest is over.</string>
+
+    <!-- Mini bar -->
+    <string name="feature_workout_mini_elapsed">In progress · %1$s</string>
+    <string name="feature_workout_mini_resting">Resting · %1$s left</string>
+    <string name="feature_workout_resume">Resume</string>
+
+    <!-- Tools -->
+    <string name="feature_workout_plates_title">Plate calculator</string>
+    <string name="feature_workout_target_weight">Target weight (%1$s)</string>
+    <string name="feature_workout_bar">Bar</string>
+    <string name="feature_workout_per_side">Plates per side</string>
+    <string name="feature_workout_just_the_bar">Just the bar.</string>
+    <string name="feature_workout_closest_load">Closest you can load: %1$s %2$s</string>
+    <string name="feature_workout_exact_load">Loads exactly %1$s %2$s</string>
+    <string name="feature_workout_one_rm_title">1RM calculator</string>
+    <string name="feature_workout_weight_unit">Weight (%1$s)</string>
+    <string name="feature_workout_reps">Reps</string>
+    <string name="feature_workout_one_rm_formulas">Epley %1$s · Brzycki %2$s</string>
+    <string name="feature_workout_one_rm_unreliable">Estimates above %1$d reps are less accurate.</string>
+    <string name="feature_workout_warmup_title">Warm-up sets</string>
+    <string name="feature_workout_working_weight">Working weight (%1$s)</string>
+    <string name="feature_workout_warmup_none">No warm-up needed for a weight this light.</string>
+    <string name="feature_workout_times_reps">× %1$d</string>
+    <string name="feature_workout_add_warmups">Add warm-up sets</string>
+
+    <!-- Summary & history -->
+    <string name="feature_workout_summary_title">Workout complete</string>
+    <string name="feature_workout_done">Done</string>
+    <string name="feature_workout_session_missing">This workout no longer exists.</string>
+    <string name="feature_workout_stat_duration">Duration</string>
+    <string name="feature_workout_stat_volume">Volume</string>
+    <string name="feature_workout_stat_sets">Sets</string>
+    <string name="feature_workout_next_time">Next time</string>
+    <string name="feature_workout_progress_increase">%1$s → %2$s %3$s</string>
+    <string name="feature_workout_progress_hold">%1$s %2$s · aim for %3$d reps</string>
+    <string name="feature_workout_progress_missed">Stay at %1$s %2$s</string>
+    <string name="feature_workout_progress_deload">Deload %1$s → %2$s %3$s</string>
+    <string name="feature_workout_history_title">Workout history</string>
+    <string name="feature_workout_history_empty">Finished workouts show up here.</string>
+    <string name="feature_workout_history_row">%1$s · %2$s · %3$d sets</string>
+    <string name="feature_workout_back">Back</string>
+    <string name="feature_workout_delete_session">Delete workout</string>
+    <string name="feature_workout_delete_session_title">Delete this workout?</string>
+    <string name="feature_workout_delete_session_body">It will be removed from your history. This can\'t be undone.</string>
+    <string name="feature_workout_delete">Delete</string>
+    <string name="feature_workout_cancel">Cancel</string>
+</resources>

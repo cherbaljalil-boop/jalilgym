@@ -6,6 +6,8 @@
     <string name="feature_today_workout_summary">%1$s · %2$s</string>
     <string name="feature_today_view_workout">View workout</string>
     <string name="feature_today_skip_day">Skip</string>
+    <string name="feature_today_in_progress_title">Workout in progress</string>
+    <string name="feature_today_in_progress_desc">%1$s — tap to pick up where you left off.</string>
     <string name="feature_today_choose_program_title">Choose a program</string>
     <string name="feature_today_choose_program_desc">Pick a template or build your own, and your next workout will show up here.</string>
     <plurals name="feature_today_exercise_count">
