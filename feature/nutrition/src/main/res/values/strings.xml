@@ -86,9 +86,9 @@
     <string name="feature_nutrition_activity_extra">Extra active · physical job plus training</string>
     <string name="feature_nutrition_goal">Goal</string>
     <string name="feature_nutrition_goal_cut">Cut</string>
-    <string name="feature_nutrition_goal_cut_desc">Lose fat while keeping muscle (about 20% below maintenance).</string>
+    <string name="feature_nutrition_goal_cut_desc" formatted="false">Lose fat while keeping muscle (about 20% below maintenance).</string>
     <string name="feature_nutrition_goal_bulk">Lean bulk</string>
-    <string name="feature_nutrition_goal_bulk_desc">Build muscle with minimal fat gain (about 10% above maintenance).</string>
+    <string name="feature_nutrition_goal_bulk_desc" formatted="false">Build muscle with minimal fat gain (about 10% above maintenance).</string>
     <string name="feature_nutrition_goal_maintain">Maintain / recomp</string>
     <string name="feature_nutrition_goal_maintain_desc">Hold your weight while you train.</string>
     <string name="feature_nutrition_style_balanced">Balanced</string>
@@ -102,7 +102,7 @@
     <string name="feature_nutrition_targets_need_info">Fill in the questions above to see your targets.</string>
     <string name="feature_nutrition_tdee">Maintenance (TDEE): about %1$d kcal a day</string>
     <string name="feature_nutrition_clamp_floor">Raised to %1$d kcal, the safe minimum.</string>
-    <string name="feature_nutrition_clamp_weekly">Deficit limited so you lose no more than 1% of your body weight a week.</string>
+    <string name="feature_nutrition_clamp_weekly" formatted="false">Deficit limited so you lose no more than 1% of your body weight a week.</string>
     <string name="feature_nutrition_override_hint">Leave a field empty to use the calculated value, or type your own.</string>
     <string name="feature_nutrition_use_computed">Use calculated targets</string>
     <string name="feature_nutrition_save_targets">Save targets</string>

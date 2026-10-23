@@ -35,7 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -75,15 +75,15 @@ data class DiaryActions(
 internal fun DiaryScreen(actions: DiaryActions, viewModel: DiaryViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbar = remember { SnackbarHostState() }
-    val context = LocalContext.current
+    val resources = LocalResources.current
     LaunchedEffect(viewModel) {
         viewModel.messages.collect { message ->
             val text = when (message) {
                 is DiaryMessage.Copied ->
-                    context.resources.getQuantityString(R.plurals.feature_nutrition_copied, message.count, message.count)
-                DiaryMessage.NothingToCopy -> context.getString(R.string.feature_nutrition_nothing_to_copy)
-                DiaryMessage.MealSaved -> context.getString(R.string.feature_nutrition_meal_saved)
-                DiaryMessage.NothingToSave -> context.getString(R.string.feature_nutrition_nothing_to_save)
+                    resources.getQuantityString(R.plurals.feature_nutrition_copied, message.count, message.count)
+                DiaryMessage.NothingToCopy -> resources.getString(R.string.feature_nutrition_nothing_to_copy)
+                DiaryMessage.MealSaved -> resources.getString(R.string.feature_nutrition_meal_saved)
+                DiaryMessage.NothingToSave -> resources.getString(R.string.feature_nutrition_nothing_to_save)
             }
             snackbar.showSnackbar(text)
         }
