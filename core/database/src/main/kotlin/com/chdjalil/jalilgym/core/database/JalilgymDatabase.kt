@@ -3,8 +3,10 @@ package com.chdjalil.jalilgym.core.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.chdjalil.jalilgym.core.database.dao.BodyDao
 import com.chdjalil.jalilgym.core.database.dao.ExerciseDao
 import com.chdjalil.jalilgym.core.database.dao.ProgramDao
+import com.chdjalil.jalilgym.core.database.dao.ProgressDao
 import com.chdjalil.jalilgym.core.database.dao.WorkoutDao
 import com.chdjalil.jalilgym.core.database.entity.AchievementUnlockEntity
 import com.chdjalil.jalilgym.core.database.entity.ActiveProgramEntity
@@ -77,6 +79,10 @@ abstract class JalilgymDatabase : RoomDatabase() {
     abstract fun programDao(): ProgramDao
 
     abstract fun workoutDao(): WorkoutDao
+
+    abstract fun progressDao(): ProgressDao
+
+    abstract fun bodyDao(): BodyDao
 
     companion object {
         const val NAME = "jalilgym.db"

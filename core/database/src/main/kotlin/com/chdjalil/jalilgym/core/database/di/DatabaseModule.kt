@@ -3,8 +3,10 @@ package com.chdjalil.jalilgym.core.database.di
 import android.content.Context
 import androidx.room.Room
 import com.chdjalil.jalilgym.core.database.JalilgymDatabase
+import com.chdjalil.jalilgym.core.database.dao.BodyDao
 import com.chdjalil.jalilgym.core.database.dao.ExerciseDao
 import com.chdjalil.jalilgym.core.database.dao.ProgramDao
+import com.chdjalil.jalilgym.core.database.dao.ProgressDao
 import com.chdjalil.jalilgym.core.database.dao.WorkoutDao
 import dagger.Module
 import dagger.Provides
@@ -30,4 +32,10 @@ object DatabaseModule {
 
     @Provides
     fun provideWorkoutDao(database: JalilgymDatabase): WorkoutDao = database.workoutDao()
+
+    @Provides
+    fun provideProgressDao(database: JalilgymDatabase): ProgressDao = database.progressDao()
+
+    @Provides
+    fun provideBodyDao(database: JalilgymDatabase): BodyDao = database.bodyDao()
 }

@@ -2,7 +2,9 @@ package com.chdjalil.jalilgym.core.data.repository
 
 import com.chdjalil.jalilgym.core.database.dao.ExerciseDao
 import com.chdjalil.jalilgym.core.database.dao.ProgramDao
+import com.chdjalil.jalilgym.core.database.dao.ProgressDao
 import com.chdjalil.jalilgym.core.database.dao.WorkoutDao
+import com.chdjalil.jalilgym.core.database.entity.PersonalRecordEntity
 import com.chdjalil.jalilgym.core.database.entity.ProgressionStateEntity
 import com.chdjalil.jalilgym.core.database.entity.SessionExerciseEntity
 import com.chdjalil.jalilgym.core.database.entity.SetLogEntity
@@ -10,11 +12,16 @@ import com.chdjalil.jalilgym.core.database.entity.WorkoutSessionEntity
 import com.chdjalil.jalilgym.core.database.model.PopulatedSession
 import com.chdjalil.jalilgym.core.database.model.asExternalModel
 import com.chdjalil.jalilgym.core.domain.program.nextRotationIndex
+import com.chdjalil.jalilgym.core.domain.progress.newRecords
+import com.chdjalil.jalilgym.core.domain.progress.sessionBests
+import com.chdjalil.jalilgym.core.domain.repository.AchievementRepository
 import com.chdjalil.jalilgym.core.domain.repository.WorkoutRepository
 import com.chdjalil.jalilgym.core.domain.workout.ProgressionState
 import com.chdjalil.jalilgym.core.domain.workout.applyProgression
 import com.chdjalil.jalilgym.core.domain.workout.volumeKg
 import com.chdjalil.jalilgym.core.model.ProgressionNote
+import com.chdjalil.jalilgym.core.model.RecordNote
+import com.chdjalil.jalilgym.core.model.PrType
 import com.chdjalil.jalilgym.core.model.SessionStatus
 import com.chdjalil.jalilgym.core.model.SetType
 import com.chdjalil.jalilgym.core.model.WorkoutHistoryItem
@@ -38,6 +45,8 @@ internal class OfflineFirstWorkoutRepository @Inject constructor(
     private val workoutDao: WorkoutDao,
     private val programDao: ProgramDao,
     private val exerciseDao: ExerciseDao,
+    private val progressDao: ProgressDao,
+    private val achievementRepository: AchievementRepository,
 ) : WorkoutRepository {
 
     /** Serializes read-modify-write of set rows; see [editSet]. */
@@ -45,6 +54,9 @@ internal class OfflineFirstWorkoutRepository @Inject constructor(
 
     /** Progression notes of workouts finished in this process, by session id. */
     private val progressionNotes = MutableStateFlow<Map<String, List<ProgressionNote>>>(emptyMap())
+
+    /** Records and achievements from workouts finished in this process, by session id. */
+    private val celebrations = MutableStateFlow<Map<String, Pair<List<RecordNote>, List<String>>>>(emptyMap())
 
     private fun now() = System.currentTimeMillis()
 
@@ -248,9 +260,43 @@ internal class OfflineFirstWorkoutRepository @Inject constructor(
         progressionNotes.update { it + (sessionId to notesList) }
         advanceRotationAfter(populated.session.programDayId)
 
+        val records = recordPersonalBests(cleaned, now)
+        val achievements = achievementRepository.syncUnlocks()
+        celebrations.update { it + (sessionId to (records to achievements)) }
+
         val finished = checkNotNull(workoutDao.getSession(sessionId)).asExternalModel()
-        return WorkoutSummary(finished, now - finished.startedAt, volume, allSets.count { it.completed }, notesList)
+        return WorkoutSummary(
+            session = finished,
+            durationMillis = now - finished.startedAt,
+            totalVolumeKg = volume,
+            completedSets = allSets.count { it.completed },
+            progression = notesList,
+            records = records,
+            newAchievements = achievements,
+        )
     }
+
+    /**
+     * Stores each exercise's session bests that beat its records (first-time
+     * values are stored as baselines) and returns the improvements.
+     */
+    private suspend fun recordPersonalBests(session: WorkoutSession, now: Long): List<RecordNote> =
+        session.exercises.groupBy { it.exercise.id }.flatMap { (exerciseId, entries) ->
+            val sets = entries.flatMap { it.sets }
+            val candidates = sessionBests(sets)
+            if (candidates.isEmpty()) return@flatMap emptyList()
+            val previous = progressDao.bestRecords(exerciseId).associate { it.prType to it.value }
+            val fresh = newRecords(candidates, previous)
+            // Volume has no single set; anchor it to the heaviest so it's removed with the session.
+            val anchor = candidates.first { it.type == PrType.MAX_WEIGHT }.set!!.id
+            progressDao.insertRecords(
+                fresh.map { (candidate, _) ->
+                    PersonalRecordEntity(newId(), exerciseId, candidate.set?.id ?: anchor, candidate.type, candidate.value, now)
+                },
+            )
+            fresh.map { (candidate, before) -> RecordNote(entries.first().exercise.name, candidate.type, candidate.value, before) }
+                .filter { it.isImprovement }
+        }
 
     /** The day after the one just trained comes next, if it belongs to the active program. */
     private suspend fun advanceRotationAfter(dayId: String?) {
@@ -267,7 +313,7 @@ internal class OfflineFirstWorkoutRepository @Inject constructor(
     override suspend fun deleteSession(id: String) = workoutDao.deleteSessionRow(id)
 
     override fun observeSummary(sessionId: String): Flow<WorkoutSummary?> =
-        combine(workoutDao.observeSession(sessionId), progressionNotes) { populated, notes ->
+        combine(workoutDao.observeSession(sessionId), progressionNotes, celebrations) { populated, notes, celebrated ->
             populated?.takeIf { it.session.status == SessionStatus.FINISHED }?.let {
                 val session = it.asExternalModel()
                 val sets = session.exercises.flatMap { e -> e.sets }
@@ -277,6 +323,8 @@ internal class OfflineFirstWorkoutRepository @Inject constructor(
                     totalVolumeKg = it.session.totalVolumeKg,
                     completedSets = sets.count { s -> s.completed },
                     progression = notes[sessionId].orEmpty(),
+                    records = celebrated[sessionId]?.first.orEmpty(),
+                    newAchievements = celebrated[sessionId]?.second.orEmpty(),
                 )
             }
         }

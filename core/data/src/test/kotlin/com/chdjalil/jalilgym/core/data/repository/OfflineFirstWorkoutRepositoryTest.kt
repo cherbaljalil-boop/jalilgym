@@ -51,7 +51,14 @@ class OfflineFirstWorkoutRepositoryTest {
             DataStoreFactory.create(UserPreferencesSerializer, scope = backgroundScope) { File(tmpFolder.root, "p.json") },
         )
         val programs = OfflineFirstProgramRepository(database.programDao(), database.exerciseDao(), prefs)
-        val workouts = OfflineFirstWorkoutRepository(database.workoutDao(), database.programDao(), database.exerciseDao())
+        val achievements = OfflineFirstAchievementRepository(database.progressDao(), database.bodyDao(), database.programDao())
+        val workouts = OfflineFirstWorkoutRepository(
+            database.workoutDao(),
+            database.programDao(),
+            database.exerciseDao(),
+            database.progressDao(),
+            achievements,
+        )
         return programs to workouts
     }
 

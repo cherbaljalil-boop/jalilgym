@@ -60,6 +60,10 @@ data class WorkoutSummary(
     val totalVolumeKg: Double,
     val completedSets: Int,
     val progression: List<ProgressionNote>,
+    /** Records set in this workout (only available right after finishing). */
+    val records: List<RecordNote> = emptyList(),
+    /** Achievement ids unlocked by this workout. */
+    val newAchievements: List<String> = emptyList(),
 )
 
 /** Finished session as shown in history lists. */

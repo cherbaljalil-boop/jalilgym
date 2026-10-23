@@ -1,15 +1,21 @@
 package com.chdjalil.jalilgym.core.data.di
 
 import com.chdjalil.jalilgym.core.data.media.PrivateExerciseImageStore
+import com.chdjalil.jalilgym.core.data.repository.OfflineFirstAchievementRepository
+import com.chdjalil.jalilgym.core.data.repository.OfflineFirstBodyRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstExerciseRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstProgramRepository
+import com.chdjalil.jalilgym.core.data.repository.OfflineFirstProgressRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstSeedRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstUserPreferencesRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstWorkoutRepository
 import com.chdjalil.jalilgym.core.data.workout.InMemoryRestTimer
+import com.chdjalil.jalilgym.core.domain.repository.AchievementRepository
+import com.chdjalil.jalilgym.core.domain.repository.BodyRepository
 import com.chdjalil.jalilgym.core.domain.repository.ExerciseImageStore
 import com.chdjalil.jalilgym.core.domain.repository.ExerciseRepository
 import com.chdjalil.jalilgym.core.domain.repository.ProgramRepository
+import com.chdjalil.jalilgym.core.domain.repository.ProgressRepository
 import com.chdjalil.jalilgym.core.domain.repository.RestTimer
 import com.chdjalil.jalilgym.core.domain.repository.SeedRepository
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
@@ -42,6 +48,15 @@ internal abstract class DataModule {
 
     @Binds
     abstract fun bindsRestTimer(impl: InMemoryRestTimer): RestTimer
+
+    @Binds
+    abstract fun bindsProgressRepository(impl: OfflineFirstProgressRepository): ProgressRepository
+
+    @Binds
+    abstract fun bindsBodyRepository(impl: OfflineFirstBodyRepository): BodyRepository
+
+    @Binds
+    abstract fun bindsAchievementRepository(impl: OfflineFirstAchievementRepository): AchievementRepository
 
     @Binds
     abstract fun bindsSeedRepository(impl: OfflineFirstSeedRepository): SeedRepository
