@@ -5,8 +5,8 @@ import com.chdjalil.jalilgym.core.model.Muscle
 import com.chdjalil.jalilgym.core.model.PersonalRecord
 import com.chdjalil.jalilgym.core.model.StrengthPoint
 import com.chdjalil.jalilgym.core.model.TrainingStreak
-import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
+import kotlinx.coroutines.flow.Flow
 
 /** Read-only views over finished workouts (docs/BLUEPRINT.md §3.5). */
 interface ProgressRepository {

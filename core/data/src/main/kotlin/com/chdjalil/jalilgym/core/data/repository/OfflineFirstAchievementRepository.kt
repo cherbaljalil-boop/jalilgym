@@ -16,14 +16,14 @@ import com.chdjalil.jalilgym.core.domain.repository.AchievementRepository
 import com.chdjalil.jalilgym.core.model.AchievementStatus
 import com.chdjalil.jalilgym.core.model.MacroTargets
 import com.chdjalil.jalilgym.core.model.Nutrients
+import java.time.LocalDate
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import java.time.LocalDate
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 internal class OfflineFirstAchievementRepository @Inject constructor(

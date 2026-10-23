@@ -347,8 +347,20 @@ internal fun SetHeader(units: UnitSystem, effortScale: EffortScale, repsLabel: S
     ) {
         val style = MaterialTheme.typography.labelSmall
         val color = MaterialTheme.colorScheme.onSurfaceVariant
-        Text(stringResource(R.string.feature_workout_col_set), style = style, color = color, modifier = Modifier.width(TYPE_COLUMN), textAlign = TextAlign.Center)
-        Text(stringResource(R.string.feature_workout_col_previous), style = style, color = color, modifier = Modifier.width(PREVIOUS_COLUMN), textAlign = TextAlign.Center)
+        Text(
+            stringResource(R.string.feature_workout_col_set),
+            style = style,
+            color = color,
+            modifier = Modifier.width(TYPE_COLUMN),
+            textAlign = TextAlign.Center,
+        )
+        Text(
+            stringResource(R.string.feature_workout_col_previous),
+            style = style,
+            color = color,
+            modifier = Modifier.width(PREVIOUS_COLUMN),
+            textAlign = TextAlign.Center,
+        )
         Text(units.weightSymbol.uppercase(), style = style, color = color, modifier = Modifier.weight(1f), textAlign = TextAlign.Center)
         Text(repsLabel.uppercase(), style = style, color = color, modifier = Modifier.weight(1f), textAlign = TextAlign.Center)
         if (effortScale != EffortScale.OFF) {

@@ -1,8 +1,8 @@
 package com.chdjalil.jalilgym.core.domain.progress
 
 import com.google.common.truth.Truth.assertThat
-import org.junit.Test
 import java.time.LocalDate
+import org.junit.Test
 
 class StreaksTest {
 

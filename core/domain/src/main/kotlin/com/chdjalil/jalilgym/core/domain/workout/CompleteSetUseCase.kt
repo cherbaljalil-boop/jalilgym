@@ -3,8 +3,8 @@ package com.chdjalil.jalilgym.core.domain.workout
 import com.chdjalil.jalilgym.core.domain.repository.RestTimer
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
 import com.chdjalil.jalilgym.core.domain.repository.WorkoutRepository
-import kotlinx.coroutines.flow.first
 import javax.inject.Inject
+import kotlinx.coroutines.flow.first
 
 /**
  * Marks a set done and starts the right rest timer. Shared by the workout

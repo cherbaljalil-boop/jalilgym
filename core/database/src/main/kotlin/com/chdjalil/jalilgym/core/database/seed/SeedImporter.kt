@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.withTransaction
 import com.chdjalil.jalilgym.core.database.JalilgymDatabase
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.serialization.json.Json
 import javax.inject.Inject
+import kotlinx.serialization.json.Json
 
 /**
  * Loads bundled reference data from assets into Room. Built-in rows are

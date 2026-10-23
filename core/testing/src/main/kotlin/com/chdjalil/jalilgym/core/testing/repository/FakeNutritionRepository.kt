@@ -12,11 +12,11 @@ import com.chdjalil.jalilgym.core.model.MealType
 import com.chdjalil.jalilgym.core.model.Nutrients
 import com.chdjalil.jalilgym.core.model.SavedMeal
 import com.chdjalil.jalilgym.core.model.SavedMealItem
+import java.time.LocalDate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
-import java.time.LocalDate
 
 /** Logs foods from [foods] (shared with a [FakeFoodRepository]). */
 class FakeNutritionRepository(private val foods: FakeFoodRepository = FakeFoodRepository()) : NutritionRepository {

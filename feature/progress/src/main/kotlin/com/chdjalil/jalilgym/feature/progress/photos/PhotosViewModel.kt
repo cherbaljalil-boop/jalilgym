@@ -12,6 +12,8 @@ import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.feature.progress.navigation.AFTER_ID_ARG
 import com.chdjalil.jalilgym.feature.progress.navigation.BEFORE_ID_ARG
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.LocalDate
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -19,8 +21,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import javax.inject.Inject
 
 data class PhotosUiState(
     val isLoading: Boolean = true,

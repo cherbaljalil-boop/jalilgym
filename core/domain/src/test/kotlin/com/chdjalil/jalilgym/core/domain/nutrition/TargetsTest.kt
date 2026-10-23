@@ -7,8 +7,8 @@ import com.chdjalil.jalilgym.core.model.DietStyle
 import com.chdjalil.jalilgym.core.model.MacroTargets
 import com.chdjalil.jalilgym.core.model.Sex
 import com.google.common.truth.Truth.assertThat
-import org.junit.Test
 import java.time.LocalDate
+import org.junit.Test
 
 class TargetsTest {
 

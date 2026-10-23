@@ -27,12 +27,12 @@ import com.chdjalil.jalilgym.core.domain.repository.RestTimerState
 import com.chdjalil.jalilgym.core.domain.repository.WorkoutRepository
 import com.chdjalil.jalilgym.feature.workout.R
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
 
 data class MiniBarState(val name: String, val startedAt: Long, val rest: RestTimerState?)
 

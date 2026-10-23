@@ -14,10 +14,10 @@ import com.chdjalil.jalilgym.core.model.Exercise
 import com.chdjalil.jalilgym.core.model.ExerciseDraft
 import com.chdjalil.jalilgym.core.model.MediaType
 import com.chdjalil.jalilgym.core.model.MuscleRole
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import java.util.UUID
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 internal class OfflineFirstExerciseRepository @Inject constructor(
     private val exerciseDao: ExerciseDao,

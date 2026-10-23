@@ -2,12 +2,12 @@ package com.chdjalil.jalilgym.core.data.workout
 
 import com.chdjalil.jalilgym.core.domain.repository.RestTimer
 import com.chdjalil.jalilgym.core.domain.repository.RestTimerState
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Process-wide rest timer. It only holds the end time; the workout screen and

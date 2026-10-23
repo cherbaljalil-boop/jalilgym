@@ -14,6 +14,7 @@ import com.chdjalil.jalilgym.core.model.WorkoutSession
 import com.chdjalil.jalilgym.core.model.WorkoutSet
 import com.chdjalil.jalilgym.core.ui.ExercisePickerResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +24,6 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 sealed interface ActiveWorkoutUiState {
     data object Loading : ActiveWorkoutUiState

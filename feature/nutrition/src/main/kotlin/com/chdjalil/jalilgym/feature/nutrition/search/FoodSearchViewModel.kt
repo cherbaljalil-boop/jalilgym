@@ -13,6 +13,8 @@ import com.chdjalil.jalilgym.core.model.MealType
 import com.chdjalil.jalilgym.feature.nutrition.navigation.DATE_ARG
 import com.chdjalil.jalilgym.feature.nutrition.navigation.MEAL_ARG
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.LocalDate
+import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -22,8 +24,6 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import javax.inject.Inject
 
 /** Minimum characters before searching. */
 internal const val MIN_QUERY_LENGTH = 2
@@ -59,6 +59,7 @@ class FoodSearchViewModel @Inject constructor(
 
     private val query = MutableStateFlow("")
     private val online = MutableStateFlow(OnlineStatus.IDLE)
+
     /** Ids in Open Food Facts' order, for results not matched by the local name search. */
     private val onlineResults = MutableStateFlow<List<Food>>(emptyList())
 

@@ -200,26 +200,38 @@ private fun SlotMenu(
         DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.feature_programs_edit_targets)) },
-                onClick = { open = false; onEdit() },
+                onClick = {
+                    open = false
+                    onEdit()
+                },
             )
             if (canMoveUp) {
                 DropdownMenuItem(
                     text = { Text(stringResource(R.string.feature_programs_move_up)) },
                     leadingIcon = { Icon(painterResource(JgIcons.ArrowUp), null) },
-                    onClick = { open = false; onEvent(DayEditorEvent.Move(slot.id, -1)) },
+                    onClick = {
+                        open = false
+                        onEvent(DayEditorEvent.Move(slot.id, -1))
+                    },
                 )
             }
             if (canMoveDown) {
                 DropdownMenuItem(
                     text = { Text(stringResource(R.string.feature_programs_move_down)) },
                     leadingIcon = { Icon(painterResource(JgIcons.ArrowDown), null) },
-                    onClick = { open = false; onEvent(DayEditorEvent.Move(slot.id, 1)) },
+                    onClick = {
+                        open = false
+                        onEvent(DayEditorEvent.Move(slot.id, 1))
+                    },
                 )
             }
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.feature_programs_remove)) },
                 leadingIcon = { Icon(painterResource(JgIcons.Delete), null) },
-                onClick = { open = false; onEvent(DayEditorEvent.Remove(slot.id)) },
+                onClick = {
+                    open = false
+                    onEvent(DayEditorEvent.Remove(slot.id))
+                },
             )
         }
     }

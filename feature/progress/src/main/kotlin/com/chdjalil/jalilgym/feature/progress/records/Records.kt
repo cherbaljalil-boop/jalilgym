@@ -37,11 +37,11 @@ import com.chdjalil.jalilgym.feature.progress.ui.BackBar
 import com.chdjalil.jalilgym.feature.progress.ui.formatDate
 import com.chdjalil.jalilgym.feature.progress.ui.formatWeight
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
 
 data class RecordsUiState(
     val isLoading: Boolean = true,

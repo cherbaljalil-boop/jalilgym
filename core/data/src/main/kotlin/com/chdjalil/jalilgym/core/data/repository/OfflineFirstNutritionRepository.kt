@@ -22,11 +22,11 @@ import com.chdjalil.jalilgym.core.model.MacroTargets
 import com.chdjalil.jalilgym.core.model.MealType
 import com.chdjalil.jalilgym.core.model.Nutrients
 import com.chdjalil.jalilgym.core.model.SavedMeal
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import java.time.LocalDate
 import java.util.UUID
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 internal class OfflineFirstNutritionRepository @Inject constructor(
     private val database: JalilgymDatabase,

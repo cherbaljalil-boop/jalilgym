@@ -17,9 +17,9 @@ import com.chdjalil.jalilgym.feature.nutrition.scan.BarcodeScanScreen
 import com.chdjalil.jalilgym.feature.nutrition.search.FoodSearchActions
 import com.chdjalil.jalilgym.feature.nutrition.search.FoodSearchScreen
 import com.chdjalil.jalilgym.feature.nutrition.setup.SetupScreen
-import kotlinx.serialization.Serializable
 import java.time.LocalDate
 import java.time.LocalTime
+import kotlinx.serialization.Serializable
 
 /** The Nutrition tab, so the tab stays selected on its inner screens. */
 @Serializable

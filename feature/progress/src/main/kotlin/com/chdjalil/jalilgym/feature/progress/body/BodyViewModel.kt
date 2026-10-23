@@ -12,13 +12,13 @@ import com.chdjalil.jalilgym.core.model.MeasurementType
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.feature.progress.ui.toCm
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.LocalDate
+import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import javax.inject.Inject
 
 /** Latest value of one measurement and its change since the previous one. */
 data class MeasurementSummary(val type: MeasurementType, val latest: BodyMeasurement, val change: Double?)

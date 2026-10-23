@@ -6,10 +6,10 @@ import com.chdjalil.jalilgym.core.model.Muscle
 import com.chdjalil.jalilgym.core.model.PersonalRecord
 import com.chdjalil.jalilgym.core.model.StrengthPoint
 import com.chdjalil.jalilgym.core.model.TrainingStreak
+import java.time.LocalDate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
-import java.time.LocalDate
 
 class FakeProgressRepository : ProgressRepository {
     val exercises = MutableStateFlow<List<ExerciseProgress>>(emptyList())

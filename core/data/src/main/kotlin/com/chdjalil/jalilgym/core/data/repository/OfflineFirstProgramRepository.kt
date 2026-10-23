@@ -17,11 +17,11 @@ import com.chdjalil.jalilgym.core.model.Prescription
 import com.chdjalil.jalilgym.core.model.Program
 import com.chdjalil.jalilgym.core.model.ProgramDay
 import com.chdjalil.jalilgym.core.model.ProgramType
+import java.util.UUID
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import java.util.UUID
-import javax.inject.Inject
 
 internal class OfflineFirstProgramRepository @Inject constructor(
     private val programDao: ProgramDao,

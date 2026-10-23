@@ -13,6 +13,7 @@ import com.chdjalil.jalilgym.core.model.StrengthPoint
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.feature.exercises.navigation.EXERCISE_ID_ARG
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +22,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 sealed interface ExerciseDetailUiState {
     data object Loading : ExerciseDetailUiState

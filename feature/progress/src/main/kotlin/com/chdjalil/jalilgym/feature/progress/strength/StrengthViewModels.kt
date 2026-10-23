@@ -13,13 +13,13 @@ import com.chdjalil.jalilgym.core.model.StrengthPoint
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.feature.progress.navigation.EXERCISE_ID_ARG
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 data class StrengthListUiState(
     val isLoading: Boolean = true,

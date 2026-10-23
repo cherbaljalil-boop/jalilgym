@@ -15,11 +15,11 @@ import com.chdjalil.jalilgym.core.model.FoodSource
 import com.chdjalil.jalilgym.core.model.HalalStatus
 import com.chdjalil.jalilgym.core.network.OffProduct
 import com.chdjalil.jalilgym.core.network.OpenFoodFactsDataSource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import java.io.IOException
 import java.util.UUID
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /** Cached Open Food Facts products use a stable id derived from their barcode. */
 internal fun offFoodId(code: String) = "off-$code"

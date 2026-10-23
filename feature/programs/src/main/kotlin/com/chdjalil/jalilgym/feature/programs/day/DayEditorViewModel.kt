@@ -9,13 +9,13 @@ import com.chdjalil.jalilgym.core.model.ProgramDay
 import com.chdjalil.jalilgym.core.ui.ExercisePickerResult
 import com.chdjalil.jalilgym.feature.programs.navigation.DAY_ID_ARG
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 sealed interface DayEditorUiState {
     data object Loading : DayEditorUiState

@@ -9,12 +9,12 @@ import com.chdjalil.jalilgym.core.model.FoodServing
 import com.chdjalil.jalilgym.core.model.Nutrients
 import com.chdjalil.jalilgym.feature.nutrition.navigation.BARCODE_ARG
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 data class CustomFoodForm(
     val name: String = "",
@@ -80,7 +80,8 @@ class CustomFoodViewModel @Inject constructor(
     private val foodRepository: FoodRepository,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(CustomFoodUiState(CustomFoodForm(barcode = savedStateHandle.get<String>(BARCODE_ARG).orEmpty())))
+    private val _uiState =
+        MutableStateFlow(CustomFoodUiState(CustomFoodForm(barcode = savedStateHandle.get<String>(BARCODE_ARG).orEmpty())))
     val uiState: StateFlow<CustomFoodUiState> = _uiState.asStateFlow()
 
     fun update(transform: CustomFoodForm.() -> CustomFoodForm) = _uiState.update { it.copy(form = it.form.transform()) }

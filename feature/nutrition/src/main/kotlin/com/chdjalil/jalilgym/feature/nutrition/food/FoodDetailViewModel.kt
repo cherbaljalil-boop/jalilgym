@@ -14,6 +14,8 @@ import com.chdjalil.jalilgym.feature.nutrition.navigation.ENTRY_ID_ARG
 import com.chdjalil.jalilgym.feature.nutrition.navigation.FOOD_ID_ARG
 import com.chdjalil.jalilgym.feature.nutrition.navigation.MEAL_ARG
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.LocalDate
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -23,8 +25,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import javax.inject.Inject
 
 /** Amount as typed: a number of [serving]s, or grams when [serving] is null. */
 data class AmountInput(val serving: FoodServing? = null, val text: String = "100")

@@ -2,6 +2,7 @@ package com.chdjalil.jalilgym.feature.nutrition.setup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chdjalil.jalilgym.core.common.Units
 import com.chdjalil.jalilgym.core.domain.nutrition.TargetResult
 import com.chdjalil.jalilgym.core.domain.nutrition.computeTargets
 import com.chdjalil.jalilgym.core.domain.nutrition.computeTdee
@@ -11,7 +12,6 @@ import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
 import com.chdjalil.jalilgym.core.domain.units.formatNumber
 import com.chdjalil.jalilgym.core.domain.units.fromKg
 import com.chdjalil.jalilgym.core.domain.units.toKg
-import com.chdjalil.jalilgym.core.common.Units
 import com.chdjalil.jalilgym.core.model.ActivityLevel
 import com.chdjalil.jalilgym.core.model.BodyProfile
 import com.chdjalil.jalilgym.core.model.DietGoal
@@ -21,14 +21,14 @@ import com.chdjalil.jalilgym.core.model.MacroTargets
 import com.chdjalil.jalilgym.core.model.Sex
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.LocalDate
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import javax.inject.Inject
 
 /** Manual targets as typed; null fields fall back to the computed value. */
 data class TargetOverride(val calories: String = "", val protein: String = "", val carbs: String = "", val fat: String = "")

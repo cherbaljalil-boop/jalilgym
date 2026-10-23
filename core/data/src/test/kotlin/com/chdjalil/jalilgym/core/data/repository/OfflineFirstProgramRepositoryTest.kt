@@ -13,6 +13,7 @@ import com.chdjalil.jalilgym.core.domain.program.ProgramTemplates
 import com.chdjalil.jalilgym.core.model.Prescription
 import com.chdjalil.jalilgym.core.model.ProgressionRule
 import com.google.common.truth.Truth.assertThat
+import java.io.File
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
@@ -23,7 +24,6 @@ import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
-import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [35])

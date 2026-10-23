@@ -5,8 +5,8 @@ import com.chdjalil.jalilgym.core.model.HalalStatus
 import com.chdjalil.jalilgym.core.model.MacroTargets
 import com.chdjalil.jalilgym.core.model.Nutrients
 import com.google.common.truth.Truth.assertThat
-import org.junit.Test
 import java.time.LocalDate
+import org.junit.Test
 
 class HalalAndDiaryTest {
 

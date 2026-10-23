@@ -19,15 +19,18 @@ import com.chdjalil.jalilgym.core.domain.repository.WorkoutRepository
 import com.chdjalil.jalilgym.core.domain.workout.ProgressionState
 import com.chdjalil.jalilgym.core.domain.workout.applyProgression
 import com.chdjalil.jalilgym.core.domain.workout.volumeKg
+import com.chdjalil.jalilgym.core.model.PrType
 import com.chdjalil.jalilgym.core.model.ProgressionNote
 import com.chdjalil.jalilgym.core.model.RecordNote
-import com.chdjalil.jalilgym.core.model.PrType
 import com.chdjalil.jalilgym.core.model.SessionStatus
 import com.chdjalil.jalilgym.core.model.SetType
 import com.chdjalil.jalilgym.core.model.WorkoutHistoryItem
 import com.chdjalil.jalilgym.core.model.WorkoutSession
 import com.chdjalil.jalilgym.core.model.WorkoutSet
 import com.chdjalil.jalilgym.core.model.WorkoutSummary
+import java.util.UUID
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -36,9 +39,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import java.util.UUID
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 internal class OfflineFirstWorkoutRepository @Inject constructor(

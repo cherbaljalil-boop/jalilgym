@@ -307,11 +307,30 @@ private fun DayCard(
                     Icon(painterResource(JgIcons.More), stringResource(R.string.feature_programs_day_options, day.name))
                 }
                 DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
-                    MenuItem(R.string.feature_programs_rename) { menuOpen = false; onRename() }
-                    MenuItem(R.string.feature_programs_duplicate) { menuOpen = false; onDuplicate() }
-                    if (!isFirst) MenuItem(R.string.feature_programs_move_up) { menuOpen = false; onMove(-1) }
-                    if (!isLast) MenuItem(R.string.feature_programs_move_down) { menuOpen = false; onMove(1) }
-                    MenuItem(R.string.feature_programs_delete) { menuOpen = false; onDelete() }
+                    MenuItem(R.string.feature_programs_rename) {
+                        menuOpen = false
+                        onRename()
+                    }
+                    MenuItem(R.string.feature_programs_duplicate) {
+                        menuOpen = false
+                        onDuplicate()
+                    }
+                    if (!isFirst) {
+                        MenuItem(R.string.feature_programs_move_up) {
+                            menuOpen = false
+                            onMove(-1)
+                        }
+                    }
+                    if (!isLast) {
+                        MenuItem(R.string.feature_programs_move_down) {
+                            menuOpen = false
+                            onMove(1)
+                        }
+                    }
+                    MenuItem(R.string.feature_programs_delete) {
+                        menuOpen = false
+                        onDelete()
+                    }
                 }
             }
         }

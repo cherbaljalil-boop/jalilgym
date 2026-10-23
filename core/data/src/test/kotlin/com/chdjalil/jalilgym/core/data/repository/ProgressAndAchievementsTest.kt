@@ -11,6 +11,7 @@ import com.chdjalil.jalilgym.core.model.MeasurementType
 import com.chdjalil.jalilgym.core.model.Muscle
 import com.chdjalil.jalilgym.core.model.PrType
 import com.google.common.truth.Truth.assertThat
+import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -19,7 +20,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
-import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [35])

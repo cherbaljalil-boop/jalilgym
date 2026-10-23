@@ -18,6 +18,8 @@ import com.chdjalil.jalilgym.core.model.Nutrients
 import com.chdjalil.jalilgym.core.network.OffProduct
 import com.chdjalil.jalilgym.core.network.OpenFoodFactsDataSource
 import com.google.common.truth.Truth.assertThat
+import java.io.IOException
+import java.time.LocalDate
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -25,8 +27,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
-import java.io.IOException
-import java.time.LocalDate
 
 /** Open Food Facts stand-in; set [offline] to simulate no connection. */
 private class FakeOpenFoodFacts : OpenFoodFactsDataSource {

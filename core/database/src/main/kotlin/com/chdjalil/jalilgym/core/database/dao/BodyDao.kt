@@ -7,8 +7,8 @@ import com.chdjalil.jalilgym.core.database.entity.BodyMeasurementEntity
 import com.chdjalil.jalilgym.core.database.entity.BodyWeightEntity
 import com.chdjalil.jalilgym.core.database.entity.ProgressPhotoEntity
 import com.chdjalil.jalilgym.core.model.MeasurementType
-import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BodyDao {

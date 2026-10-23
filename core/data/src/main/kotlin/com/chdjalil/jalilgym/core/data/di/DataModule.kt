@@ -15,9 +15,9 @@ import com.chdjalil.jalilgym.core.data.workout.InMemoryRestTimer
 import com.chdjalil.jalilgym.core.domain.repository.AchievementRepository
 import com.chdjalil.jalilgym.core.domain.repository.BodyRepository
 import com.chdjalil.jalilgym.core.domain.repository.ExerciseImageStore
+import com.chdjalil.jalilgym.core.domain.repository.ExerciseRepository
 import com.chdjalil.jalilgym.core.domain.repository.FoodRepository
 import com.chdjalil.jalilgym.core.domain.repository.NutritionRepository
-import com.chdjalil.jalilgym.core.domain.repository.ExerciseRepository
 import com.chdjalil.jalilgym.core.domain.repository.ProgramRepository
 import com.chdjalil.jalilgym.core.domain.repository.ProgressRepository
 import com.chdjalil.jalilgym.core.domain.repository.RestTimer

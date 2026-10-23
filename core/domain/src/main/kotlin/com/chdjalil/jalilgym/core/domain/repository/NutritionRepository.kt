@@ -8,8 +8,8 @@ import com.chdjalil.jalilgym.core.model.MacroTargets
 import com.chdjalil.jalilgym.core.model.MealType
 import com.chdjalil.jalilgym.core.model.Nutrients
 import com.chdjalil.jalilgym.core.model.SavedMeal
-import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
+import kotlinx.coroutines.flow.Flow
 
 /** The diet plan, food diary and saved meals (docs/BLUEPRINT.md §3.7). */
 interface NutritionRepository {

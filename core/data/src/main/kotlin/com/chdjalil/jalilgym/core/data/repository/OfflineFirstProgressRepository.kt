@@ -14,13 +14,13 @@ import com.chdjalil.jalilgym.core.model.PersonalRecord
 import com.chdjalil.jalilgym.core.model.PrType
 import com.chdjalil.jalilgym.core.model.StrengthPoint
 import com.chdjalil.jalilgym.core.model.TrainingStreak
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 
 /** Weekly target when no program is active. */
 internal const val DEFAULT_WEEKLY_TARGET = 2

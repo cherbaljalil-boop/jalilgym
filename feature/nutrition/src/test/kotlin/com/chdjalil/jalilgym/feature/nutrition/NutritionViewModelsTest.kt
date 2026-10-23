@@ -25,6 +25,8 @@ import com.chdjalil.jalilgym.feature.nutrition.search.OnlineStatus
 import com.chdjalil.jalilgym.feature.nutrition.setup.SetupViewModel
 import com.chdjalil.jalilgym.feature.nutrition.setup.TargetOverride
 import com.google.common.truth.Truth.assertThat
+import java.time.LocalDate
+import java.time.LocalTime
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -32,8 +34,6 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import java.time.LocalDate
-import java.time.LocalTime
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class NutritionViewModelsTest {

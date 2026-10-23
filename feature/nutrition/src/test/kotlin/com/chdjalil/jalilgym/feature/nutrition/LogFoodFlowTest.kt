@@ -33,12 +33,12 @@ import com.chdjalil.jalilgym.feature.nutrition.food.FoodDetailViewModel
 import com.chdjalil.jalilgym.feature.nutrition.search.FoodSearchActions
 import com.chdjalil.jalilgym.feature.nutrition.search.FoodSearchContent
 import com.chdjalil.jalilgym.feature.nutrition.search.FoodSearchViewModel
+import java.time.LocalDate
 import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
-import java.time.LocalDate
 
 /** Critical UI flow 4 (docs/BLUEPRINT.md §9): search → log food → the diary totals update. */
 @RunWith(AndroidJUnit4::class)

@@ -93,7 +93,13 @@ internal fun UnitSystem.formatWeightChange(kg: Double): String = "${formatSigned
 
 /** "+1.5", "−0.8" or "0". */
 internal fun formatSigned(value: Double): String {
-    val sign = if (value >= 0.05) "+" else if (value <= -0.05) "−" else ""
+    val sign = if (value >= 0.05) {
+        "+"
+    } else if (value <= -0.05) {
+        "−"
+    } else {
+        ""
+    }
     return sign + formatNumber(kotlin.math.abs(value))
 }
 

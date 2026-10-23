@@ -2,6 +2,9 @@ package com.chdjalil.jalilgym.core.network
 
 import com.chdjalil.jalilgym.core.common.Dispatcher
 import com.chdjalil.jalilgym.core.common.JgDispatchers
+import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Named
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -14,9 +17,6 @@ import kotlinx.serialization.json.jsonObject
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import java.io.IOException
-import javax.inject.Inject
-import javax.inject.Named
 
 /** A product as Open Food Facts describes it; nutrients are per 100 g. */
 data class OffProduct(
@@ -134,4 +134,3 @@ internal fun JsonObject.toProduct(fallbackCode: String? = null): OffProduct? {
         servingGrams = this["serving_quantity"].number()?.takeIf { it > 0 },
     )
 }
-

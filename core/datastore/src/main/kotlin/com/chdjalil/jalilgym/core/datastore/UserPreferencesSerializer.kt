@@ -2,10 +2,10 @@ package com.chdjalil.jalilgym.core.datastore
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
+import kotlinx.serialization.SerializationException
+import kotlinx.serialization.json.Json
 
 object UserPreferencesSerializer : Serializer<UserPreferencesData> {
     private val json = Json {

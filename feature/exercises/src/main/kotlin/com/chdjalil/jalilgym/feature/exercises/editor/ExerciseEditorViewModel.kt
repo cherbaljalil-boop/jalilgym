@@ -16,13 +16,13 @@ import com.chdjalil.jalilgym.core.model.Muscle
 import com.chdjalil.jalilgym.core.model.TrackingType
 import com.chdjalil.jalilgym.feature.exercises.navigation.EXERCISE_ID_ARG
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 data class ExerciseEditorUiState(
     val isEditing: Boolean = false,

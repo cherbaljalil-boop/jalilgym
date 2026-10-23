@@ -20,14 +20,14 @@ import com.chdjalil.jalilgym.feature.progress.strength.ChartRange
 import com.chdjalil.jalilgym.feature.progress.strength.ExerciseProgressViewModel
 import com.chdjalil.jalilgym.feature.progress.strength.StrengthMetric
 import com.google.common.truth.Truth.assertThat
+import java.time.LocalDate
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import java.time.LocalDate
-import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ProgressViewModelsTest {

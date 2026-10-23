@@ -5,8 +5,8 @@ import com.chdjalil.jalilgym.core.model.BodyWeight
 import com.chdjalil.jalilgym.core.model.MeasurementType
 import com.chdjalil.jalilgym.core.model.PhotoPose
 import com.chdjalil.jalilgym.core.model.ProgressPhoto
-import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
+import kotlinx.coroutines.flow.Flow
 
 interface BodyRepository {
     /** Oldest first. */

@@ -28,6 +28,7 @@ import com.chdjalil.jalilgym.core.model.WorkoutSession
 import com.chdjalil.jalilgym.feature.workout.R
 import com.chdjalil.jalilgym.feature.workout.navigation.WORKOUT_DEEP_LINK
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -36,7 +37,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Runs while a workout is in progress: an ongoing notification with the rest

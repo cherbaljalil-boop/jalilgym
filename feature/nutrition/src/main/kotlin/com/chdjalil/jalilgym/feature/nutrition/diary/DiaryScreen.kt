@@ -297,20 +297,32 @@ private fun MealSection(
                     DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.feature_nutrition_quick_add)) },
-                            onClick = { menu = false; onQuickAdd() },
+                            onClick = {
+                                menu = false
+                                onQuickAdd()
+                            },
                         )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.feature_nutrition_copy_previous)) },
-                            onClick = { menu = false; onCopy() },
+                            onClick = {
+                                menu = false
+                                onCopy()
+                            },
                         )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.feature_nutrition_saved_meals)) },
-                            onClick = { menu = false; onSavedMeals() },
+                            onClick = {
+                                menu = false
+                                onSavedMeals()
+                            },
                         )
                         if (entries.any { it.foodId != null }) {
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.feature_nutrition_save_as_meal)) },
-                                onClick = { menu = false; onSaveMeal() },
+                                onClick = {
+                                    menu = false
+                                    onSaveMeal()
+                                },
                             )
                         }
                     }

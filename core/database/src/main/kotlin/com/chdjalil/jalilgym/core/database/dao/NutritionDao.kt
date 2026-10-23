@@ -16,8 +16,8 @@ import com.chdjalil.jalilgym.core.database.model.PopulatedFood
 import com.chdjalil.jalilgym.core.database.model.PopulatedSavedMeal
 import com.chdjalil.jalilgym.core.model.HalalStatus
 import com.chdjalil.jalilgym.core.model.MealType
-import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
+import kotlinx.coroutines.flow.Flow
 
 /** Daily calorie and protein totals, for streaks and target badges. */
 data class DailyTotalsRow(val date: LocalDate, val kcal: Double, val proteinG: Double)

@@ -2,8 +2,8 @@ package com.chdjalil.jalilgym.core.domain.program
 
 import com.chdjalil.jalilgym.core.domain.repository.ProgramRepository
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
-import kotlinx.coroutines.flow.first
 import javax.inject.Inject
+import kotlinx.coroutines.flow.first
 
 /**
  * Turns the starter program picked during onboarding into the user's active

@@ -1,6 +1,7 @@
 package com.chdjalil.jalilgym.core.network
 
 import com.google.common.truth.Truth.assertThat
+import java.io.IOException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.runTest
 import mockwebserver3.MockResponse
@@ -9,7 +10,6 @@ import okhttp3.OkHttpClient
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import java.io.IOException
 
 class OpenFoodFactsTest {
 
