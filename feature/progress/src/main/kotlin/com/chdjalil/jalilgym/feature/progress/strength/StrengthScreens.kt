@@ -86,8 +86,9 @@ internal fun StrengthListScreen(
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 )
                             },
-                            trailingContent = item.bestEstimatedOneRepMaxKg?.let { best ->
-                                {
+                            trailingContent = {
+                                val best = item.bestEstimatedOneRepMaxKg
+                                if (best != null) {
                                     Column(horizontalAlignment = Alignment.End) {
                                         Text(uiState.units.formatWeight(best), style = MaterialTheme.typography.titleMedium)
                                         Text(

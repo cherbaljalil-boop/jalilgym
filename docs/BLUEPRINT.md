@@ -1,6 +1,6 @@
 # Jalilgym — Product & Architecture Blueprint
 
-> **Status:** v1.0 — **approved** (all §13 recommendations accepted). Phases 0–3 complete; Phase 4 (progress & gamification) next.
+> **Status:** v1.0 — **approved** (all §13 recommendations accepted). Phases 0–4 complete; Phase 5 (nutrition) next.
 > **Created by CH.Djalil**
 
 ---
@@ -843,6 +843,8 @@ message UserPreferences {
 **Phase 2 notes.** Templates are seeded from `assets/seed/programs.json`. Exercises and days are reordered with up/down actions (accessible); drag-and-drop may come later. The onboarding starter choice is turned into an active program on first launch after onboarding. "Start workout" is visible but disabled until Phase 3.
 
 **Phase 3 notes.** Workout history lives in `:feature:workout` (not a separate `:feature:history` module) so the session view is shared with the post-workout summary. Unchecked sets are dropped when a workout is finished. The plate calculator uses standard plate sets per unit system (20/15/10 kg or 45/35/25 lb bars); a configurable plate inventory is deferred. PR detection and badges arrive with Phase 4. The foreground service uses the `specialUse` type with a Play justification in the manifest.
+
+**Phase 4 notes.** Records are detected when a workout finishes. The first value for each exercise and record type is stored as a baseline and not celebrated; only beating an earlier record shows on the summary and counts toward record badges. Records belong to their set logs, so deleting a workout removes its records. Badges are derived from data, not counted by events: the app syncs unlocks whenever the underlying data changes, so badges earned outside a workout (photos, custom programs, body weight) unlock too. Nutrition badges show progress but can't unlock until Phase 5. The weekly-volume heatmap counts working sets: 1 per primary muscle and 0.5 per secondary muscle. Progress photos come from the system Photo Picker (no camera or storage permission), are downscaled into app-private storage and are left out of backups. In-app camera capture is deferred. Charts are drawn with a small Canvas chart in `:core:ui` instead of a charting library.
 
 ### v1.1
 Recipe builder · curated recipes and meal suggestions · Health Connect (workouts, weight, nutrition, steps) · JSON export/import · weekly nutrition check-in (calorie auto-adjust).

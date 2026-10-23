@@ -104,12 +104,14 @@ class ProgressAndAchievementsTest {
         assertThat(benchWorkout(weight = 50.0, reps = 5).records).isEmpty()
 
         val series = progress.observeStrengthSeries("barbell-bench-press").first()
-        assertThat(series.map { it.topWeightKg }).containsExactly(60.0, 70.0, 50.0).inOrder()
-        assertThat(series[1].volumeKg).isEqualTo(70.0 * 8 * 3)
+        // Workouts in a test can start in the same millisecond, so don't rely on order here.
+        assertThat(series.map { it.topWeightKg }).containsExactly(60.0, 70.0, 50.0)
+        val heaviest = series.single { it.topWeightKg == 70.0 }
+        assertThat(heaviest.volumeKg).isEqualTo(70.0 * 8 * 3)
 
         val bench = progress.observeExerciseProgress().first().single()
         assertThat(bench.sessionCount).isEqualTo(3)
-        assertThat(bench.bestEstimatedOneRepMaxKg).isEqualTo(series[1].bestEstimatedOneRepMaxKg)
+        assertThat(bench.bestEstimatedOneRepMaxKg).isEqualTo(heaviest.bestEstimatedOneRepMaxKg)
 
         val muscles = progress.observeWeeklyMuscleSets(LocalDate.now().weekStart()).first()
         assertThat(muscles[Muscle.CHEST]).isEqualTo(9.0)
