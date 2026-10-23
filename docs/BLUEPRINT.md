@@ -828,7 +828,7 @@ message UserPreferences {
 ### v1.0 MVP (training complete, nutrition core)
 | Phase | Scope | Exit criteria |
 |---|---|---|
-| **0. Foundation** ✅ | Gradle multi-module setup with build-logic and version catalog, Hilt, design system (theme, fonts, core components), navigation shell with 5 tabs, Proto DataStore, Room v1 schema plus seed loader, splash screen with credit | App builds, launches to an empty shell, theme toggles dark/light, seed import is tested |
+| **0. Foundation** ✅ | Gradle multi-module setup with build-logic and version catalog, Hilt, design system (theme, fonts, core components), navigation shell with 5 tabs, typed DataStore, Room v1 schema plus seed loader, splash screen with credit | App builds, launches to an empty shell, theme toggles dark/light, seed import is tested |
 | **1. Onboarding & Library** | Onboarding (welcome, goal, experience, suggestion), exercise library (about 100 exercises with images), filters, search, detail, body heatmap component, custom exercises | A new user finishes onboarding and browses or filters the library |
 | **2. Programs** | PPL 3/6-day and Full Body templates, custom builder (days, exercises, supersets, rules), active program and rotation, Today card | You can start "Today: Push A" from Home |
 | **3. Workout engine** | Active workout UI, pre-fill, set types, RPE/RIR, supersets, rest timer, foreground service with notification actions, plate / 1RM / warm-up sheets, progression engine, summary, history, crash-safe session restore | Critical UI flow 2 passes; the rest timer fires with the screen locked |
