@@ -5,6 +5,7 @@ import com.chdjalil.jalilgym.core.datastore.JgPreferencesDataSource
 import com.chdjalil.jalilgym.core.datastore.UserPreferencesSerializer
 import com.chdjalil.jalilgym.core.model.ExperienceLevel
 import com.chdjalil.jalilgym.core.model.Goal
+import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
@@ -43,7 +44,7 @@ class OfflineFirstUserPreferencesRepositoryTest {
 
         repository.setThemeMode(ThemeMode.SYSTEM)
         repository.setUnitSystem(UnitSystem.IMPERIAL)
-        repository.completeOnboarding(Goal.GET_STRONGER, ExperienceLevel.ADVANCED)
+        repository.completeOnboarding(Goal.GET_STRONGER, ExperienceLevel.ADVANCED, StarterProgram.PPL_6)
 
         assertThat(repository.userPreferences.first()).isEqualTo(
             UserPreferences(
@@ -52,6 +53,7 @@ class OfflineFirstUserPreferencesRepositoryTest {
                 experience = ExperienceLevel.ADVANCED,
                 units = UnitSystem.IMPERIAL,
                 themeMode = ThemeMode.SYSTEM,
+                starterProgram = StarterProgram.PPL_6,
             ),
         )
     }

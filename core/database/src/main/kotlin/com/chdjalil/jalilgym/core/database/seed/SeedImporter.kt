@@ -27,6 +27,8 @@ class SeedImporter @Inject constructor(
             dao.upsertExercises(seed.exercises.map { it.toEntity(now) })
             dao.deleteMusclesFor(seed.exercises.map { it.id })
             dao.insertMuscles(seed.exercises.flatMap { it.muscleEntities() })
+            dao.deleteImagesFor(seed.exercises.map { it.id })
+            dao.insertImages(seed.exercises.flatMap { it.imageEntities() })
         }
     }
 

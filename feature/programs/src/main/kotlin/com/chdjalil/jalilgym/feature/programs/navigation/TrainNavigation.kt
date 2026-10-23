@@ -12,6 +12,6 @@ data object TrainRoute
 
 fun NavController.navigateToTrain(navOptions: NavOptions? = null) = navigate(TrainRoute, navOptions)
 
-fun NavGraphBuilder.trainScreen() {
-    composable<TrainRoute> { TrainScreen() }
+fun NavGraphBuilder.trainScreen(onOpenLibrary: () -> Unit) {
+    composable<TrainRoute> { TrainScreen(onOpenLibrary = onOpenLibrary) }
 }

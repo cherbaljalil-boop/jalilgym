@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.chdjalil.jalilgym.core.database.model.asExternalModel
 import com.chdjalil.jalilgym.core.database.seed.SeedImporter
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
@@ -38,14 +39,20 @@ class SeedImporterTest {
         val seed = importer.readExerciseSeed()
 
         assertThat(seed.version).isAtLeast(1)
-        assertThat(seed.exercises).isNotEmpty()
+        assertThat(seed.exercises.size).isAtLeast(95)
         assertThat(seed.exercises.map { it.id }).containsNoDuplicates()
+        val context = ApplicationProvider.getApplicationContext<Context>()
         seed.exercises.forEach { exercise ->
             assertThat(exercise.primaryMuscles).isNotEmpty()
             assertThat(exercise.instructions).isNotEmpty()
             // A muscle is either primary or secondary for a given exercise, never both.
             assertThat(exercise.primaryMuscles.intersect(exercise.secondaryMuscles.toSet())).isEmpty()
             assertThat(exercise.id).matches("[a-z0-9-]+")
+            assertThat(exercise.images).isNotEmpty()
+            exercise.images.forEach { path ->
+                // Throws if the bundled image is missing.
+                context.assets.open(path).close()
+            }
         }
     }
 
@@ -64,5 +71,8 @@ class SeedImporterTest {
         val expectedMuscles = seed.exercises.first { it.id == "barbell-bench-press" }
             .let { it.primaryMuscles.size + it.secondaryMuscles.size }
         assertThat(bench.muscles).hasSize(expectedMuscles)
+        assertThat(bench.asExternalModel().images)
+            .containsExactly("exercises/barbell-bench-press/0.webp", "exercises/barbell-bench-press/1.webp")
+            .inOrder()
     }
 }

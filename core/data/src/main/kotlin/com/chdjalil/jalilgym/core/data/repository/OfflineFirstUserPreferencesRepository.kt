@@ -5,6 +5,7 @@ import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
 import com.chdjalil.jalilgym.core.model.EffortScale
 import com.chdjalil.jalilgym.core.model.ExperienceLevel
 import com.chdjalil.jalilgym.core.model.Goal
+import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
@@ -23,6 +24,9 @@ internal class OfflineFirstUserPreferencesRepository @Inject constructor(
 
     override suspend fun setEffortScale(effortScale: EffortScale) = dataSource.setEffortScale(effortScale)
 
-    override suspend fun completeOnboarding(goal: Goal, experience: ExperienceLevel) =
-        dataSource.completeOnboarding(goal, experience)
+    override suspend fun completeOnboarding(
+        goal: Goal?,
+        experience: ExperienceLevel?,
+        starterProgram: StarterProgram?,
+    ) = dataSource.completeOnboarding(goal, experience, starterProgram)
 }

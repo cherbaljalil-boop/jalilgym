@@ -14,6 +14,26 @@ data class Exercise(
     val primaryMuscles: List<Muscle>,
     val secondaryMuscles: List<Muscle>,
     val isBuiltIn: Boolean,
+    /**
+     * Demonstration images in display order: asset paths (`exercises/<id>/0.webp`)
+     * for built-in exercises, absolute file paths for custom ones.
+     */
+    val images: List<String> = emptyList(),
+)
+
+/** User input for creating or editing a custom exercise. */
+data class ExerciseDraft(
+    val id: String? = null,
+    val name: String = "",
+    val instructions: List<String> = emptyList(),
+    val equipment: Equipment = Equipment.BARBELL,
+    val mechanics: Mechanics = Mechanics.COMPOUND,
+    val force: Force = Force.PUSH,
+    val difficulty: Difficulty = Difficulty.BEGINNER,
+    val trackingType: TrackingType = TrackingType.WEIGHT_REPS,
+    val primaryMuscles: Set<Muscle> = emptySet(),
+    val secondaryMuscles: Set<Muscle> = emptySet(),
+    val imagePath: String? = null,
 )
 
 /** Muscle regions, matching the body heatmap. */

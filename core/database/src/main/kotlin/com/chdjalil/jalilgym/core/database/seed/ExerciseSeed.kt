@@ -1,11 +1,13 @@
 package com.chdjalil.jalilgym.core.database.seed
 
 import com.chdjalil.jalilgym.core.database.entity.ExerciseEntity
+import com.chdjalil.jalilgym.core.database.entity.ExerciseImageEntity
 import com.chdjalil.jalilgym.core.database.entity.ExerciseMuscleEntity
 import com.chdjalil.jalilgym.core.model.Difficulty
 import com.chdjalil.jalilgym.core.model.Equipment
 import com.chdjalil.jalilgym.core.model.Force
 import com.chdjalil.jalilgym.core.model.Mechanics
+import com.chdjalil.jalilgym.core.model.MediaType
 import com.chdjalil.jalilgym.core.model.Muscle
 import com.chdjalil.jalilgym.core.model.MuscleRole
 import com.chdjalil.jalilgym.core.model.TrackingType
@@ -32,6 +34,10 @@ data class SeedExercise(
     val defaultIncrementKg: Double,
     val primaryMuscles: List<Muscle>,
     val secondaryMuscles: List<Muscle> = emptyList(),
+    /** Asset paths relative to `assets/`, e.g. `exercises/<id>/0.webp`. */
+    val images: List<String> = emptyList(),
+    /** Where the entry came from, for attribution (e.g. `free-exercise-db:<id>`). */
+    val source: String? = null,
 )
 
 internal fun SeedExercise.toEntity(now: Long) = ExerciseEntity(
@@ -53,3 +59,8 @@ internal fun SeedExercise.toEntity(now: Long) = ExerciseEntity(
 internal fun SeedExercise.muscleEntities(): List<ExerciseMuscleEntity> =
     primaryMuscles.map { ExerciseMuscleEntity(id, it, MuscleRole.PRIMARY) } +
         secondaryMuscles.map { ExerciseMuscleEntity(id, it, MuscleRole.SECONDARY) }
+
+internal fun SeedExercise.imageEntities(): List<ExerciseImageEntity> =
+    images.mapIndexed { index, path ->
+        ExerciseImageEntity(id = "$id#$index", exerciseId = id, uri = path, mediaType = MediaType.IMAGE, position = index)
+    }

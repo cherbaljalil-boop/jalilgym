@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
@@ -60,7 +61,12 @@ class MainActivity : ComponentActivity() {
                 onDispose {}
             }
             JalilgymTheme(darkTheme = darkTheme) {
-                JalilgymApp()
+                val state = uiState
+                if (state is MainActivityUiState.Success) {
+                    // Decided once per launch; finishing onboarding navigates away in-app.
+                    val startWithOnboarding = remember { !state.onboardingComplete }
+                    JalilgymApp(startWithOnboarding = startWithOnboarding)
+                }
             }
         }
     }

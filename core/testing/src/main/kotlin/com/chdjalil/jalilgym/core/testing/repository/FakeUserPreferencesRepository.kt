@@ -4,6 +4,7 @@ import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
 import com.chdjalil.jalilgym.core.model.EffortScale
 import com.chdjalil.jalilgym.core.model.ExperienceLevel
 import com.chdjalil.jalilgym.core.model.Goal
+import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
@@ -27,6 +28,11 @@ class FakeUserPreferencesRepository(
     override suspend fun setEffortScale(effortScale: EffortScale) =
         state.update { it.copy(effortScale = effortScale) }
 
-    override suspend fun completeOnboarding(goal: Goal, experience: ExperienceLevel) =
-        state.update { it.copy(onboardingComplete = true, goal = goal, experience = experience) }
+    override suspend fun completeOnboarding(
+        goal: Goal?,
+        experience: ExperienceLevel?,
+        starterProgram: StarterProgram?,
+    ) = state.update {
+        it.copy(onboardingComplete = true, goal = goal, experience = experience, starterProgram = starterProgram)
+    }
 }

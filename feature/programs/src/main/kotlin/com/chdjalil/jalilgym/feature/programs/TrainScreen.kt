@@ -15,9 +15,10 @@ import com.chdjalil.jalilgym.core.designsystem.component.JgScreenHeader
 import com.chdjalil.jalilgym.core.designsystem.icon.JgIcons
 import com.chdjalil.jalilgym.core.designsystem.theme.JalilgymTheme
 import com.chdjalil.jalilgym.core.ui.ComingSoonCard
+import com.chdjalil.jalilgym.core.ui.EntryCard
 
 @Composable
-internal fun TrainScreen(modifier: Modifier = Modifier) {
+internal fun TrainScreen(onOpenLibrary: () -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -37,11 +38,11 @@ internal fun TrainScreen(modifier: Modifier = Modifier) {
                 phase = 2,
                 icon = JgIcons.Train,
             )
-            ComingSoonCard(
+            EntryCard(
                 title = stringResource(R.string.feature_programs_library_title),
                 description = stringResource(R.string.feature_programs_library_desc),
-                phase = 1,
-                icon = JgIcons.Info,
+                icon = JgIcons.Search,
+                onClick = onOpenLibrary,
             )
             ComingSoonCard(
                 title = stringResource(R.string.feature_programs_history_title),
@@ -56,5 +57,5 @@ internal fun TrainScreen(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun TrainPreview() {
-    JalilgymTheme { TrainScreen() }
+    JalilgymTheme { TrainScreen(onOpenLibrary = {}) }
 }

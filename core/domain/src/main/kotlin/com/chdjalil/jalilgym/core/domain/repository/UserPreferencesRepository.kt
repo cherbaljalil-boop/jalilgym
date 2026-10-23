@@ -3,6 +3,7 @@ package com.chdjalil.jalilgym.core.domain.repository
 import com.chdjalil.jalilgym.core.model.EffortScale
 import com.chdjalil.jalilgym.core.model.ExperienceLevel
 import com.chdjalil.jalilgym.core.model.Goal
+import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
@@ -17,5 +18,6 @@ interface UserPreferencesRepository {
 
     suspend fun setEffortScale(effortScale: EffortScale)
 
-    suspend fun completeOnboarding(goal: Goal, experience: ExperienceLevel)
+    /** Any answer may be null when the user skipped it. */
+    suspend fun completeOnboarding(goal: Goal?, experience: ExperienceLevel?, starterProgram: StarterProgram?)
 }

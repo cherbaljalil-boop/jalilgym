@@ -2,6 +2,7 @@ package com.chdjalil.jalilgym.core.datastore
 
 import androidx.datastore.core.CorruptionException
 import com.chdjalil.jalilgym.core.model.Goal
+import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.google.common.truth.Truth.assertThat
@@ -27,6 +28,7 @@ class UserPreferencesSerializerTest {
             onboardingComplete = true,
             goal = Goal.BUILD_MUSCLE,
             units = UnitSystem.IMPERIAL,
+            starterProgram = StarterProgram.PPL_3,
             installedSeedVersion = 3,
         )
         val out = ByteArrayOutputStream()

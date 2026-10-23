@@ -22,4 +22,14 @@ object JgIcons {
     @DrawableRes val Info = R.drawable.jg_ic_info
     @DrawableRes val DarkMode = R.drawable.jg_ic_dark_mode
     @DrawableRes val LightMode = R.drawable.jg_ic_light_mode
+    @DrawableRes val ArrowBack = R.drawable.jg_ic_arrow_back
+    @DrawableRes val Search = R.drawable.jg_ic_search
+    @DrawableRes val Close = R.drawable.jg_ic_close
+    @DrawableRes val Add = R.drawable.jg_ic_add
+    @DrawableRes val Filter = R.drawable.jg_ic_tune
+    @DrawableRes val Edit = R.drawable.jg_ic_edit
+    @DrawableRes val Delete = R.drawable.jg_ic_delete
+    @DrawableRes val Check = R.drawable.jg_ic_check
+    @DrawableRes val AddPhoto = R.drawable.jg_ic_add_photo
+    @DrawableRes val ChevronRight = R.drawable.jg_ic_chevron_right
 }

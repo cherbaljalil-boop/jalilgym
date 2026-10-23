@@ -6,12 +6,14 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.chdjalil.jalilgym.core.database.dao.ExerciseDao
 import com.chdjalil.jalilgym.core.database.entity.ExerciseEntity
+import com.chdjalil.jalilgym.core.database.entity.ExerciseImageEntity
 import com.chdjalil.jalilgym.core.database.entity.ExerciseMuscleEntity
 import com.chdjalil.jalilgym.core.database.model.asExternalModel
 import com.chdjalil.jalilgym.core.model.Difficulty
 import com.chdjalil.jalilgym.core.model.Equipment
 import com.chdjalil.jalilgym.core.model.Force
 import com.chdjalil.jalilgym.core.model.Mechanics
+import com.chdjalil.jalilgym.core.model.MediaType
 import com.chdjalil.jalilgym.core.model.Muscle
 import com.chdjalil.jalilgym.core.model.MuscleRole
 import com.chdjalil.jalilgym.core.model.TrackingType
@@ -85,6 +87,33 @@ class ExerciseDaoTest {
         val bench = dao.getById("bench")!!
         assertThat(bench.muscles).isEmpty()
         assertThat(bench.exercise.name).isEqualTo("Bench")
+    }
+
+    @Test
+    fun softDeleteOnlyAffectsCustomExercises() = runTest {
+        dao.upsertExercises(listOf(exercise("custom", "Custom"), exercise("seed", "Seed").copy(isBuiltIn = true)))
+
+        dao.softDeleteCustom("custom", now = 10L)
+        dao.softDeleteCustom("seed", now = 10L)
+
+        assertThat(dao.observeAll().first().map { it.exercise.id }).containsExactly("seed")
+        // Deleted rows remain readable by id for history.
+        assertThat(dao.observeById("custom").first()!!.exercise.deletedAt).isEqualTo(10L)
+    }
+
+    @Test
+    fun imagesAreReturnedInPositionOrder() = runTest {
+        dao.upsertExercises(listOf(exercise("bench", "Bench")))
+        dao.insertImages(
+            listOf(
+                ExerciseImageEntity("b1", "bench", "exercises/bench/1.webp", MediaType.IMAGE, position = 1),
+                ExerciseImageEntity("b0", "bench", "exercises/bench/0.webp", MediaType.IMAGE, position = 0),
+            ),
+        )
+
+        val model = dao.observeById("bench").first()!!.asExternalModel()
+
+        assertThat(model.images).containsExactly("exercises/bench/0.webp", "exercises/bench/1.webp").inOrder()
     }
 
     private fun exercise(id: String, name: String) = ExerciseEntity(

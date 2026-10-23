@@ -23,6 +23,7 @@ import com.chdjalil.jalilgym.core.designsystem.component.JgScreenHeader
 import com.chdjalil.jalilgym.core.designsystem.icon.JgIcons
 import com.chdjalil.jalilgym.core.designsystem.theme.JalilgymTheme
 import com.chdjalil.jalilgym.core.ui.ComingSoonCard
+import com.chdjalil.jalilgym.core.ui.labelRes
 
 @Composable
 internal fun TodayScreen(viewModel: TodayViewModel = hiltViewModel()) {
@@ -63,7 +64,9 @@ internal fun TodayContent(uiState: TodayUiState, modifier: Modifier = Modifier) 
             }
             ComingSoonCard(
                 title = stringResource(R.string.feature_today_workout_title),
-                description = stringResource(R.string.feature_today_workout_desc),
+                description = uiState.starterProgram?.let {
+                    stringResource(R.string.feature_today_workout_desc_with_program, stringResource(it.labelRes))
+                } ?: stringResource(R.string.feature_today_workout_desc),
                 phase = 2,
                 icon = JgIcons.Train,
             )

@@ -3,6 +3,7 @@ package com.chdjalil.jalilgym.core.datastore
 import com.chdjalil.jalilgym.core.model.EffortScale
 import com.chdjalil.jalilgym.core.model.ExperienceLevel
 import com.chdjalil.jalilgym.core.model.Goal
+import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
@@ -23,6 +24,7 @@ data class UserPreferencesData(
     val defaultRestCompoundSec: Int = 180,
     val defaultRestIsolationSec: Int = 90,
     val keepScreenOn: Boolean = true,
+    val starterProgram: StarterProgram? = null,
     /** Version of the bundled seed data last imported into Room. */
     val installedSeedVersion: Int = 0,
 )
@@ -37,4 +39,5 @@ internal fun UserPreferencesData.toModel() = UserPreferences(
     defaultRestCompoundSec = defaultRestCompoundSec,
     defaultRestIsolationSec = defaultRestIsolationSec,
     keepScreenOn = keepScreenOn,
+    starterProgram = starterProgram,
 )

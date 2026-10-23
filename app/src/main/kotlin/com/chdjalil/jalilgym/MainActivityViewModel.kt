@@ -14,7 +14,7 @@ import javax.inject.Inject
 sealed interface MainActivityUiState {
     data object Loading : MainActivityUiState
 
-    data class Success(val themeMode: ThemeMode) : MainActivityUiState
+    data class Success(val themeMode: ThemeMode, val onboardingComplete: Boolean) : MainActivityUiState
 }
 
 @HiltViewModel
@@ -23,6 +23,6 @@ class MainActivityViewModel @Inject constructor(
 ) : ViewModel() {
 
     val uiState: StateFlow<MainActivityUiState> = preferencesRepository.userPreferences
-        .map<_, MainActivityUiState> { MainActivityUiState.Success(it.themeMode) }
+        .map<_, MainActivityUiState> { MainActivityUiState.Success(it.themeMode, it.onboardingComplete) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), MainActivityUiState.Loading)
 }

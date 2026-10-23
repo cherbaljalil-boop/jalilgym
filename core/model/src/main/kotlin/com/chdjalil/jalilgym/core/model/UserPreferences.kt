@@ -11,6 +11,8 @@ data class UserPreferences(
     val defaultRestCompoundSec: Int = 180,
     val defaultRestIsolationSec: Int = 90,
     val keepScreenOn: Boolean = true,
+    /** Chosen at the end of onboarding; turned into a real program in Phase 2. */
+    val starterProgram: StarterProgram? = null,
 )
 
 enum class Goal { BUILD_MUSCLE, LOSE_FAT, GET_STRONGER, GENERAL_FITNESS, ENDURANCE }
@@ -20,6 +22,9 @@ enum class ExperienceLevel { BEGINNER, INTERMEDIATE, ADVANCED }
 enum class UnitSystem { METRIC, IMPERIAL }
 
 enum class ThemeMode { DARK, LIGHT, SYSTEM }
+
+/** Starter programs offered at the end of onboarding (docs/BLUEPRINT.md §3.1). */
+enum class StarterProgram { FULL_BODY_3, PPL_3, PPL_6, CUSTOM }
 
 /** How effort is captured per set. */
 enum class EffortScale { RPE, RIR, OFF }

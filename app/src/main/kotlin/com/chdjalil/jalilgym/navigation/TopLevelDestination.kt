@@ -6,7 +6,6 @@ import com.chdjalil.jalilgym.R
 import com.chdjalil.jalilgym.core.designsystem.icon.JgIcons
 import com.chdjalil.jalilgym.feature.nutrition.navigation.NutritionRoute
 import com.chdjalil.jalilgym.feature.profile.navigation.ProfileRoute
-import com.chdjalil.jalilgym.feature.programs.navigation.TrainRoute
 import com.chdjalil.jalilgym.feature.progress.navigation.ProgressRoute
 import com.chdjalil.jalilgym.feature.today.navigation.TodayRoute
 import kotlin.reflect.KClass
@@ -20,7 +19,7 @@ enum class TopLevelDestination(
     val routeClass: KClass<*>,
 ) {
     TODAY(JgIcons.Home, JgIcons.HomeFilled, R.string.tab_today, TodayRoute, TodayRoute::class),
-    TRAIN(JgIcons.Train, JgIcons.TrainFilled, R.string.tab_train, TrainRoute, TrainRoute::class),
+    TRAIN(JgIcons.Train, JgIcons.TrainFilled, R.string.tab_train, TrainGraph, TrainGraph::class),
     NUTRITION(
         JgIcons.Nutrition,
         JgIcons.NutritionFilled,
