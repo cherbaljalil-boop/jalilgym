@@ -52,7 +52,13 @@ private const val APACHE = "licenses/apache-2.0.txt"
 
 /** Everything bundled in or used by the app. Keep in sync with gradle/libs.versions.toml. */
 internal val NOTICES = listOf(
-    Notice("Android Jetpack (Compose, Room, DataStore, Navigation, Lifecycle, CameraX…)", "The Android Open Source Project", "Apache License 2.0", APACHE, "https://developer.android.com/jetpack"),
+    Notice(
+        "Android Jetpack (Compose, Room, DataStore, Navigation, Lifecycle, CameraX…)",
+        "The Android Open Source Project",
+        "Apache License 2.0",
+        APACHE,
+        "https://developer.android.com/jetpack",
+    ),
     Notice("Dagger and Hilt", "The Dagger Authors", "Apache License 2.0", APACHE, "https://dagger.dev"),
     Notice("Kotlin, kotlinx.coroutines, kotlinx.serialization", "JetBrains s.r.o. and contributors", "Apache License 2.0", APACHE, "https://kotlinlang.org"),
     Notice("OkHttp", "Square, Inc.", "Apache License 2.0", APACHE, "https://square.github.io/okhttp/"),
