@@ -67,6 +67,12 @@ jobs:
                   for failure in case.findall("failure") + case.findall("error"):
                       message = " ".join((failure.get("message") or failure.text or "").split())[:900]
                       print(f"::error title={case.get('classname')}.{case.get('name')}::{message}")
+          for path in glob.glob("**/build/reports/lint-results-debug.xml", recursive=True):
+              for issue in ET.parse(path).getroot().iter("issue"):
+                  if issue.get("severity") in ("Error", "Fatal"):
+                      location = issue.find("location")
+                      where = f"{location.get('file')}:{location.get('line')}" if location is not None else path
+                      print(f"::error title=Lint {issue.get('id')}::{where} {issue.get('message')}")
           PY
 
       - name: Upload reports

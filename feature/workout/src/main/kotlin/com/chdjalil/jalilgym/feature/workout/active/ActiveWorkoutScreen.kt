@@ -82,8 +82,9 @@ internal fun ActiveWorkoutScreen(
     val discarded by viewModel.discarded.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
+    val restLabel = stringResource(R.string.feature_workout_rest_label)
     SideEffect {
-        viewModel.restLabel = { name, set, total -> context.getString(R.string.feature_workout_rest_label, name, set, total) }
+        viewModel.restLabel = { name, set, total -> restLabel.format(name, set, total) }
     }
     LaunchedEffect(finished) { finished?.let(onFinished) }
     LaunchedEffect(discarded) { if (discarded) onDiscarded() }
