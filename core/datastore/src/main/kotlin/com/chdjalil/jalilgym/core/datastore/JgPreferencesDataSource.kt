@@ -22,6 +22,13 @@ class JgPreferencesDataSource @Inject constructor(
 
     suspend fun setInstalledSeedVersion(version: Int) = update { it.copy(installedSeedVersion = version) }
 
+    suspend fun installedProgramSeedVersion(): Int = dataStore.data.first().installedProgramSeedVersion
+
+    suspend fun setInstalledProgramSeedVersion(version: Int) =
+        update { it.copy(installedProgramSeedVersion = version) }
+
+    suspend fun markStarterProgramApplied() = update { it.copy(starterProgramApplied = true) }
+
     suspend fun setThemeMode(themeMode: ThemeMode) = update { it.copy(themeMode = themeMode) }
 
     suspend fun setUnitSystem(units: UnitSystem) = update { it.copy(units = units) }

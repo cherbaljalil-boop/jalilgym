@@ -13,6 +13,8 @@ data class UserPreferences(
     val keepScreenOn: Boolean = true,
     /** Chosen at the end of onboarding; turned into a real program in Phase 2. */
     val starterProgram: StarterProgram? = null,
+    /** True once [starterProgram] has been turned into a real, active program. */
+    val starterProgramApplied: Boolean = false,
 )
 
 enum class Goal { BUILD_MUSCLE, LOSE_FAT, GET_STRONGER, GENERAL_FITNESS, ENDURANCE }

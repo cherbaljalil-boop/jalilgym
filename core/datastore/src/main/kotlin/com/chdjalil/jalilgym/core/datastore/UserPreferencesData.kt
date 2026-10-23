@@ -25,8 +25,11 @@ data class UserPreferencesData(
     val defaultRestIsolationSec: Int = 90,
     val keepScreenOn: Boolean = true,
     val starterProgram: StarterProgram? = null,
-    /** Version of the bundled seed data last imported into Room. */
+    val starterProgramApplied: Boolean = false,
+    /** Version of the bundled exercise seed last imported into Room. */
     val installedSeedVersion: Int = 0,
+    /** Version of the bundled program templates last imported into Room. */
+    val installedProgramSeedVersion: Int = 0,
 )
 
 internal fun UserPreferencesData.toModel() = UserPreferences(
@@ -40,4 +43,5 @@ internal fun UserPreferencesData.toModel() = UserPreferences(
     defaultRestIsolationSec = defaultRestIsolationSec,
     keepScreenOn = keepScreenOn,
     starterProgram = starterProgram,
+    starterProgramApplied = starterProgramApplied,
 )

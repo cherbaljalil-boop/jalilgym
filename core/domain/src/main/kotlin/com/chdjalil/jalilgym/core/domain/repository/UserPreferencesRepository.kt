@@ -19,5 +19,7 @@ interface UserPreferencesRepository {
     suspend fun setEffortScale(effortScale: EffortScale)
 
     /** Any answer may be null when the user skipped it. */
+    suspend fun markStarterProgramApplied()
+
     suspend fun completeOnboarding(goal: Goal?, experience: ExperienceLevel?, starterProgram: StarterProgram?)
 }

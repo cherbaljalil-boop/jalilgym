@@ -2,13 +2,20 @@
 <resources>
     <string name="feature_today_title">Today</string>
     <string name="feature_today_subtitle">Your plan for the day</string>
-    <plurals name="feature_today_exercises_ready">
-        <item quantity="one">exercise ready in your library</item>
-        <item quantity="other">exercises ready in your library</item>
+    <string name="feature_today_todays_workout">Today\'s workout</string>
+    <string name="feature_today_workout_summary">%1$s · %2$s</string>
+    <string name="feature_today_view_workout">View workout</string>
+    <string name="feature_today_skip_day">Skip</string>
+    <string name="feature_today_choose_program_title">Choose a program</string>
+    <string name="feature_today_choose_program_desc">Pick a template or build your own, and your next workout will show up here.</string>
+    <plurals name="feature_today_exercise_count">
+        <item quantity="one">%1$d exercise</item>
+        <item quantity="other">%1$d exercises</item>
     </plurals>
-    <string name="feature_today_workout_title">Today\'s workout</string>
-    <string name="feature_today_workout_desc">Start your next program day with one tap.</string>
-    <string name="feature_today_workout_desc_with_program">Your program: %1$s. Start each day with one tap.</string>
+    <plurals name="feature_today_exercises_ready">
+        <item quantity="one">%1$d exercise in your library</item>
+        <item quantity="other">%1$d exercises in your library</item>
+    </plurals>
     <string name="feature_today_macros_title">Calories &amp; macros</string>
     <string name="feature_today_macros_desc">See what\'s left to eat today at a glance.</string>
     <string name="feature_today_streak_title">Training streak</string>

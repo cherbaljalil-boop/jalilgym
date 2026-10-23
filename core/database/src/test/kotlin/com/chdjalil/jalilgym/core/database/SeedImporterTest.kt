@@ -75,4 +75,40 @@ class SeedImporterTest {
             .containsExactly("exercises/barbell-bench-press/0.webp", "exercises/barbell-bench-press/1.webp")
             .inOrder()
     }
+
+    @Test
+    fun programTemplatesReferenceSeededExercises() = runTest {
+        val exercises = importer.readExerciseSeed()
+        val programs = importer.readProgramSeed()
+        val exerciseIds = exercises.exercises.map { it.id }.toSet()
+
+        assertThat(programs.programs.map { it.id })
+            .containsExactly("tpl-full-body-3", "tpl-ppl-3", "tpl-ppl-6")
+        programs.programs.forEach { program ->
+            assertThat(program.days).isNotEmpty()
+            program.days.forEach { day ->
+                assertThat(day.exercises).isNotEmpty()
+                day.exercises.forEach { slot ->
+                    assertThat(exerciseIds).contains(slot.exerciseId)
+                    assertThat(slot.repMin).isAtMost(slot.repMax)
+                }
+                // Superset members must be next to each other.
+                val groups = day.exercises.mapNotNull { it.supersetGroup }.distinct()
+                groups.forEach { group ->
+                    val positions = day.exercises.indices.filter { day.exercises[it].supersetGroup == group }
+                    assertThat(positions.size).isAtLeast(2)
+                    assertThat(positions.last() - positions.first()).isEqualTo(positions.size - 1)
+                }
+            }
+        }
+
+        importer.importExercises(exercises, now = 1L)
+        importer.importPrograms(programs, now = 1L)
+        importer.importPrograms(programs, now = 2L)
+
+        val ppl = database.programDao().getProgram("tpl-ppl-3")!!.asExternalModel()
+        assertThat(ppl.isTemplate).isTrue()
+        assertThat(ppl.days.map { it.name }).containsExactly("Push", "Pull", "Legs").inOrder()
+        assertThat(ppl.days.first().exercises.first().exercise.id).isEqualTo("barbell-bench-press")
+    }
 }

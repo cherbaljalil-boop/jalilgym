@@ -32,8 +32,31 @@ class SeedImporter @Inject constructor(
         }
     }
 
+    fun readProgramSeed(): ProgramSeedFile =
+        context.assets.open(PROGRAMS_ASSET).bufferedReader().use { reader ->
+            json.decodeFromString(ProgramSeedFile.serializer(), reader.readText())
+        }
+
+    /** Imports program templates. Exercises must be imported first (slots reference them). */
+    suspend fun importPrograms(seed: ProgramSeedFile, now: Long = System.currentTimeMillis()) {
+        val exerciseDao = database.exerciseDao()
+        val programDao = database.programDao()
+        database.withTransaction {
+            seed.programs.forEach { program ->
+                val increments = program.days.flatMap { it.exercises }.map { it.exerciseId }.distinct()
+                    .associateWith { id -> exerciseDao.getById(id)?.exercise?.defaultIncrementKg ?: 2.5 }
+                programDao.replaceProgramTree(
+                    program.toEntity(now),
+                    program.dayEntities(now),
+                    program.slotEntities(now) { increments.getValue(it) },
+                )
+            }
+        }
+    }
+
     companion object {
         const val EXERCISES_ASSET = "seed/exercises.json"
+        const val PROGRAMS_ASSET = "seed/programs.json"
         private val json = Json { ignoreUnknownKeys = true }
     }
 }

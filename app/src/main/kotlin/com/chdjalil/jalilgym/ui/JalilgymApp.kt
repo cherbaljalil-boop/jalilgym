@@ -22,6 +22,7 @@ import com.chdjalil.jalilgym.core.designsystem.component.JgNavigationBarItem
 import com.chdjalil.jalilgym.navigation.JalilgymNavHost
 import com.chdjalil.jalilgym.navigation.TopLevelDestination
 import com.chdjalil.jalilgym.feature.onboarding.navigation.OnboardingRoute
+import com.chdjalil.jalilgym.feature.programs.navigation.DayPreviewRoute
 import com.chdjalil.jalilgym.feature.today.navigation.TodayRoute
 
 @Composable
@@ -31,12 +32,14 @@ fun JalilgymApp(
 ) {
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = backStackEntry?.destination
-    val onboarding = currentDestination?.hasRoute(OnboardingRoute::class) ?: startWithOnboarding
+    // Onboarding and the workout preview are full-screen flows without the tab bar.
+    val fullScreen = currentDestination?.let { it.hasRoute(OnboardingRoute::class) || it.hasRoute(DayPreviewRoute::class) }
+        ?: startWithOnboarding
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         bottomBar = {
-            if (!onboarding) JgNavigationBar {
+            if (!fullScreen) JgNavigationBar {
                 TopLevelDestination.entries.forEach { destination ->
                     JgNavigationBarItem(
                         selected = currentDestination.isOn(destination),
@@ -54,6 +57,7 @@ fun JalilgymApp(
         JalilgymNavHost(
             navController = navController,
             startWithOnboarding = startWithOnboarding,
+            onSelectTab = { navController.navigateToTopLevel(it) },
             modifier = Modifier
                 .padding(innerPadding)
                 .consumeWindowInsets(innerPadding),
@@ -68,7 +72,7 @@ private fun NavDestination?.isOn(destination: TopLevelDestination): Boolean =
  * Tab switching keeps one copy of each tab and restores its state. Today is the
  * root of the back stack (onboarding, when shown, is removed once finished).
  */
-private fun NavHostController.navigateToTopLevel(destination: TopLevelDestination) {
+internal fun NavHostController.navigateToTopLevel(destination: TopLevelDestination) {
     navigate(destination.route) {
         popUpTo<TodayRoute> { saveState = true }
         launchSingleTop = true

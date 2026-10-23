@@ -32,4 +32,12 @@ object JgIcons {
     @DrawableRes val Check = R.drawable.jg_ic_check
     @DrawableRes val AddPhoto = R.drawable.jg_ic_add_photo
     @DrawableRes val ChevronRight = R.drawable.jg_ic_chevron_right
+    @DrawableRes val More = R.drawable.jg_ic_more_vert
+    @DrawableRes val ArrowUp = R.drawable.jg_ic_arrow_up
+    @DrawableRes val ArrowDown = R.drawable.jg_ic_arrow_down
+    @DrawableRes val Link = R.drawable.jg_ic_link
+    @DrawableRes val LinkOff = R.drawable.jg_ic_link_off
+    @DrawableRes val Remove = R.drawable.jg_ic_remove
+    @DrawableRes val Play = R.drawable.jg_ic_play
+    @DrawableRes val SkipNext = R.drawable.jg_ic_skip_next
 }

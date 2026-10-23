@@ -7,12 +7,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.navigation
 import com.chdjalil.jalilgym.feature.exercises.navigation.exerciseScreens
 import com.chdjalil.jalilgym.feature.exercises.navigation.navigateToExerciseLibrary
+import com.chdjalil.jalilgym.feature.exercises.navigation.navigateToExercisePicker
 import com.chdjalil.jalilgym.feature.nutrition.navigation.nutritionScreen
 import com.chdjalil.jalilgym.feature.onboarding.navigation.OnboardingRoute
 import com.chdjalil.jalilgym.feature.onboarding.navigation.onboardingScreen
 import com.chdjalil.jalilgym.feature.profile.navigation.profileScreen
+import com.chdjalil.jalilgym.feature.programs.navigation.DayEditorRoute
 import com.chdjalil.jalilgym.feature.programs.navigation.TrainRoute
-import com.chdjalil.jalilgym.feature.programs.navigation.trainScreen
+import com.chdjalil.jalilgym.feature.programs.navigation.dayPreviewScreen
+import com.chdjalil.jalilgym.feature.programs.navigation.navigateToDayPreview
+import com.chdjalil.jalilgym.feature.programs.navigation.trainScreens
 import com.chdjalil.jalilgym.feature.progress.navigation.progressScreen
 import com.chdjalil.jalilgym.feature.today.navigation.TodayRoute
 import com.chdjalil.jalilgym.feature.today.navigation.todayScreen
@@ -26,6 +30,7 @@ data object TrainGraph
 fun JalilgymNavHost(
     navController: NavHostController,
     startWithOnboarding: Boolean,
+    onSelectTab: (TopLevelDestination) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     NavHost(
@@ -40,11 +45,19 @@ fun JalilgymNavHost(
                 }
             },
         )
-        todayScreen()
+        todayScreen(
+            onOpenDay = navController::navigateToDayPreview,
+            onChooseProgram = { onSelectTab(TopLevelDestination.TRAIN) },
+        )
         navigation<TrainGraph>(startDestination = TrainRoute) {
-            trainScreen(onOpenLibrary = { navController.navigateToExerciseLibrary() })
+            trainScreens(
+                navController = navController,
+                onOpenLibrary = { navController.navigateToExerciseLibrary() },
+                onPickExercises = { navController.navigateToExercisePicker() },
+            )
             exerciseScreens(navController)
         }
+        dayPreviewScreen(navController, onEditDay = { navController.navigate(DayEditorRoute(it)) })
         nutritionScreen()
         progressScreen()
         profileScreen()

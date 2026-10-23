@@ -61,4 +61,11 @@
     <string name="feature_exercises_change_photo">Change photo</string>
     <string name="feature_exercises_remove_photo">Remove photo</string>
     <string name="feature_exercises_photo_failed">Couldn\'t load that photo. Try another one.</string>
+
+    <string name="feature_exercises_picker_title">Add exercises</string>
+    <string name="feature_exercises_picker_none">Select exercises</string>
+    <plurals name="feature_exercises_picker_add">
+        <item quantity="one">Add %1$d exercise</item>
+        <item quantity="other">Add %1$d exercises</item>
+    </plurals>
 </resources>

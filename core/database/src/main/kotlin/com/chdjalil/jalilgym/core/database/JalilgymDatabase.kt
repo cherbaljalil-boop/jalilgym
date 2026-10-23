@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.chdjalil.jalilgym.core.database.dao.ExerciseDao
+import com.chdjalil.jalilgym.core.database.dao.ProgramDao
 import com.chdjalil.jalilgym.core.database.entity.AchievementUnlockEntity
 import com.chdjalil.jalilgym.core.database.entity.ActiveProgramEntity
 import com.chdjalil.jalilgym.core.database.entity.BodyMeasurementEntity
@@ -71,6 +72,8 @@ import com.chdjalil.jalilgym.core.database.entity.WorkoutSessionEntity
 @TypeConverters(Converters::class)
 abstract class JalilgymDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao
+
+    abstract fun programDao(): ProgramDao
 
     companion object {
         const val NAME = "jalilgym.db"

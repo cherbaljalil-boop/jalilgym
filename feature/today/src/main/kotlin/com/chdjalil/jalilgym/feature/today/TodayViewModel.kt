@@ -3,31 +3,37 @@ package com.chdjalil.jalilgym.feature.today
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chdjalil.jalilgym.core.domain.repository.ExerciseRepository
-import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
-import com.chdjalil.jalilgym.core.model.StarterProgram
+import com.chdjalil.jalilgym.core.domain.repository.ProgramRepository
+import com.chdjalil.jalilgym.core.model.ActiveProgram
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class TodayUiState(
+    val isLoading: Boolean = true,
     val exerciseCount: Int? = null,
-    /** Picked during onboarding; becomes a real program in Phase 2. */
-    val starterProgram: StarterProgram? = null,
+    val active: ActiveProgram? = null,
 )
 
 @HiltViewModel
 class TodayViewModel @Inject constructor(
     exerciseRepository: ExerciseRepository,
-    preferencesRepository: UserPreferencesRepository,
+    private val programRepository: ProgramRepository,
 ) : ViewModel() {
 
     val uiState: StateFlow<TodayUiState> = combine(
         exerciseRepository.observeExerciseCount(),
-        preferencesRepository.userPreferences,
-    ) { count, preferences ->
-        TodayUiState(exerciseCount = count, starterProgram = preferences.starterProgram)
+        programRepository.observeActiveProgram(),
+    ) { count, active ->
+        TodayUiState(isLoading = false, exerciseCount = count, active = active)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), TodayUiState())
+
+    /** Skip today's planned workout and move on to the next one in the rotation. */
+    fun skipToNextDay() {
+        viewModelScope.launch { programRepository.advanceRotation() }
+    }
 }

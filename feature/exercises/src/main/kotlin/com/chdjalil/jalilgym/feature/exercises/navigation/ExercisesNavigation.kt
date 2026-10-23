@@ -5,9 +5,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.chdjalil.jalilgym.core.ui.ExercisePickerResult
 import com.chdjalil.jalilgym.feature.exercises.detail.ExerciseDetailScreen
 import com.chdjalil.jalilgym.feature.exercises.editor.ExerciseEditorScreen
 import com.chdjalil.jalilgym.feature.exercises.library.ExerciseLibraryScreen
+import com.chdjalil.jalilgym.feature.exercises.picker.ExercisePickerScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -20,11 +22,17 @@ data class ExerciseDetailRoute(val exerciseId: String)
 @Serializable
 data class ExerciseEditorRoute(val exerciseId: String? = null)
 
+/** Multi-select picker; results go back through ExercisePickerResult. */
+@Serializable
+data object ExercisePickerRoute
+
 /** Argument keys match the route property names. */
 internal const val EXERCISE_ID_ARG = "exerciseId"
 
 fun NavController.navigateToExerciseLibrary(navOptions: NavOptions? = null) =
     navigate(ExerciseLibraryRoute, navOptions)
+
+fun NavController.navigateToExercisePicker() = navigate(ExercisePickerRoute)
 
 /** Library → detail → editor. All navigation stays inside this feature. */
 fun NavGraphBuilder.exerciseScreens(navController: NavController) {
@@ -39,6 +47,15 @@ fun NavGraphBuilder.exerciseScreens(navController: NavController) {
         ExerciseDetailScreen(
             onBack = navController::popBackStack,
             onEdit = { navController.navigate(ExerciseEditorRoute(it)) },
+        )
+    }
+    composable<ExercisePickerRoute> {
+        ExercisePickerScreen(
+            onClose = navController::popBackStack,
+            onDone = { ids ->
+                navController.previousBackStackEntry?.savedStateHandle?.set(ExercisePickerResult.KEY, ArrayList(ids))
+                navController.popBackStack()
+            },
         )
     }
     composable<ExerciseEditorRoute> { entry ->

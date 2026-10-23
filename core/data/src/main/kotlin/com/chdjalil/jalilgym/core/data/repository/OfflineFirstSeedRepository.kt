@@ -23,10 +23,16 @@ internal class OfflineFirstSeedRepository @Inject constructor(
 
     override suspend fun seedIfNeeded() = mutex.withLock {
         withContext(ioDispatcher) {
-            val seed = importer.readExerciseSeed()
-            if (seed.version > preferences.installedSeedVersion()) {
-                importer.importExercises(seed)
-                preferences.setInstalledSeedVersion(seed.version)
+            val exercises = importer.readExerciseSeed()
+            if (exercises.version > preferences.installedSeedVersion()) {
+                importer.importExercises(exercises)
+                preferences.setInstalledSeedVersion(exercises.version)
+            }
+            // Templates reference exercises, so they're imported second.
+            val programs = importer.readProgramSeed()
+            if (programs.version > preferences.installedProgramSeedVersion()) {
+                importer.importPrograms(programs)
+                preferences.setInstalledProgramSeedVersion(programs.version)
             }
         }
     }

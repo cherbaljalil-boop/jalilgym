@@ -6,4 +6,5 @@
     <string name="tab_nutrition">Nutrition</string>
     <string name="tab_progress">Progress</string>
     <string name="tab_profile">Profile</string>
+    <string name="default_custom_program_name">My program</string>
 </resources>

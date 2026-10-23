@@ -24,6 +24,8 @@ internal class OfflineFirstUserPreferencesRepository @Inject constructor(
 
     override suspend fun setEffortScale(effortScale: EffortScale) = dataSource.setEffortScale(effortScale)
 
+    override suspend fun markStarterProgramApplied() = dataSource.markStarterProgramApplied()
+
     override suspend fun completeOnboarding(
         goal: Goal?,
         experience: ExperienceLevel?,

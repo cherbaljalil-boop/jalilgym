@@ -28,6 +28,8 @@ class FakeUserPreferencesRepository(
     override suspend fun setEffortScale(effortScale: EffortScale) =
         state.update { it.copy(effortScale = effortScale) }
 
+    override suspend fun markStarterProgramApplied() = state.update { it.copy(starterProgramApplied = true) }
+
     override suspend fun completeOnboarding(
         goal: Goal?,
         experience: ExperienceLevel?,
