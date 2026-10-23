@@ -113,7 +113,7 @@ class LogFoodFlowTest {
         composeRule.onNodeWithText("Rolled oats").performClick()
 
         // Opens at one serving; switch to grams and log 80 g.
-        composeRule.onNodeWithText("Grams").performClick()
+        composeRule.onNodeWithText("Grams").performScrollTo().performClick()
         composeRule.onNode(hasSetTextAction() and hasText("40")).performTextReplacement("80")
         composeRule.onNodeWithText("303 kcal").assertExists()
         composeRule.onNodeWithText("Log food").performScrollTo().performClick()
