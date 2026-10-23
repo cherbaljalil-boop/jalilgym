@@ -28,35 +28,35 @@ dependencies {
 gradlePlugin {
     plugins {
         register("androidApplication") {
-            id = libs.plugins.jalilgym.android.application.get().pluginId
+            id = "jalilgym.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
         register("androidApplicationCompose") {
-            id = libs.plugins.jalilgym.android.application.compose.get().pluginId
+            id = "jalilgym.android.application.compose"
             implementationClass = "AndroidApplicationComposeConventionPlugin"
         }
         register("androidLibrary") {
-            id = libs.plugins.jalilgym.android.library.get().pluginId
+            id = "jalilgym.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
         register("androidLibraryCompose") {
-            id = libs.plugins.jalilgym.android.library.compose.get().pluginId
+            id = "jalilgym.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
         register("androidFeature") {
-            id = libs.plugins.jalilgym.android.feature.get().pluginId
+            id = "jalilgym.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
         }
         register("androidRoom") {
-            id = libs.plugins.jalilgym.android.room.get().pluginId
+            id = "jalilgym.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
         }
         register("hilt") {
-            id = libs.plugins.jalilgym.hilt.get().pluginId
+            id = "jalilgym.hilt"
             implementationClass = "HiltConventionPlugin"
         }
         register("jvmLibrary") {
-            id = libs.plugins.jalilgym.jvm.library.get().pluginId
+            id = "jalilgym.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
         }
     }
