@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_programs_title">Train</string>
+    <string name="feature_programs_subtitle">Programs, exercises and history</string>
+    <string name="feature_programs_programs_title">Programs</string>
+    <string name="feature_programs_programs_desc">Push/Pull/Legs, Full Body and your own custom programs with auto-progression.</string>
+    <string name="feature_programs_library_title">Exercise library</string>
+    <string name="feature_programs_library_desc">About 100 exercises with images, a muscle heatmap and filters.</string>
+    <string name="feature_programs_history_title">Workout history</string>
+    <string name="feature_programs_history_desc">Every session, set and PR you have logged.</string>
+</resources>

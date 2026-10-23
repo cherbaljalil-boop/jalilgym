@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_today_title">Today</string>
+    <string name="feature_today_subtitle">Your plan for the day</string>
+    <plurals name="feature_today_exercises_ready">
+        <item quantity="one">exercise ready in your library</item>
+        <item quantity="other">exercises ready in your library</item>
+    </plurals>
+    <string name="feature_today_workout_title">Today\'s workout</string>
+    <string name="feature_today_workout_desc">Start your next program day with one tap.</string>
+    <string name="feature_today_macros_title">Calories &amp; macros</string>
+    <string name="feature_today_macros_desc">See what\'s left to eat today at a glance.</string>
+    <string name="feature_today_streak_title">Training streak</string>
+    <string name="feature_today_streak_desc">Weeks on target — rest days never break it.</string>
+</resources>

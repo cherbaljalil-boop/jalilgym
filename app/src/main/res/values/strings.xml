@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Jalilgym</string>
+    <string name="tab_today">Today</string>
+    <string name="tab_train">Train</string>
+    <string name="tab_nutrition">Nutrition</string>
+    <string name="tab_progress">Progress</string>
+    <string name="tab_profile">Profile</string>
+</resources>

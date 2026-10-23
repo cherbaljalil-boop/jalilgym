@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_nutrition_title">Nutrition</string>
+    <string name="feature_nutrition_subtitle">Fuel that matches your goal</string>
+    <string name="feature_nutrition_diary_title">Food diary</string>
+    <string name="feature_nutrition_diary_desc">Log meals with a calorie ring, macro bars and basic micronutrients.</string>
+    <string name="feature_nutrition_scan_title">Search &amp; barcode scan</string>
+    <string name="feature_nutrition_scan_desc">Open Food Facts search and on-device barcode scanning, with halal filtering.</string>
+    <string name="feature_nutrition_targets_title">Targets</string>
+    <string name="feature_nutrition_targets_desc">Calories and macros for cutting, lean bulking or maintenance.</string>
+</resources>

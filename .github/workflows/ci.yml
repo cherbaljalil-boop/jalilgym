@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "claude/**"]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build, lint & unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Assemble debug
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Unit tests
+        run: >
+          ./gradlew testDebugUnitTest
+          :core:common:test :core:model:test :core:domain:test :core:testing:test
+          --stacktrace
+
+      - name: Android lint
+        run: ./gradlew lintDebug --stacktrace
+
+      - name: Room schema is committed
+        run: |
+          if [ -n "$(git status --porcelain core/database/schemas)" ]; then
+            echo "::error::Room schema changed. Commit the files under core/database/schemas."
+            git status --porcelain core/database/schemas
+            find core/database/schemas -name '*.json' -exec cat {} \;
+            exit 1
+          fi
+
+      - name: Upload reports
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: |
+            **/build/reports/
+            **/build/test-results/
+          retention-days: 7
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: jalilgym-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
+          retention-days: 14

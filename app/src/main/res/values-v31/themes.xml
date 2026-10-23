@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Android 12+: adds the "Created by CH.Djalil" branding line to the splash screen. -->
+    <style name="Theme.Jalilgym.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/jg_near_black</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/splash_branding</item>
+        <item name="postSplashScreenTheme">@style/Theme.Jalilgym</item>
+    </style>
+</resources>

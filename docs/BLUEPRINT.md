@@ -1,6 +1,6 @@
 # Jalilgym — Product & Architecture Blueprint
 
-> **Status:** Draft v1.0, awaiting approval. No code is written until this is signed off.
+> **Status:** v1.0 — **approved** (all §13 recommendations accepted). Phase 0 in progress.
 > **Created by CH.Djalil**
 
 ---
@@ -27,12 +27,12 @@
 | 3.4 / 3.5 | Hydration / grocery | **Out of scope** |
 | 4.1 | Stack | Native Kotlin + Jetpack Compose (M3) |
 | 4.2 | Architecture | Clean Architecture, MVVM/MVI, Hilt, Coroutines/Flow, Navigation Compose, multi-module |
-| 4.3 | Storage | Room + Proto/Preferences DataStore |
+| 4.3 | Storage | Room + typed DataStore (see §5.1 note) |
 | 4.4 | Backend | Fully offline-first and local only. Repositories are designed so sync can be added later |
 | 4.5 | Integrations | Health Connect |
 | 4.6 | minSdk | 26 (Android 8.0) |
 | 4.7 | Language | English only. All strings live in resources so the app can be translated later |
-| 4.8 | Quality | Unit tests (ViewModels, calculators), Room DAO tests, Compose UI tests for critical flows |
+| 4.8 | Quality | Unit tests (ViewModels, calculators), Room DAO tests, Compose UI tests for critical flows, plus GitHub Actions CI (§13 Q9) |
 | 5.1 | Onboarding | Goal + experience level |
 | 5.2 | Retention | Streaks where rest days don't break them, achievements and badges, private progress photos |
 | 5.3 | Monetization | 100% free, no ads |
@@ -40,7 +40,7 @@
 | 6.1 | MVP scope | Both pillars (training and nutrition) at a basic level |
 | 6.3 | Credit | "Created by CH.Djalil" shown in the app |
 
-### 0.1 Assumptions I made (please confirm or correct; full list in §13)
+### 0.1 Assumptions (all confirmed — see §13)
 - **A1. Active session timer is included.** You didn't select it, but session duration is needed for Health Connect workouts and for stats.
 - **A2. Media in v1 is static images (WebP).** The data model leaves room for animated WebP or video later.
 - **A3. Body stats** (sex, age, height, weight, activity level) are collected in a **Nutrition setup** step the first time you open Nutrition. Onboarding stays at two questions.
@@ -375,7 +375,7 @@ flowchart TD
 | Async | Coroutines + Flow |
 | Navigation | Navigation Compose, type-safe routes |
 | Database | Room (KSP), exported schemas, auto- and manual migrations |
-| Preferences | **Proto DataStore** (typed settings) |
+| Preferences | **Typed DataStore** with a kotlinx.serialization JSON serializer* |
 | Network | Retrofit + OkHttp + kotlinx.serialization (Open Food Facts only) |
 | Images | Coil 3 |
 | Charts | Vico (Compose-native charts) |
@@ -385,8 +385,11 @@ flowchart TD
 | Splash | AndroidX Core SplashScreen |
 | Build | Gradle Kotlin DSL, **version catalog** (`libs.versions.toml`), **convention plugins** in `build-logic/` |
 | Static analysis | Android Lint, ktlint (via Spotless), Detekt |
-| SDK levels | `minSdk 26`, `targetSdk`/`compileSdk` = latest stable at setup |
-| Package | `com.chdjalil.jalilgym` (proposed, see §13) |
+| SDK levels | `minSdk 26`, `compileSdk 37`, `targetSdk 37` (Android 17) |
+| Package | `com.chdjalil.jalilgym` |
+| Toolchain (at Phase 0) | Gradle 9.8.2 · AGP 9.4.0 (built-in Kotlin) · Kotlin 2.4.21 · KSP 2.3.12 · Hilt 2.60.1 · Compose BOM 2026.09.00 · Room 2.8.5 · JDK 17 |
+
+\* *Change from the interview's "Proto DataStore":* settings use the same typed `DataStore<T>` API, but serialize with kotlinx.serialization (already used for navigation and seed data) instead of protobuf. That avoids the protoc Gradle plugin and keeps every field defaulted, so adding a setting never needs a migration. The guarantees are the same: atomic, transactional, Flow-based, and corruption-handled.
 
 ### 5.2 Layering
 ```
@@ -413,8 +416,7 @@ UI (Compose screens)  ──events──▶  ViewModel  ──calls──▶  Us
 :core:domain                  – Use cases + calculators (pure Kotlin, heavily unit-tested)
 :core:data                    – Repository implementations
 :core:database                – Room DB, entities, DAOs, migrations, seed loader
-:core:datastore               – Proto DataStore (user prefs, onboarding, body profile)
-:core:datastore-proto         – .proto schemas
+:core:datastore               – Typed DataStore (user prefs, onboarding, body profile, seed version)
 :core:network                 – Open Food Facts client
 :core:healthconnect           – Health Connect wrapper
 :core:designsystem            – Theme, colors, type, JG* components, body heatmap
@@ -756,7 +758,8 @@ erDiagram
 ```
 Log entries store a **macro snapshot**, so editing or re-caching a food never changes past diary days.
 
-### 6.4 Proto DataStore (`UserPreferences`)
+### 6.4 DataStore (`UserPreferencesData`)
+Shown in protobuf-style notation for readability; the implementation is a `@Serializable` Kotlin data class in `:core:datastore`. Fields are added phase by phase.
 ```proto
 message UserPreferences {
   bool onboarding_complete = 1;
@@ -816,7 +819,7 @@ message UserPreferences {
 | Compose UI tests | `compose-ui-test` + Hilt testing | Critical flows: (1) onboarding → first workout start, (2) log sets → rest timer → finish → summary shows PR, (3) build a custom program, (4) search or scan → log food → totals update |
 | Network | MockWebServer | Open Food Facts parsing, halal label mapping, offline fallback |
 
-Not chosen: CI. Tests run locally with `./gradlew test connectedCheck`. A GitHub Actions workflow can be added any time (§13 Q9).
+**CI (§13 Q9):** `.github/workflows/ci.yml` runs assemble, unit tests (including Robolectric DAO and Compose tests), Android lint, and a check that the Room schema is committed, on every push and PR. Compose UI tests run on Robolectric, so CI needs no emulator.
 
 ---
 
@@ -858,17 +861,21 @@ Hydration, grocery list, social features or leaderboards, accounts and cloud syn
 
 ---
 
-## 13. Open Questions (please answer before Phase 0)
-1. **Q1 (A1):** Include the active session timer? (Recommended: **yes**)
-2. **Q2 (A2):** Is static images in v1 okay, with the model ready for animated WebP or video later? (Recommended: **yes**)
-3. **Q3 (A3):** Collect body stats in Nutrition setup, or add them to onboarding? (Recommended: **Nutrition setup**)
-4. **Q4 (A4):** Metric by default with a toggle in Settings? (Recommended: **yes**)
-5. **Q5:** Bundle about 300 **generic whole foods** (chicken breast, rice, eggs, oats…) from USDA FoodData Central, which is public domain, so manual logging and recipes work offline? Open Food Facts mostly covers packaged products. (Recommended: **yes**, adds about 200 KB)
-6. **Q6 (A5):** Show the starter-program suggestion at the end of onboarding? (Recommended: **yes**)
-7. **Q7:** Application ID / package name: `com.chdjalil.jalilgym`, or something else?
-8. **Q8:** PPL: offer both 3-day and 6-day variants? (Recommended: **yes**)
-9. **Q9:** Add a GitHub Actions CI workflow (build + lint + unit tests) in Phase 0? (Recommended: **yes**, cheap insurance; you didn't select it)
-10. **Q10:** Is the v1.0 / v1.1 split in §10 right? In particular, are you okay with Health Connect and the recipe builder landing in v1.1?
+## 13. Resolved Questions
+All recommendations were accepted (*"all recommended"*):
+
+| # | Question | Decision |
+|---|---|---|
+| Q1 | Active session timer | **Included** |
+| Q2 | Exercise media | **Static WebP images in v1**; model supports animated/video later |
+| Q3 | Body stats | Collected in **Nutrition setup**, not onboarding |
+| Q4 | Units | **Metric default**, toggle in Settings |
+| Q5 | Offline generic foods | **Bundle ~300 USDA FoodData Central foods** (public domain) |
+| Q6 | Starter program | **Suggested at the end of onboarding** (skippable) |
+| Q7 | Package name | **`com.chdjalil.jalilgym`** |
+| Q8 | PPL variants | **Both 3-day and 6-day** |
+| Q9 | CI | **GitHub Actions** added in Phase 0 |
+| Q10 | Release split | **As in §10**: Health Connect, recipe builder and meal suggestions in v1.1 |
 
 ---
 

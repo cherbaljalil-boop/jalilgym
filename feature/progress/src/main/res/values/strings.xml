@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_progress_title">Progress</string>
+    <string name="feature_progress_subtitle">See how far you have come</string>
+    <string name="feature_progress_strength_title">Strength &amp; volume</string>
+    <string name="feature_progress_strength_desc">Estimated 1RM charts and weekly volume per muscle.</string>
+    <string name="feature_progress_records_title">Personal records</string>
+    <string name="feature_progress_records_desc">Every PR with its full history.</string>
+    <string name="feature_progress_body_title">Body &amp; photos</string>
+    <string name="feature_progress_body_desc">Weight trend, measurements and private progress photos.</string>
+</resources>

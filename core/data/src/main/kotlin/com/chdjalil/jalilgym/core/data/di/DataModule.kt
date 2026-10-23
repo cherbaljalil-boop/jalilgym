@@ -1,0 +1,28 @@
+package com.chdjalil.jalilgym.core.data.di
+
+import com.chdjalil.jalilgym.core.data.repository.OfflineFirstExerciseRepository
+import com.chdjalil.jalilgym.core.data.repository.OfflineFirstSeedRepository
+import com.chdjalil.jalilgym.core.data.repository.OfflineFirstUserPreferencesRepository
+import com.chdjalil.jalilgym.core.domain.repository.ExerciseRepository
+import com.chdjalil.jalilgym.core.domain.repository.SeedRepository
+import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+
+@Module
+@InstallIn(SingletonComponent::class)
+internal abstract class DataModule {
+
+    @Binds
+    abstract fun bindsUserPreferencesRepository(
+        impl: OfflineFirstUserPreferencesRepository,
+    ): UserPreferencesRepository
+
+    @Binds
+    abstract fun bindsExerciseRepository(impl: OfflineFirstExerciseRepository): ExerciseRepository
+
+    @Binds
+    abstract fun bindsSeedRepository(impl: OfflineFirstSeedRepository): SeedRepository
+}
