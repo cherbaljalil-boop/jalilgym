@@ -19,4 +19,6 @@ dependencies {
 }
 
 // Migration tests (Robolectric) read the exported schemas as test assets.
-android.sourceSets.getByName("test").assets.srcDir(file("schemas"))
+extensions.configure<com.android.build.api.dsl.LibraryExtension> {
+    sourceSets.getByName("test").assets.srcDir(file("schemas"))
+}
