@@ -9,23 +9,25 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
-    override fun apply(target: Project) = with(target) {
-        pluginManager.apply(libs.pluginId("android-application"))
+    override fun apply(target: Project) {
+        with(target) {
+            pluginManager.apply(libs.pluginId("android-application"))
 
-        extensions.configure<ApplicationExtension> {
-            compileSdk = libs.intVersion("compileSdk")
-            defaultConfig {
-                minSdk = libs.intVersion("minSdk")
-                targetSdk = libs.intVersion("targetSdk")
+            extensions.configure<ApplicationExtension> {
+                compileSdk = libs.intVersion("compileSdk")
+                defaultConfig {
+                    minSdk = libs.intVersion("minSdk")
+                    targetSdk = libs.intVersion("targetSdk")
+                }
+                compileOptions {
+                    sourceCompatibility = JAVA_VERSION
+                    targetCompatibility = JAVA_VERSION
+                }
+                testOptions {
+                    unitTests.isIncludeAndroidResources = true
+                }
             }
-            compileOptions {
-                sourceCompatibility = JAVA_VERSION
-                targetCompatibility = JAVA_VERSION
-            }
-            testOptions {
-                unitTests.isIncludeAndroidResources = true
-            }
+            addCommonTestDependencies()
         }
-        addCommonTestDependencies()
     }
 }

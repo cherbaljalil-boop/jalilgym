@@ -11,16 +11,18 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
 /** Pure Kotlin module (no Android dependencies). */
 class JvmLibraryConventionPlugin : Plugin<Project> {
-    override fun apply(target: Project) = with(target) {
-        pluginManager.apply(libs.pluginId("kotlin-jvm"))
+    override fun apply(target: Project) {
+        with(target) {
+            pluginManager.apply(libs.pluginId("kotlin-jvm"))
 
-        extensions.configure<JavaPluginExtension> {
-            sourceCompatibility = JAVA_VERSION
-            targetCompatibility = JAVA_VERSION
+            extensions.configure<JavaPluginExtension> {
+                sourceCompatibility = JAVA_VERSION
+                targetCompatibility = JAVA_VERSION
+            }
+            extensions.configure<KotlinJvmProjectExtension> {
+                compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
+            }
+            addCommonTestDependencies()
         }
-        extensions.configure<KotlinJvmProjectExtension> {
-            compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
-        }
-        addCommonTestDependencies()
     }
 }
