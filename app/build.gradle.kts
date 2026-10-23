@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.jalilgym.android.application.compose)
     alias(libs.plugins.jalilgym.hilt)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.baselineprofile)
 }
 
 android {
@@ -62,6 +63,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.profileinstaller)
+    baselineProfile(projects.baselineprofile)
 
     testImplementation(projects.core.testing)
 }
