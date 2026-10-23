@@ -1,8 +1,14 @@
 name: Update Room schema
 
-# Manually triggered: regenerates core/database/schemas and commits it to the
-# selected branch. Use when the schema changed and can't be built locally.
+# Regenerates core/database/schemas whenever the database module changes and
+# commits the result to the same branch, so the schema can be kept in git even
+# without a local Android build. It can also be run by hand.
 on:
+  push:
+    branches: [main, "claude/**"]
+    paths:
+      - "core/database/**"
+      - ".github/workflows/room-schema.yml"
   workflow_dispatch:
 
 permissions:
