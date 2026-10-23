@@ -54,7 +54,24 @@ class SeedImporter @Inject constructor(
         }
     }
 
+    fun readFoodSeed(): FoodSeedFile =
+        context.assets.open(FOODS_ASSET).bufferedReader().use { reader ->
+            json.decodeFromString(FoodSeedFile.serializer(), reader.readText())
+        }
+
+    suspend fun importFoods(seed: FoodSeedFile, now: Long = System.currentTimeMillis()) {
+        val dao = database.foodDao()
+        database.withTransaction {
+            val existing = seed.foods.associate { it.id to dao.getFood(it.id)?.food }
+            dao.replaceFoods(
+                seed.foods.map { it.toEntity(now, existing[it.id]) },
+                seed.foods.flatMap { it.servingEntities() },
+            )
+        }
+    }
+
     companion object {
+        const val FOODS_ASSET = "seed/foods.json"
         const val EXERCISES_ASSET = "seed/exercises.json"
         const val PROGRAMS_ASSET = "seed/programs.json"
         private val json = Json { ignoreUnknownKeys = true }

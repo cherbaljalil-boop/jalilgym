@@ -4,9 +4,13 @@ import android.content.Context
 import androidx.room.Room
 import com.chdjalil.jalilgym.core.database.JalilgymDatabase
 import com.chdjalil.jalilgym.core.database.dao.BodyDao
+import com.chdjalil.jalilgym.core.database.dao.DietPlanDao
 import com.chdjalil.jalilgym.core.database.dao.ExerciseDao
+import com.chdjalil.jalilgym.core.database.dao.FoodDao
+import com.chdjalil.jalilgym.core.database.dao.FoodLogDao
 import com.chdjalil.jalilgym.core.database.dao.ProgramDao
 import com.chdjalil.jalilgym.core.database.dao.ProgressDao
+import com.chdjalil.jalilgym.core.database.dao.SavedMealDao
 import com.chdjalil.jalilgym.core.database.dao.WorkoutDao
 import dagger.Module
 import dagger.Provides
@@ -38,4 +42,16 @@ object DatabaseModule {
 
     @Provides
     fun provideBodyDao(database: JalilgymDatabase): BodyDao = database.bodyDao()
+
+    @Provides
+    fun provideFoodDao(database: JalilgymDatabase): FoodDao = database.foodDao()
+
+    @Provides
+    fun provideFoodLogDao(database: JalilgymDatabase): FoodLogDao = database.foodLogDao()
+
+    @Provides
+    fun provideSavedMealDao(database: JalilgymDatabase): SavedMealDao = database.savedMealDao()
+
+    @Provides
+    fun provideDietPlanDao(database: JalilgymDatabase): DietPlanDao = database.dietPlanDao()
 }

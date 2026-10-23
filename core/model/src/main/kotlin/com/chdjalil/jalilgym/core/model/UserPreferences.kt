@@ -15,6 +15,9 @@ data class UserPreferences(
     val starterProgram: StarterProgram? = null,
     /** True once [starterProgram] has been turned into a real, active program. */
     val starterProgramApplied: Boolean = false,
+    /** Answers from nutrition setup; null until it's done. */
+    val bodyProfile: BodyProfile? = null,
+    val halalFilter: HalalFilter = HalalFilter.ALL,
 )
 
 enum class Goal { BUILD_MUSCLE, LOSE_FAT, GET_STRONGER, GENERAL_FITNESS, ENDURANCE }

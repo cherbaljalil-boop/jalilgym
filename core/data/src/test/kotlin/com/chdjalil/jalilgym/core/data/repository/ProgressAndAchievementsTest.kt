@@ -35,7 +35,13 @@ class ProgressAndAchievementsTest {
     fun setUp() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         database = Room.inMemoryDatabaseBuilder(context, JalilgymDatabase::class.java).allowMainThreadQueries().build()
-        achievements = OfflineFirstAchievementRepository(database.progressDao(), database.bodyDao(), database.programDao())
+        achievements = OfflineFirstAchievementRepository(
+            database.progressDao(),
+            database.bodyDao(),
+            database.programDao(),
+            database.foodLogDao(),
+            database.dietPlanDao(),
+        )
         workouts = OfflineFirstWorkoutRepository(
             database.workoutDao(),
             database.programDao(),

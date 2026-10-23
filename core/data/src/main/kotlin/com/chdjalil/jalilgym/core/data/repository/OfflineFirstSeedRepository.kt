@@ -34,6 +34,11 @@ internal class OfflineFirstSeedRepository @Inject constructor(
                 importer.importPrograms(programs)
                 preferences.setInstalledProgramSeedVersion(programs.version)
             }
+            val foods = importer.readFoodSeed()
+            if (foods.version > preferences.installedFoodSeedVersion()) {
+                importer.importFoods(foods)
+                preferences.setInstalledFoodSeedVersion(foods.version)
+            }
         }
     }
 }

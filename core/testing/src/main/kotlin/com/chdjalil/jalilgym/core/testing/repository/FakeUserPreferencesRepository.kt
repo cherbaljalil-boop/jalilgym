@@ -1,9 +1,11 @@
 package com.chdjalil.jalilgym.core.testing.repository
 
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
+import com.chdjalil.jalilgym.core.model.BodyProfile
 import com.chdjalil.jalilgym.core.model.EffortScale
 import com.chdjalil.jalilgym.core.model.ExperienceLevel
 import com.chdjalil.jalilgym.core.model.Goal
+import com.chdjalil.jalilgym.core.model.HalalFilter
 import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
@@ -27,6 +29,10 @@ class FakeUserPreferencesRepository(
 
     override suspend fun setEffortScale(effortScale: EffortScale) =
         state.update { it.copy(effortScale = effortScale) }
+
+    override suspend fun setBodyProfile(profile: BodyProfile) = state.update { it.copy(bodyProfile = profile) }
+
+    override suspend fun setHalalFilter(filter: HalalFilter) = state.update { it.copy(halalFilter = filter) }
 
     override suspend fun markStarterProgramApplied() = state.update { it.copy(starterProgramApplied = true) }
 

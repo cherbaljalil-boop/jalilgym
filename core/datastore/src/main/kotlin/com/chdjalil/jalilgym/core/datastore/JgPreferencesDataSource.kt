@@ -1,9 +1,11 @@
 package com.chdjalil.jalilgym.core.datastore
 
 import androidx.datastore.core.DataStore
+import com.chdjalil.jalilgym.core.model.BodyProfile
 import com.chdjalil.jalilgym.core.model.EffortScale
 import com.chdjalil.jalilgym.core.model.ExperienceLevel
 import com.chdjalil.jalilgym.core.model.Goal
+import com.chdjalil.jalilgym.core.model.HalalFilter
 import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
@@ -26,6 +28,14 @@ class JgPreferencesDataSource @Inject constructor(
 
     suspend fun setInstalledProgramSeedVersion(version: Int) =
         update { it.copy(installedProgramSeedVersion = version) }
+
+    suspend fun installedFoodSeedVersion(): Int = dataStore.data.first().installedFoodSeedVersion
+
+    suspend fun setInstalledFoodSeedVersion(version: Int) = update { it.copy(installedFoodSeedVersion = version) }
+
+    suspend fun setBodyProfile(profile: BodyProfile) = update { it.copy(bodyProfile = profile.toData()) }
+
+    suspend fun setHalalFilter(filter: HalalFilter) = update { it.copy(halalFilter = filter) }
 
     suspend fun markStarterProgramApplied() = update { it.copy(starterProgramApplied = true) }
 

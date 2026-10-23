@@ -12,11 +12,15 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.database)
     implementation(projects.core.datastore)
+    implementation(projects.core.network)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
 
     testImplementation(projects.core.testing)
     testImplementation(libs.androidx.room.runtime)
     testImplementation(libs.robolectric)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.androidx.test.ext.junit)
+    testImplementation(libs.okhttp.mockwebserver)
 }

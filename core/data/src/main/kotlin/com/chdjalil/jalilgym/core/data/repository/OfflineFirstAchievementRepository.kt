@@ -1,15 +1,21 @@
 package com.chdjalil.jalilgym.core.data.repository
 
 import com.chdjalil.jalilgym.core.database.dao.BodyDao
+import com.chdjalil.jalilgym.core.database.dao.DietPlanDao
+import com.chdjalil.jalilgym.core.database.dao.FoodLogDao
 import com.chdjalil.jalilgym.core.database.dao.ProgramDao
 import com.chdjalil.jalilgym.core.database.dao.ProgressDao
 import com.chdjalil.jalilgym.core.database.entity.AchievementUnlockEntity
+import com.chdjalil.jalilgym.core.domain.nutrition.bestLoggingStreak
+import com.chdjalil.jalilgym.core.domain.nutrition.hitTargets
 import com.chdjalil.jalilgym.core.domain.progress.ACHIEVEMENTS
 import com.chdjalil.jalilgym.core.domain.progress.AchievementStats
 import com.chdjalil.jalilgym.core.domain.progress.earnedAchievements
 import com.chdjalil.jalilgym.core.domain.progress.trainingStreak
 import com.chdjalil.jalilgym.core.domain.repository.AchievementRepository
 import com.chdjalil.jalilgym.core.model.AchievementStatus
+import com.chdjalil.jalilgym.core.model.MacroTargets
+import com.chdjalil.jalilgym.core.model.Nutrients
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
@@ -24,12 +30,24 @@ internal class OfflineFirstAchievementRepository @Inject constructor(
     private val progressDao: ProgressDao,
     private val bodyDao: BodyDao,
     private val programDao: ProgramDao,
+    private val foodLogDao: FoodLogDao,
+    private val dietPlanDao: DietPlanDao,
 ) : AchievementRepository {
 
     private val syncLock = Mutex()
 
-    /** Nutrition stats are zero until food logging exists (Phase 5). */
-    private val stats: Flow<AchievementStats> = combine(
+    /** Entries logged, best logging streak and days on target (judged against the current plan). */
+    private val nutrition: Flow<Triple<Int, Int, Int>> = combine(
+        foodLogDao.observeEntryCount(),
+        foodLogDao.observeDailyTotals(),
+        dietPlanDao.observeActive(),
+    ) { entries, days, plan ->
+        val targets = plan?.let { MacroTargets(it.calories, it.proteinG, it.carbsG, it.fatG) }
+        val hit = if (targets == null) 0 else days.count { hitTargets(Nutrients(it.kcal, it.proteinG, 0.0, 0.0), targets) }
+        Triple(entries, bestLoggingStreak(days.map { it.date }), hit)
+    }
+
+    private val trainingStats: Flow<AchievementStats> = combine(
         combine(progressDao.observeWorkoutStarts(), programDao.observeActive()) { starts, active ->
             val target = active?.program?.program?.daysPerWeek ?: DEFAULT_WEEKLY_TARGET
             starts.size to trainingStreak(starts.map { it.toLocalDate() }, target, LocalDate.now()).bestWeeks
@@ -55,6 +73,10 @@ internal class OfflineFirstAchievementRepository @Inject constructor(
             customExercises = exercises,
             photos = photos,
         )
+    }
+
+    private val stats: Flow<AchievementStats> = combine(trainingStats, nutrition) { training, (meals, streak, hit) ->
+        training.copy(mealsLogged = meals, loggingStreakDays = streak, macroDaysHit = hit)
     }
 
     override fun observeAchievements(): Flow<List<AchievementStatus>> =
