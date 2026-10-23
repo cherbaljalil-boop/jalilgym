@@ -14,6 +14,8 @@
     <string name="feature_nutrition_today">Today</string>
     <string name="feature_nutrition_previous_day">Previous day</string>
     <string name="feature_nutrition_next_day">Next day</string>
+    <string name="feature_nutrition_go_to_today">Go to today</string>
+    <string name="feature_nutrition_edit_amount">Edit amount</string>
     <plurals name="feature_nutrition_logging_streak">
         <item quantity="one">%1$d day logged</item>
         <item quantity="other">%1$d days in a row</item>

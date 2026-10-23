@@ -17,6 +17,7 @@ import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -42,7 +43,11 @@ import com.chdjalil.jalilgym.core.model.UserPreferences
 import com.chdjalil.jalilgym.core.ui.EntryCard
 
 @Composable
-internal fun ProfileScreen(onOpenAchievements: () -> Unit, viewModel: ProfileViewModel = hiltViewModel()) {
+internal fun ProfileScreen(
+    onOpenAchievements: () -> Unit,
+    onOpenLicenses: () -> Unit,
+    viewModel: ProfileViewModel = hiltViewModel(),
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val versionName = remember(context) {
@@ -50,7 +55,13 @@ internal fun ProfileScreen(onOpenAchievements: () -> Unit, viewModel: ProfileVie
             .getOrNull()
             .orEmpty()
     }
-    ProfileContent(uiState = uiState, versionName = versionName, onEvent = viewModel::onEvent, onOpenAchievements = onOpenAchievements)
+    ProfileContent(
+        uiState = uiState,
+        versionName = versionName,
+        onEvent = viewModel::onEvent,
+        onOpenAchievements = onOpenAchievements,
+        onOpenLicenses = onOpenLicenses,
+    )
 }
 
 @Composable
@@ -60,6 +71,7 @@ internal fun ProfileContent(
     onEvent: (ProfileEvent) -> Unit,
     modifier: Modifier = Modifier,
     onOpenAchievements: () -> Unit = {},
+    onOpenLicenses: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -80,7 +92,7 @@ internal fun ProfileContent(
             if (uiState is ProfileUiState.Ready) {
                 SettingsSection(uiState.preferences, onEvent)
             }
-            AboutSection(versionName)
+            AboutSection(versionName, onOpenLicenses)
         }
     }
 }
@@ -147,7 +159,7 @@ private fun <T> ChoiceSetting(
 }
 
 @Composable
-private fun AboutSection(versionName: String) {
+private fun AboutSection(versionName: String, onOpenLicenses: () -> Unit) {
     SectionTitle(R.string.feature_profile_about)
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -180,6 +192,7 @@ private fun AboutSection(versionName: String) {
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
+            TextButton(onClick = onOpenLicenses) { Text(stringResource(R.string.feature_profile_licenses)) }
         }
     }
 }

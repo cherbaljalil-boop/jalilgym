@@ -17,3 +17,6 @@ dependencies {
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.androidx.test.ext.junit)
 }
+
+// Migration tests (Robolectric) read the exported schemas as test assets.
+android.sourceSets.getByName("test").assets.srcDir(file("schemas"))

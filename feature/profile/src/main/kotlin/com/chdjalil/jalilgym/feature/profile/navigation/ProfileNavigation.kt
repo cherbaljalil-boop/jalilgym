@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.chdjalil.jalilgym.feature.profile.ProfileScreen
 import com.chdjalil.jalilgym.feature.profile.achievements.AchievementsScreen
+import com.chdjalil.jalilgym.feature.profile.licenses.LicensesScreen
 import kotlinx.serialization.Serializable
 
 /** The Profile tab, so the tab stays selected on its inner screens. */
@@ -19,11 +20,20 @@ data object ProfileRoute
 @Serializable
 data object AchievementsRoute
 
+@Serializable
+data object LicensesRoute
+
 fun NavController.navigateToProfile(navOptions: NavOptions? = null) = navigate(ProfileGraph, navOptions)
 
 fun NavGraphBuilder.profileGraph(navController: NavController) {
     navigation<ProfileGraph>(startDestination = ProfileRoute) {
-        composable<ProfileRoute> { ProfileScreen(onOpenAchievements = { navController.navigate(AchievementsRoute) }) }
+        composable<ProfileRoute> {
+            ProfileScreen(
+                onOpenAchievements = { navController.navigate(AchievementsRoute) },
+                onOpenLicenses = { navController.navigate(LicensesRoute) },
+            )
+        }
         composable<AchievementsRoute> { AchievementsScreen(onBack = navController::popBackStack) }
+        composable<LicensesRoute> { LicensesScreen(onBack = navController::popBackStack) }
     }
 }

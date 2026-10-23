@@ -35,6 +35,7 @@ include(":core:datastore")
 include(":core:network")
 include(":core:designsystem")
 include(":core:ui")
+include(":core:uitest")
 include(":core:testing")
 
 include(":feature:onboarding")

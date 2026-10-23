@@ -7,6 +7,7 @@ android {
 }
 
 dependencies {
+    testImplementation(projects.core.uitest)
     implementation(libs.androidx.activity.compose)
     implementation(libs.coil.compose)
 }

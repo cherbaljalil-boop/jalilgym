@@ -39,6 +39,7 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
@@ -197,7 +198,12 @@ private fun DateBar(uiState: DiaryUiState, onPrevious: () -> Unit, onNext: () ->
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier
                 .weight(1f)
-                .clickable(enabled = !uiState.isToday, onClick = onToday),
+                .clickable(
+                    enabled = !uiState.isToday,
+                    onClickLabel = stringResource(R.string.feature_nutrition_go_to_today),
+                    role = Role.Button,
+                    onClick = onToday,
+                ),
         )
         if (uiState.loggingStreak > 0) {
             Text(
@@ -332,7 +338,10 @@ private fun MealSection(
                 Row(
                     Modifier
                         .fillMaxWidth()
-                        .clickable(enabled = entry.foodId != null) { onEdit(entry) }
+                        .clickable(
+                            enabled = entry.foodId != null,
+                            onClickLabel = stringResource(R.string.feature_nutrition_edit_amount),
+                        ) { onEdit(entry) }
                         .padding(vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {

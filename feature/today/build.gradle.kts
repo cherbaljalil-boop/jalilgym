@@ -5,3 +5,7 @@ plugins {
 android {
     namespace = "com.chdjalil.jalilgym.feature.today"
 }
+
+dependencies {
+    testImplementation(projects.core.uitest)
+}
