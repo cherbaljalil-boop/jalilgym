@@ -91,3 +91,57 @@ jobs:
           name: jalilgym-debug-apk
           path: app/build/outputs/apk/debug/*.apk
           retention-days: 14
+
+  release:
+    name: Signed release build (R8)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: gradle/actions/setup-gradle@v5
+
+      # Uses the upload key from repository secrets when they're set (see
+      # docs/RELEASING.md); otherwise a throwaway key proves the signed, minified
+      # build works. Builds signed with the throwaway key can't go to Play.
+      - name: Prepare signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/release.jks"
+          else
+            keytool -genkeypair -keystore "$RUNNER_TEMP/release.jks" -alias ci \
+              -storepass ci-only-password -keypass ci-only-password \
+              -keyalg RSA -keysize 2048 -validity 1 -dname "CN=Jalilgym CI test key" -noprompt
+          fi
+
+      - name: Assemble and bundle release
+        env:
+          JALILGYM_KEYSTORE_FILE: ${{ runner.temp }}/release.jks
+          JALILGYM_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD || 'ci-only-password' }}
+          JALILGYM_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS || 'ci' }}
+          JALILGYM_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD || 'ci-only-password' }}
+        run: ./gradlew :app:assembleRelease :app:bundleRelease
+
+      - name: Verify signatures
+        run: |
+          apksigner="$(ls -d "$ANDROID_HOME"/build-tools/*/ | sort -V | tail -1)apksigner"
+          "$apksigner" verify --verbose --print-certs app/build/outputs/apk/release/app-release.apk
+          jarsigner -verify app/build/outputs/bundle/release/app-release.aab
+
+      - name: Upload release builds
+        uses: actions/upload-artifact@v5
+        with:
+          name: jalilgym-release-${{ secrets.RELEASE_KEYSTORE_BASE64 != '' && 'upload-key' || 'ci-test-key' }}
+          path: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/bundle/release/*.aab
+            app/build/outputs/mapping/release/mapping.txt
+          retention-days: 14
+

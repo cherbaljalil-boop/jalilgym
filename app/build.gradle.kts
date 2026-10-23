@@ -10,11 +10,24 @@ android {
     defaultConfig {
         applicationId = "com.chdjalil.jalilgym"
         versionCode = 1
-        versionName = "0.1.0"
+        versionName = "1.0.0"
+    }
+
+    // Release signing comes from the environment so no key or password is ever
+    // committed (see docs/RELEASING.md). Without it the release build is unsigned.
+    val keystoreFile = providers.environmentVariable("JALILGYM_KEYSTORE_FILE").orNull
+    val releaseSigning = keystoreFile?.let { path ->
+        signingConfigs.create("release") {
+            storeFile = file(path)
+            storePassword = providers.environmentVariable("JALILGYM_KEYSTORE_PASSWORD").get()
+            keyAlias = providers.environmentVariable("JALILGYM_KEY_ALIAS").get()
+            keyPassword = providers.environmentVariable("JALILGYM_KEY_PASSWORD").get()
+        }
     }
 
     buildTypes {
         release {
+            signingConfig = releaseSigning
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
