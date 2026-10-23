@@ -5,9 +5,18 @@ name: Baseline Profile
 # big changes to startup or navigation.
 on:
   workflow_dispatch:
+  # Also when the journeys change (manual runs need the workflow on the default branch).
+  push:
+    paths:
+      - baselineprofile/**
+      - .github/workflows/baseline-profile.yml
 
 permissions:
   contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   generate:
