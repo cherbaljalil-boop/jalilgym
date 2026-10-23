@@ -20,10 +20,10 @@ class ProfileViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private val repository = FakeUserPreferencesRepository()
-    private val viewModel = ProfileViewModel(repository)
 
     @Test
     fun `emits stored preferences`() = runTest {
+        val viewModel = ProfileViewModel(repository)
         viewModel.uiState.test {
             val first = awaitItem()
             val ready = if (first is ProfileUiState.Loading) awaitItem() else first
@@ -33,6 +33,8 @@ class ProfileViewModelTest {
 
     @Test
     fun `events update preferences`() = runTest {
+        // Created inside the test so viewModelScope picks up the test Main dispatcher.
+        val viewModel = ProfileViewModel(repository)
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
 
         viewModel.onEvent(ProfileEvent.ThemeSelected(ThemeMode.LIGHT))

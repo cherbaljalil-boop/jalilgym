@@ -7,6 +7,8 @@ import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.testing.Test
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
 
@@ -30,6 +32,10 @@ internal fun Project.addCommonTestDependencies() {
     // would otherwise report as "test sources present but no tests discovered".
     tasks.withType<Test>().configureEach {
         failOnNoDiscoveredTests.set(false)
+        testLogging {
+            events(TestLogEvent.FAILED)
+            exceptionFormat = TestExceptionFormat.FULL
+        }
     }
 
     dependencies.apply {
