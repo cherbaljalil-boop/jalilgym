@@ -3,10 +3,13 @@ package com.chdjalil.jalilgym.feature.today
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chdjalil.jalilgym.core.domain.repository.ExerciseRepository
+import com.chdjalil.jalilgym.core.domain.repository.NutritionRepository
 import com.chdjalil.jalilgym.core.domain.repository.ProgramRepository
 import com.chdjalil.jalilgym.core.domain.repository.ProgressRepository
 import com.chdjalil.jalilgym.core.domain.repository.WorkoutRepository
 import com.chdjalil.jalilgym.core.model.ActiveProgram
+import com.chdjalil.jalilgym.core.model.MacroTargets
+import com.chdjalil.jalilgym.core.model.Nutrients
 import com.chdjalil.jalilgym.core.model.TrainingStreak
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -14,6 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 data class TodayUiState(
@@ -23,6 +27,10 @@ data class TodayUiState(
     /** Name of the workout in progress, if any. */
     val workoutInProgress: String? = null,
     val streak: TrainingStreak? = null,
+    /** What's been eaten today. */
+    val eatenToday: Nutrients = Nutrients.ZERO,
+    /** Null until nutrition setup is done. */
+    val targets: MacroTargets? = null,
 )
 
 @HiltViewModel
@@ -31,15 +39,30 @@ class TodayViewModel @Inject constructor(
     private val programRepository: ProgramRepository,
     workoutRepository: WorkoutRepository,
     progressRepository: ProgressRepository,
+    nutritionRepository: NutritionRepository,
 ) : ViewModel() {
+
+    private val nutrition = combine(
+        nutritionRepository.observeDiary(LocalDate.now()),
+        nutritionRepository.observeActivePlan(),
+    ) { day, plan -> day.totals to plan?.targets }
 
     val uiState: StateFlow<TodayUiState> = combine(
         exerciseRepository.observeExerciseCount(),
         programRepository.observeActiveProgram(),
         workoutRepository.observeActiveSession(),
         progressRepository.observeTrainingStreak(),
-    ) { count, active, session, streak ->
-        TodayUiState(isLoading = false, exerciseCount = count, active = active, workoutInProgress = session?.name, streak = streak)
+        nutrition,
+    ) { count, active, session, streak, (eaten, targets) ->
+        TodayUiState(
+            isLoading = false,
+            exerciseCount = count,
+            active = active,
+            workoutInProgress = session?.name,
+            streak = streak,
+            eatenToday = eaten,
+            targets = targets,
+        )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), TodayUiState())
 
     /** Skip today's planned workout and move on to the next one in the rotation. */

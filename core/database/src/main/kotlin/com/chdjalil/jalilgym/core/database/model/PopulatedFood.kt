@@ -53,7 +53,7 @@ fun FoodLogEntryEntity.asExternalModel() = FoodLogEntry(
     foodId = foodId,
     name = nameSnapshot,
     quantityG = quantityG,
-    nutrients = Nutrients(kcal, proteinG, carbsG, fatG, fiberG = fiberG, sugarG = sugarG, sodiumMg = sodiumMg),
+    nutrients = Nutrients(kcal, proteinG, carbsG, fatG, fiberG = fiberG, sugarG = sugarG, satFatG = satFatG, sodiumMg = sodiumMg),
 )
 
 data class PopulatedSavedMealItem(

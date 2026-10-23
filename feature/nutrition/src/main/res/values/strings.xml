@@ -2,10 +2,167 @@
 <resources>
     <string name="feature_nutrition_title">Nutrition</string>
     <string name="feature_nutrition_subtitle">Fuel that matches your goal</string>
-    <string name="feature_nutrition_diary_title">Food diary</string>
-    <string name="feature_nutrition_diary_desc">Log meals with a calorie ring, macro bars and basic micronutrients.</string>
-    <string name="feature_nutrition_scan_title">Search &amp; barcode scan</string>
-    <string name="feature_nutrition_scan_desc">Open Food Facts search and on-device barcode scanning, with halal filtering.</string>
-    <string name="feature_nutrition_targets_title">Targets</string>
-    <string name="feature_nutrition_targets_desc">Calories and macros for cutting, lean bulking or maintenance.</string>
+    <string name="feature_nutrition_back">Back</string>
+    <string name="feature_nutrition_ok">OK</string>
+    <string name="feature_nutrition_cancel">Cancel</string>
+    <string name="feature_nutrition_save">Save</string>
+    <string name="feature_nutrition_add">Add</string>
+    <string name="feature_nutrition_update">Update</string>
+    <string name="feature_nutrition_disclaimer">Not medical advice. Targets are estimates; talk to a professional if you have a medical condition, are pregnant or have a history of eating disorders.</string>
+
+    <!-- Diary -->
+    <string name="feature_nutrition_today">Today</string>
+    <string name="feature_nutrition_previous_day">Previous day</string>
+    <string name="feature_nutrition_next_day">Next day</string>
+    <plurals name="feature_nutrition_logging_streak">
+        <item quantity="one">%1$d day logged</item>
+        <item quantity="other">%1$d days in a row</item>
+    </plurals>
+    <string name="feature_nutrition_setup_prompt">Answer a few questions to get calorie and macro targets for your goal.</string>
+    <string name="feature_nutrition_edit_targets">Edit targets</string>
+    <string name="feature_nutrition_kcal_left">kcal left</string>
+    <string name="feature_nutrition_kcal_over">kcal over</string>
+    <string name="feature_nutrition_kcal_eaten">kcal eaten</string>
+    <string name="feature_nutrition_ring_desc">%1$s of %2$d kcal eaten</string>
+    <string name="feature_nutrition_ring_desc_no_target">%1$s kcal eaten</string>
+    <string name="feature_nutrition_kcal_value">%1$s kcal</string>
+    <string name="feature_nutrition_grams">%1$s g</string>
+    <string name="feature_nutrition_grams_of">%1$s / %2$d g</string>
+    <string name="feature_nutrition_protein">Protein</string>
+    <string name="feature_nutrition_carbs">Carbs</string>
+    <string name="feature_nutrition_fat">Fat</string>
+    <string name="feature_nutrition_fiber">Fiber</string>
+    <string name="feature_nutrition_sugar">Sugar</string>
+    <string name="feature_nutrition_sat_fat">Sat. fat</string>
+    <string name="feature_nutrition_sodium">Sodium</string>
+    <string name="feature_nutrition_meal_breakfast">Breakfast</string>
+    <string name="feature_nutrition_meal_lunch">Lunch</string>
+    <string name="feature_nutrition_meal_dinner">Dinner</string>
+    <string name="feature_nutrition_meal_snacks">Snacks</string>
+    <string name="feature_nutrition_add_to">Add to %1$s</string>
+    <string name="feature_nutrition_scan_for">Scan a barcode for %1$s</string>
+    <string name="feature_nutrition_more_for">More options for %1$s</string>
+    <string name="feature_nutrition_entry_detail">%1$s g · %2$s kcal</string>
+    <string name="feature_nutrition_remove_entry">Remove %1$s</string>
+    <string name="feature_nutrition_quick_add">Quick add</string>
+    <string name="feature_nutrition_quick_add_to">Quick add to %1$s</string>
+    <string name="feature_nutrition_name_optional">Name (optional)</string>
+    <string name="feature_nutrition_kcal_label">Calories (kcal)</string>
+    <string name="feature_nutrition_protein_g">Protein (g)</string>
+    <string name="feature_nutrition_carbs_g">Carbs (g)</string>
+    <string name="feature_nutrition_fat_g">Fat (g)</string>
+    <string name="feature_nutrition_fiber_g">Fiber (g)</string>
+    <string name="feature_nutrition_sugar_g">Sugar (g)</string>
+    <string name="feature_nutrition_sat_fat_g">Sat. fat (g)</string>
+    <string name="feature_nutrition_sodium_mg">Sodium (mg)</string>
+    <string name="feature_nutrition_copy_previous">Copy from the day before</string>
+    <plurals name="feature_nutrition_copied">
+        <item quantity="one">Copied %1$d item</item>
+        <item quantity="other">Copied %1$d items</item>
+    </plurals>
+    <string name="feature_nutrition_nothing_to_copy">Nothing was logged for that meal the day before.</string>
+    <string name="feature_nutrition_saved_meals">Saved meals</string>
+    <string name="feature_nutrition_save_as_meal">Save as a meal</string>
+    <string name="feature_nutrition_meal_name">Meal name</string>
+    <string name="feature_nutrition_meal_saved">Meal saved. Find it under Saved meals.</string>
+    <string name="feature_nutrition_nothing_to_save">Only foods can be saved; quick-add entries can\'t.</string>
+
+    <!-- Setup and targets -->
+    <string name="feature_nutrition_setup_title">Set up nutrition</string>
+    <string name="feature_nutrition_targets_title">Targets &amp; plan</string>
+    <string name="feature_nutrition_about_you">About you</string>
+    <string name="feature_nutrition_sex_male">Male</string>
+    <string name="feature_nutrition_sex_female">Female</string>
+    <string name="feature_nutrition_sex_why">Used only for the energy estimate (Mifflin-St Jeor) and safety minimums.</string>
+    <string name="feature_nutrition_pick_birth_date">Pick your birth date</string>
+    <string name="feature_nutrition_born_on">Born %1$s</string>
+    <string name="feature_nutrition_height">Height (%1$s)</string>
+    <string name="feature_nutrition_weight">Weight (%1$s)</string>
+    <string name="feature_nutrition_activity">Activity level</string>
+    <string name="feature_nutrition_activity_sedentary">Sedentary · desk job, little exercise</string>
+    <string name="feature_nutrition_activity_light">Lightly active · 1–3 workouts a week</string>
+    <string name="feature_nutrition_activity_moderate">Moderately active · 3–5 workouts a week</string>
+    <string name="feature_nutrition_activity_very">Very active · 6–7 workouts a week</string>
+    <string name="feature_nutrition_activity_extra">Extra active · physical job plus training</string>
+    <string name="feature_nutrition_goal">Goal</string>
+    <string name="feature_nutrition_goal_cut">Cut</string>
+    <string name="feature_nutrition_goal_cut_desc">Lose fat while keeping muscle (about 20% below maintenance).</string>
+    <string name="feature_nutrition_goal_bulk">Lean bulk</string>
+    <string name="feature_nutrition_goal_bulk_desc">Build muscle with minimal fat gain (about 10% above maintenance).</string>
+    <string name="feature_nutrition_goal_maintain">Maintain / recomp</string>
+    <string name="feature_nutrition_goal_maintain_desc">Hold your weight while you train.</string>
+    <string name="feature_nutrition_style_balanced">Balanced</string>
+    <string name="feature_nutrition_style_high_protein">High protein</string>
+    <string name="feature_nutrition_halal_title">Halal preference</string>
+    <string name="feature_nutrition_halal_explainer">Products labeled halal on Open Food Facts are marked; pork, gelatin of unknown origin and alcohol are flagged. Jalilgym never calls a food halal without a label or your own mark.</string>
+    <string name="feature_nutrition_halal_filter_all">Show all</string>
+    <string name="feature_nutrition_halal_filter_hide">Hide flagged</string>
+    <string name="feature_nutrition_halal_filter_certified">Labeled or marked only</string>
+    <string name="feature_nutrition_your_targets">Your daily targets</string>
+    <string name="feature_nutrition_targets_need_info">Fill in the questions above to see your targets.</string>
+    <string name="feature_nutrition_tdee">Maintenance (TDEE): about %1$d kcal a day</string>
+    <string name="feature_nutrition_clamp_floor">Raised to %1$d kcal, the safe minimum.</string>
+    <string name="feature_nutrition_clamp_weekly">Deficit limited so you lose no more than 1% of your body weight a week.</string>
+    <string name="feature_nutrition_override_hint">Leave a field empty to use the calculated value, or type your own.</string>
+    <string name="feature_nutrition_use_computed">Use calculated targets</string>
+    <string name="feature_nutrition_save_targets">Save targets</string>
+
+    <!-- Search -->
+    <string name="feature_nutrition_search_hint">Search foods</string>
+    <string name="feature_nutrition_scan_barcode">Scan barcode</string>
+    <string name="feature_nutrition_favorites">Favorites</string>
+    <string name="feature_nutrition_recents">Recent</string>
+    <string name="feature_nutrition_search_empty_hint">Search for a food, scan a barcode, or create your own. Common foods work offline.</string>
+    <string name="feature_nutrition_search_off">Search Open Food Facts</string>
+    <string name="feature_nutrition_off_attribution">Product data from Open Food Facts (ODbL), contributed by the community. Check the label when it matters.</string>
+    <string name="feature_nutrition_offline">You\'re offline. Showing foods saved on this device.</string>
+    <string name="feature_nutrition_no_results">No matches. Try another word or create the food.</string>
+    <plurals name="feature_nutrition_hidden_by_filter">
+        <item quantity="one">%1$d result hidden by your halal filter</item>
+        <item quantity="other">%1$d results hidden by your halal filter</item>
+    </plurals>
+    <string name="feature_nutrition_create_food">Create a food</string>
+    <string name="feature_nutrition_per_100g">%1$s kcal per 100 g</string>
+    <string name="feature_nutrition_per_serving">%1$s kcal per %2$s</string>
+    <string name="feature_nutrition_protein_short">%1$s g protein/100 g</string>
+    <string name="feature_nutrition_halal_short">Halal</string>
+    <string name="feature_nutrition_flagged_short">Flagged</string>
+
+    <!-- Food detail -->
+    <string name="feature_nutrition_halal_labeled">Labeled halal</string>
+    <string name="feature_nutrition_halal_marked">Marked halal by you</string>
+    <string name="feature_nutrition_halal_flagged">Contains a flagged ingredient</string>
+    <string name="feature_nutrition_favorite">Add to favorites</string>
+    <string name="feature_nutrition_unfavorite">Remove from favorites</string>
+    <string name="feature_nutrition_amount">Amount</string>
+    <string name="feature_nutrition_unit_grams">Grams</string>
+    <string name="feature_nutrition_serving_label">%1$s (%2$s g)</string>
+    <string name="feature_nutrition_log_food">Log food</string>
+    <string name="feature_nutrition_mark_halal">I know this is halal</string>
+    <string name="feature_nutrition_unmark_halal">Remove my halal mark</string>
+
+    <!-- Custom food -->
+    <string name="feature_nutrition_food_name">Food name</string>
+    <string name="feature_nutrition_brand_optional">Brand (optional)</string>
+    <string name="feature_nutrition_barcode_optional">Barcode (optional)</string>
+    <string name="feature_nutrition_values_per_hint">Copy the values from the label: per 100 g, or per serving with its weight.</string>
+    <string name="feature_nutrition_values_per">Values per (g)</string>
+    <string name="feature_nutrition_serving_name">Serving name</string>
+    <string name="feature_nutrition_mark_halal_own">I know this is halal</string>
+    <string name="feature_nutrition_save_food">Save food</string>
+
+    <!-- Saved meals -->
+    <string name="feature_nutrition_saved_meals_empty">No saved meals yet. In the diary, open a meal\'s menu and choose "Save as a meal".</string>
+    <string name="feature_nutrition_saved_meal_summary">%1$s kcal · %2$s g protein</string>
+    <string name="feature_nutrition_delete_saved">Delete %1$s</string>
+    <string name="feature_nutrition_log_to">Log to %1$s</string>
+
+    <!-- Barcode -->
+    <string name="feature_nutrition_camera_needed">The camera is used only to read barcodes. Nothing is recorded.</string>
+    <string name="feature_nutrition_allow_camera">Allow camera</string>
+    <string name="feature_nutrition_barcode_not_found">%1$s isn\'t in Open Food Facts yet. Create it once and it\'ll scan next time.</string>
+    <string name="feature_nutrition_barcode_offline">You\'re offline and this product isn\'t saved on this device.</string>
+    <string name="feature_nutrition_scan_again">Scan again</string>
+    <string name="feature_nutrition_type_barcode">Or type the barcode</string>
+    <string name="feature_nutrition_look_up">Look up</string>
 </resources>

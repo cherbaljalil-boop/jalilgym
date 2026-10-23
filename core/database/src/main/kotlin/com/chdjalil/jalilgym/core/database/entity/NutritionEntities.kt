@@ -159,6 +159,8 @@ data class FoodLogEntryEntity(
     val loggedAt: Long,
     val updatedAt: Long,
     val deletedAt: Long? = null,
+    /** Added in schema 2. */
+    val satFatG: Double? = null,
 )
 
 @Entity(tableName = "saved_meals")

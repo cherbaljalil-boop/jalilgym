@@ -91,6 +91,7 @@ internal class OfflineFirstNutritionRepository @Inject constructor(
             sodiumMg = n.sodiumMg,
             loggedAt = now,
             updatedAt = now,
+            satFatG = n.satFatG,
         )
     }
 
@@ -124,6 +125,7 @@ internal class OfflineFirstNutritionRepository @Inject constructor(
             sodiumMg = nutrients.sodiumMg,
             loggedAt = now,
             updatedAt = now,
+            satFatG = nutrients.satFatG,
         )
         foodLogDao.upsertEntries(listOf(entry))
         return entry.id
@@ -145,6 +147,7 @@ internal class OfflineFirstNutritionRepository @Inject constructor(
                     fiberG = entry.fiberG?.times(f),
                     sugarG = entry.sugarG?.times(f),
                     sodiumMg = entry.sodiumMg?.times(f),
+                    satFatG = entry.satFatG?.times(f),
                     updatedAt = now(),
                 ),
             ),

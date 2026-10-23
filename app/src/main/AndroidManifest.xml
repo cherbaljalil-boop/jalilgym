@@ -29,6 +29,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="jalilgym" android:host="workout" />
             </intent-filter>
+            <!-- Barcode scanner shortcut (jalilgym://nutrition/scan). -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="jalilgym" android:host="nutrition" />
+            </intent-filter>
         </activity>
     </application>
 </manifest>

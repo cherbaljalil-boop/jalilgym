@@ -19,5 +19,6 @@
         <item quantity="other">%1$d exercises in your library</item>
     </plurals>
     <string name="feature_today_macros_title">Calories &amp; macros</string>
-    <string name="feature_today_macros_desc">See what\'s left to eat today at a glance.</string>
+    <string name="feature_today_macros_setup">Set your targets to see what\'s left to eat today.</string>
+    <string name="feature_today_macros_progress">%1$d of %2$d kcal · %3$d of %4$d g protein</string>
 </resources>

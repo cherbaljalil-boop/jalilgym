@@ -17,6 +17,7 @@ fun NavGraphBuilder.todayScreen(
     onChooseProgram: () -> Unit,
     onResumeWorkout: () -> Unit,
     onOpenProgress: () -> Unit,
+    onOpenNutrition: () -> Unit,
 ) {
     composable<TodayRoute> {
         TodayScreen(
@@ -24,6 +25,7 @@ fun NavGraphBuilder.todayScreen(
             onChooseProgram = onChooseProgram,
             onResumeWorkout = onResumeWorkout,
             onOpenProgress = onOpenProgress,
+            onOpenNutrition = onOpenNutrition,
         )
     }
 }

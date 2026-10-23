@@ -30,9 +30,9 @@ import com.chdjalil.jalilgym.core.designsystem.component.JgScreenHeader
 import com.chdjalil.jalilgym.core.designsystem.icon.JgIcons
 import com.chdjalil.jalilgym.core.designsystem.theme.JalilgymTheme
 import com.chdjalil.jalilgym.core.model.ActiveProgram
-import com.chdjalil.jalilgym.core.ui.ComingSoonCard
 import com.chdjalil.jalilgym.core.ui.EntryCard
 import com.chdjalil.jalilgym.core.ui.StreakCard
+import kotlin.math.roundToInt
 
 @Composable
 internal fun TodayScreen(
@@ -40,6 +40,7 @@ internal fun TodayScreen(
     onChooseProgram: () -> Unit,
     onResumeWorkout: () -> Unit,
     onOpenProgress: () -> Unit,
+    onOpenNutrition: () -> Unit,
     viewModel: TodayViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -50,6 +51,7 @@ internal fun TodayScreen(
         onSkip = viewModel::skipToNextDay,
         onResumeWorkout = onResumeWorkout,
         onOpenProgress = onOpenProgress,
+        onOpenNutrition = onOpenNutrition,
     )
 }
 
@@ -62,6 +64,7 @@ internal fun TodayContent(
     modifier: Modifier = Modifier,
     onResumeWorkout: () -> Unit = {},
     onOpenProgress: () -> Unit = {},
+    onOpenNutrition: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -95,11 +98,23 @@ internal fun TodayContent(
                     onClick = onChooseProgram,
                 )
             }
-            ComingSoonCard(
+            val targets = uiState.targets
+            val eaten = uiState.eatenToday
+            EntryCard(
                 title = stringResource(R.string.feature_today_macros_title),
-                description = stringResource(R.string.feature_today_macros_desc),
-                phase = 5,
+                description = if (targets == null) {
+                    stringResource(R.string.feature_today_macros_setup)
+                } else {
+                    stringResource(
+                        R.string.feature_today_macros_progress,
+                        eaten.kcal.roundToInt(),
+                        targets.calories,
+                        eaten.proteinG.roundToInt(),
+                        targets.proteinG,
+                    )
+                },
                 icon = JgIcons.Nutrition,
+                onClick = onOpenNutrition,
             )
             uiState.streak?.let { StreakCard(it, onClick = onOpenProgress) }
             uiState.exerciseCount?.let { count ->

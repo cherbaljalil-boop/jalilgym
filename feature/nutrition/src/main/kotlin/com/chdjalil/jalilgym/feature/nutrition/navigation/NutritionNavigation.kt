@@ -4,14 +4,135 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.chdjalil.jalilgym.feature.nutrition.NutritionScreen
+import androidx.navigation.compose.navigation
+import androidx.navigation.navDeepLink
+import androidx.navigation.toRoute
+import com.chdjalil.jalilgym.core.model.MealType
+import com.chdjalil.jalilgym.feature.nutrition.diary.DiaryActions
+import com.chdjalil.jalilgym.feature.nutrition.diary.DiaryScreen
+import com.chdjalil.jalilgym.feature.nutrition.food.CustomFoodScreen
+import com.chdjalil.jalilgym.feature.nutrition.food.FoodDetailScreen
+import com.chdjalil.jalilgym.feature.nutrition.meals.SavedMealsScreen
+import com.chdjalil.jalilgym.feature.nutrition.scan.BarcodeScanScreen
+import com.chdjalil.jalilgym.feature.nutrition.search.FoodSearchActions
+import com.chdjalil.jalilgym.feature.nutrition.search.FoodSearchScreen
+import com.chdjalil.jalilgym.feature.nutrition.setup.SetupScreen
 import kotlinx.serialization.Serializable
+import java.time.LocalDate
+import java.time.LocalTime
+
+/** The Nutrition tab, so the tab stays selected on its inner screens. */
+@Serializable
+data object NutritionGraph
 
 @Serializable
-data object NutritionRoute
+data object DiaryRoute
 
-fun NavController.navigateToNutrition(navOptions: NavOptions? = null) = navigate(NutritionRoute, navOptions)
+/** First-time setup and, later, editing targets. */
+@Serializable
+data object NutritionSetupRoute
 
-fun NavGraphBuilder.nutritionScreen() {
-    composable<NutritionRoute> { NutritionScreen() }
+/** [date] is ISO-8601; [meal] is a [MealType] name. */
+@Serializable
+data class FoodSearchRoute(val date: String, val meal: String)
+
+@Serializable
+data class FoodDetailRoute(val foodId: String, val date: String, val meal: String, val entryId: String? = null)
+
+@Serializable
+data class CustomFoodRoute(val date: String, val meal: String, val barcode: String? = null)
+
+@Serializable
+data class SavedMealsRoute(val date: String, val meal: String)
+
+/** Without a date or meal it logs to today's meal for the current time of day. */
+@Serializable
+data class BarcodeScanRoute(val date: String? = null, val meal: String? = null)
+
+/** Argument keys match the route property names. */
+internal const val DATE_ARG = "date"
+internal const val MEAL_ARG = "meal"
+internal const val FOOD_ID_ARG = "foodId"
+internal const val ENTRY_ID_ARG = "entryId"
+internal const val BARCODE_ARG = "barcode"
+
+const val NUTRITION_SCAN_DEEP_LINK = "jalilgym://nutrition/scan"
+
+/** A sensible default meal for "log something now". */
+internal fun mealForNow(time: LocalTime = LocalTime.now()): MealType = when (time.hour) {
+    in 4..10 -> MealType.BREAKFAST
+    in 11..15 -> MealType.LUNCH
+    in 17..21 -> MealType.DINNER
+    else -> MealType.SNACK
+}
+
+fun NavController.navigateToNutrition(navOptions: NavOptions? = null) = navigate(NutritionGraph, navOptions)
+
+fun NavGraphBuilder.nutritionGraph(navController: NavController) {
+    navigation<NutritionGraph>(startDestination = DiaryRoute) {
+        composable<DiaryRoute> {
+            DiaryScreen(
+                DiaryActions(
+                    onAddFood = { date, meal -> navController.navigate(FoodSearchRoute("$date", meal.name)) },
+                    onScan = { date, meal -> navController.navigate(BarcodeScanRoute("$date", meal.name)) },
+                    onEditEntry = { entry ->
+                        entry.foodId?.let { navController.navigate(FoodDetailRoute(it, "${entry.date}", entry.meal.name, entry.id)) }
+                    },
+                    onOpenSavedMeals = { date, meal -> navController.navigate(SavedMealsRoute("$date", meal.name)) },
+                    onOpenSetup = { navController.navigate(NutritionSetupRoute) },
+                ),
+            )
+        }
+        composable<NutritionSetupRoute> {
+            SetupScreen(onBack = navController::popBackStack, onDone = navController::popBackStack)
+        }
+        composable<FoodSearchRoute> { entry ->
+            val route = entry.toRoute<FoodSearchRoute>()
+            FoodSearchScreen(
+                FoodSearchActions(
+                    onBack = navController::popBackStack,
+                    onOpenFood = { navController.navigate(FoodDetailRoute(it, route.date, route.meal)) },
+                    onScan = { navController.navigate(BarcodeScanRoute(route.date, route.meal)) },
+                    onCreateFood = { navController.navigate(CustomFoodRoute(route.date, route.meal)) },
+                ),
+            )
+        }
+        composable<FoodDetailRoute> {
+            FoodDetailScreen(
+                onBack = navController::popBackStack,
+                // Back to the diary after logging, past search or scan.
+                onDone = { navController.popBackStack(DiaryRoute, inclusive = false) },
+            )
+        }
+        composable<CustomFoodRoute> { entry ->
+            val route = entry.toRoute<CustomFoodRoute>()
+            CustomFoodScreen(
+                onBack = navController::popBackStack,
+                onSaved = { foodId ->
+                    navController.navigate(FoodDetailRoute(foodId, route.date, route.meal)) {
+                        popUpTo<CustomFoodRoute> { inclusive = true }
+                    }
+                },
+            )
+        }
+        composable<SavedMealsRoute> { SavedMealsScreen(onBack = navController::popBackStack) }
+        composable<BarcodeScanRoute>(deepLinks = listOf(navDeepLink<BarcodeScanRoute>(basePath = NUTRITION_SCAN_DEEP_LINK))) { entry ->
+            val route = entry.toRoute<BarcodeScanRoute>()
+            val date = route.date ?: "${LocalDate.now()}"
+            val meal = route.meal ?: mealForNow().name
+            BarcodeScanScreen(
+                onBack = navController::popBackStack,
+                onFound = { foodId ->
+                    navController.navigate(FoodDetailRoute(foodId, date, meal)) {
+                        popUpTo<BarcodeScanRoute> { inclusive = true }
+                    }
+                },
+                onCreateFood = { barcode ->
+                    navController.navigate(CustomFoodRoute(date, meal, barcode)) {
+                        popUpTo<BarcodeScanRoute> { inclusive = true }
+                    }
+                },
+            )
+        }
+    }
 }

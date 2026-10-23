@@ -6,6 +6,7 @@ import com.chdjalil.jalilgym.core.model.ProgramType
 import com.chdjalil.jalilgym.core.testing.MainDispatcherRule
 import com.chdjalil.jalilgym.core.testing.data.sampleExercise
 import com.chdjalil.jalilgym.core.testing.repository.FakeExerciseRepository
+import com.chdjalil.jalilgym.core.testing.repository.FakeNutritionRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeProgramRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeProgressRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeWorkoutRepository
@@ -34,7 +35,7 @@ class TodayViewModelTest {
     @Test
     fun `shows the next workout of the active program and can skip it`() = runTest {
         val workouts = FakeWorkoutRepository(programs = programs)
-        val viewModel = TodayViewModel(exercises, programs, workouts, FakeProgressRepository())
+        val viewModel = TodayViewModel(exercises, programs, workouts, FakeProgressRepository(), FakeNutritionRepository())
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
 
         assertThat(viewModel.uiState.value.active).isNull()

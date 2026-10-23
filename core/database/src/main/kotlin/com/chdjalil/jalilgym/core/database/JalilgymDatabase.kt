@@ -1,5 +1,6 @@
 package com.chdjalil.jalilgym.core.database
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -43,8 +44,12 @@ import com.chdjalil.jalilgym.core.database.entity.WorkoutSessionEntity
  * and a migration test; destructive migration is never enabled.
  */
 @Database(
-    version = 1,
+    version = 2,
     exportSchema = true,
+    autoMigrations = [
+        // 2: saturated fat on diary entries.
+        AutoMigration(from = 1, to = 2),
+    ],
     entities = [
         // Training
         ExerciseEntity::class,

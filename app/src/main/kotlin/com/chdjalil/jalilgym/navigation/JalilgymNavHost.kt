@@ -8,7 +8,7 @@ import androidx.navigation.compose.navigation
 import com.chdjalil.jalilgym.feature.exercises.navigation.exerciseScreens
 import com.chdjalil.jalilgym.feature.exercises.navigation.navigateToExerciseLibrary
 import com.chdjalil.jalilgym.feature.exercises.navigation.navigateToExercisePicker
-import com.chdjalil.jalilgym.feature.nutrition.navigation.nutritionScreen
+import com.chdjalil.jalilgym.feature.nutrition.navigation.nutritionGraph
 import com.chdjalil.jalilgym.feature.onboarding.navigation.OnboardingRoute
 import com.chdjalil.jalilgym.feature.onboarding.navigation.onboardingScreen
 import com.chdjalil.jalilgym.feature.profile.navigation.profileGraph
@@ -54,6 +54,7 @@ fun JalilgymNavHost(
             onChooseProgram = { onSelectTab(TopLevelDestination.TRAIN) },
             onResumeWorkout = navController::navigateToActiveWorkout,
             onOpenProgress = { onSelectTab(TopLevelDestination.PROGRESS) },
+            onOpenNutrition = { onSelectTab(TopLevelDestination.NUTRITION) },
         )
         navigation<TrainGraph>(startDestination = TrainRoute) {
             trainScreens(
@@ -84,7 +85,7 @@ fun JalilgymNavHost(
                 }
             },
         )
-        nutritionScreen()
+        nutritionGraph(navController)
         progressGraph(navController)
         profileGraph(navController)
     }

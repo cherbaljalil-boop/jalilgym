@@ -40,4 +40,5 @@ object JgIcons {
     @DrawableRes val Remove = R.drawable.jg_ic_remove
     @DrawableRes val Play = R.drawable.jg_ic_play
     @DrawableRes val SkipNext = R.drawable.jg_ic_skip_next
+    @DrawableRes val Barcode = R.drawable.jg_ic_barcode
 }

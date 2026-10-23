@@ -1,0 +1,10 @@
+<!-- Barcode scanner: corner brackets around vertical bars (original artwork). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M80,120h200v80H160v120H80Z M680,120h200v200h-80V200H680Z M80,640h80v120h120v80H80Z M800,640h80v200H680v-80h120Z M220,280h60v400h-60Z M340,280h30v400h-30Z M430,280h70v400h-70Z M560,280h30v400h-30Z M650,280h40v400h-40Z M740,280h20v400h-20Z" />
+</vector>
