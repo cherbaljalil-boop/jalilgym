@@ -4,7 +4,7 @@ An offline-first Android training and nutrition coach. It offers structured prog
 a fast workout logger with auto-progression, and goal-based calorie and macro plans with halal-aware food tagging.
 
 - **Spec:** [Product & Architecture Blueprint](docs/BLUEPRINT.md)
-- **Status:** Phase 0 (foundation) is complete. The app shell, design system, database and settings are in place, and CI is green. Phase 1 (onboarding and exercise library) is next.
+- **Status:** Phases 0–2 are complete: foundation, onboarding, the exercise library and programs. CI is green. Phase 3 (the workout engine) is next.
 
 ## Tech stack
 Kotlin · Jetpack Compose (Material 3) · Hilt · Room · DataStore · Navigation Compose (type-safe) ·

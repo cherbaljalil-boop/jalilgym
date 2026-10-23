@@ -1,6 +1,6 @@
 # Jalilgym — Product & Architecture Blueprint
 
-> **Status:** v1.0 — **approved** (all §13 recommendations accepted). Phase 0 complete; Phase 1 next.
+> **Status:** v1.0 — **approved** (all §13 recommendations accepted). Phases 0–2 complete; Phase 3 (workout engine) next.
 > **Created by CH.Djalil**
 
 ---
@@ -829,14 +829,18 @@ message UserPreferences {
 | Phase | Scope | Exit criteria |
 |---|---|---|
 | **0. Foundation** ✅ | Gradle multi-module setup with build-logic and version catalog, Hilt, design system (theme, fonts, core components), navigation shell with 5 tabs, typed DataStore, Room v1 schema plus seed loader, splash screen with credit | App builds, launches to an empty shell, theme toggles dark/light, seed import is tested |
-| **1. Onboarding & Library** | Onboarding (welcome, goal, experience, suggestion), exercise library (about 100 exercises with images), filters, search, detail, body heatmap component, custom exercises | A new user finishes onboarding and browses or filters the library |
-| **2. Programs** | PPL 3/6-day and Full Body templates, custom builder (days, exercises, supersets, rules), active program and rotation, Today card | You can start "Today: Push A" from Home |
+| **1. Onboarding & Library** ✅ | Onboarding (welcome, goal, experience, suggestion), exercise library (about 100 exercises with images), filters, search, detail, body heatmap component, custom exercises | A new user finishes onboarding and browses or filters the library |
+| **2. Programs** ✅ | PPL 3/6-day and Full Body templates, custom builder (days, exercises, supersets, rules), active program and rotation, Today card | You can start "Today: Push A" from Home |
 | **3. Workout engine** | Active workout UI, pre-fill, set types, RPE/RIR, supersets, rest timer, foreground service with notification actions, plate / 1RM / warm-up sheets, progression engine, summary, history, crash-safe session restore | Critical UI flow 2 passes; the rest timer fires with the screen locked |
 | **4. Progress & gamification** | PR detection and history, strength charts, weekly muscle volume heatmap, body weight and measurements, progress photos and compare, streaks, achievements | Badges unlock correctly in tests; charts render real data |
 | **5. Nutrition core** | Nutrition setup, TDEE and target calculation (goal plus high-protein style), day diary, manual entry, Open Food Facts search with caching, barcode scanner, custom foods, saved meals, basic micronutrients, halal status and filter, logging streak | Critical UI flow 4 passes; offline mode works |
 | **6. Hardening & release prep** | Accessibility pass, Baseline Profiles, R8, migration test baseline, About/licenses (Open Food Facts ODbL, free-exercise-db, fonts), Play listing assets, `specialUse` FGS declaration | Release build signed; all tests green |
 
 **Phase 0 notes.** It shipped with a starter seed of 18 exercises, enough to cover the PPL and Full Body templates; Phase 1 expands this to about 100 with images. The Room schema is committed under `core/database/schemas`, and the `Update Room schema` workflow regenerates it whenever the database module changes. Compose UI tests run on Robolectric. Remaining Phase 0 follow-ups: ktlint/Detekt and Baseline Profiles (moved to Phase 6).
+
+**Phase 1 notes.** 99 curated exercises from free-exercise-db with bundled WebP photos (≈3 MB). The body heatmap is original artwork generated from `tools/heatmap/body.py`. Custom exercises are soft-deleted so history stays intact.
+
+**Phase 2 notes.** Templates are seeded from `assets/seed/programs.json`. Exercises and days are reordered with up/down actions (accessible); drag-and-drop may come later. The onboarding starter choice is turned into an active program on first launch after onboarding. "Start workout" is visible but disabled until Phase 3.
 
 ### v1.1
 Recipe builder · curated recipes and meal suggestions · Health Connect (workouts, weight, nutrition, steps) · JSON export/import · weekly nutrition check-in (calorie auto-adjust).
