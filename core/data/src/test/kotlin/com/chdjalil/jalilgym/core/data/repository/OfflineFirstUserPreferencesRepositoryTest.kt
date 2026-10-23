@@ -15,6 +15,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
+import java.io.File
 
 class OfflineFirstUserPreferencesRepositoryTest {
 
@@ -25,7 +26,8 @@ class OfflineFirstUserPreferencesRepositoryTest {
         val dataStore = DataStoreFactory.create(
             serializer = UserPreferencesSerializer,
             scope = backgroundScope,
-            produceFile = { tmpFolder.newFile("user_preferences_test.json") },
+            // A path that does not exist yet: DataStore creates it on first write.
+            produceFile = { File(tmpFolder.root, "user_preferences_test.json") },
         )
         return OfflineFirstUserPreferencesRepository(JgPreferencesDataSource(dataStore))
     }
