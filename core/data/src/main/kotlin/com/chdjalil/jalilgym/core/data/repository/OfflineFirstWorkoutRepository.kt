@@ -261,7 +261,11 @@ internal class OfflineFirstWorkoutRepository @Inject constructor(
         advanceRotationAfter(populated.session.programDayId)
 
         val records = recordPersonalBests(cleaned, now)
-        val achievements = achievementRepository.syncUnlocks()
+        // The app also syncs badges whenever data changes, so collect everything unlocked since finishing began.
+        achievementRepository.syncUnlocks()
+        val achievements = achievementRepository.observeAchievements().first()
+            .filter { (it.unlockedAt ?: 0) >= now }
+            .map { it.id }
         celebrations.update { it + (sessionId to (records to achievements)) }
 
         val finished = checkNotNull(workoutDao.getSession(sessionId)).asExternalModel()

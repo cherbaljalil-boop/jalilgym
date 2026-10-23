@@ -31,7 +31,7 @@ internal class OfflineFirstBodyRepository @Inject constructor(
     @Dispatcher(JgDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
 ) : BodyRepository {
 
-    /** Matches the backup exclusion in app/src/main/res/xml/*_rules.xml. */
+    /** Excluded from backups by the app's backup and data-extraction rules. */
     private val photoDirectory: File get() = File(context.filesDir, PHOTO_DIRECTORY)
 
     private fun now() = System.currentTimeMillis()

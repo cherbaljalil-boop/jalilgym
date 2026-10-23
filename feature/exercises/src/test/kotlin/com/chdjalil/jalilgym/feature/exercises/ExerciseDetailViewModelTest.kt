@@ -4,6 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import com.chdjalil.jalilgym.core.testing.MainDispatcherRule
 import com.chdjalil.jalilgym.core.testing.data.sampleExercise
 import com.chdjalil.jalilgym.core.testing.repository.FakeExerciseRepository
+import com.chdjalil.jalilgym.core.testing.repository.FakeProgressRepository
+import com.chdjalil.jalilgym.core.testing.repository.FakeUserPreferencesRepository
 import com.chdjalil.jalilgym.feature.exercises.detail.ExerciseDetailUiState
 import com.chdjalil.jalilgym.feature.exercises.detail.ExerciseDetailViewModel
 import com.google.common.truth.Truth.assertThat
@@ -19,8 +21,14 @@ class ExerciseDetailViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private val repository = FakeExerciseRepository(listOf(sampleExercise("bench", "Bench Press")))
+    private val progress = FakeProgressRepository()
 
-    private fun viewModel(id: String) = ExerciseDetailViewModel(SavedStateHandle(mapOf("exerciseId" to id)), repository)
+    private fun viewModel(id: String) = ExerciseDetailViewModel(
+        SavedStateHandle(mapOf("exerciseId" to id)),
+        repository,
+        progress,
+        FakeUserPreferencesRepository(),
+    )
 
     @Test
     fun `loads the exercise or reports it missing`() = runTest {

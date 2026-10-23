@@ -112,4 +112,8 @@
     <string name="feature_workout_delete_session_body">It will be removed from your history. This can\'t be undone.</string>
     <string name="feature_workout_delete">Delete</string>
     <string name="feature_workout_cancel">Cancel</string>
+    <string name="feature_workout_new_records">New personal records</string>
+    <string name="feature_workout_record_title">%1$s · %2$s</string>
+    <string name="feature_workout_record_change">%1$s → %2$s %3$s</string>
+    <string name="feature_workout_new_badges">Badges unlocked</string>
 </resources>

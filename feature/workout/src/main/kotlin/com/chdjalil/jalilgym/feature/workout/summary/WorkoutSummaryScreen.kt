@@ -32,10 +32,13 @@ import com.chdjalil.jalilgym.core.domain.units.fromKg
 import com.chdjalil.jalilgym.core.domain.units.weightSymbol
 import com.chdjalil.jalilgym.core.model.ProgressionNote
 import com.chdjalil.jalilgym.core.model.ProgressionOutcome
+import com.chdjalil.jalilgym.core.model.RecordNote
 import com.chdjalil.jalilgym.core.model.SessionExercise
 import com.chdjalil.jalilgym.core.model.SetType
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.WorkoutSummary
+import com.chdjalil.jalilgym.core.ui.achievementText
+import com.chdjalil.jalilgym.core.ui.labelRes
 import com.chdjalil.jalilgym.feature.workout.R
 import com.chdjalil.jalilgym.feature.workout.active.formatDuration
 
@@ -96,6 +99,36 @@ internal fun SessionBody(summary: WorkoutSummary, units: UnitSystem, header: @Co
                 Stat(stringResource(R.string.feature_workout_stat_sets), "${summary.completedSets}", Modifier.weight(1f))
             }
         }
+        if (summary.records.isNotEmpty()) {
+            item {
+                Text(
+                    stringResource(R.string.feature_workout_new_records),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
+            items(summary.records) { RecordNoteRow(it, units) }
+        }
+        if (summary.newAchievements.isNotEmpty()) {
+            item {
+                Text(
+                    stringResource(R.string.feature_workout_new_badges),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
+            items(summary.newAchievements) { id ->
+                val (title, description) = achievementText(id)
+                Column {
+                    Text(stringResource(title), style = MaterialTheme.typography.bodyLarge)
+                    Text(
+                        stringResource(description),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+        }
         if (summary.progression.isNotEmpty()) {
             item {
                 Text(
@@ -107,6 +140,27 @@ internal fun SessionBody(summary: WorkoutSummary, units: UnitSystem, header: @Co
             items(summary.progression) { ProgressionRow(it, units) }
         }
         items(summary.session.exercises, key = { it.id }) { ExerciseSets(it, units) }
+    }
+}
+
+@Composable
+private fun RecordNoteRow(note: RecordNote, units: UnitSystem) {
+    val previous = note.previousValue ?: return
+    Column {
+        Text(
+            stringResource(R.string.feature_workout_record_title, note.exerciseName, stringResource(note.type.labelRes)),
+            style = MaterialTheme.typography.bodyLarge,
+        )
+        Text(
+            stringResource(
+                R.string.feature_workout_record_change,
+                units.formatWeightValue(previous),
+                units.formatWeightValue(note.value),
+                units.weightSymbol,
+            ),
+            style = MaterialTheme.typography.bodyMedium,
+            color = JgTheme.extendedColors.success,
+        )
     }
 }
 

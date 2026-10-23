@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import com.chdjalil.jalilgym.core.common.ApplicationScope
 import com.chdjalil.jalilgym.core.domain.program.ApplyStarterProgramUseCase
+import com.chdjalil.jalilgym.core.domain.repository.AchievementRepository
 import com.chdjalil.jalilgym.core.domain.repository.SeedRepository
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
 import dagger.hilt.android.HiltAndroidApp
@@ -27,11 +28,24 @@ class JalilgymApplication : Application() {
     lateinit var applyStarterProgram: ApplyStarterProgramUseCase
 
     @Inject
+    lateinit var achievementRepository: AchievementRepository
+
+    @Inject
     @ApplicationScope
     lateinit var applicationScope: CoroutineScope
 
     override fun onCreate() {
         super.onCreate()
+        applicationScope.launch {
+            // Badges earned outside a workout (a photo, a custom exercise…) unlock as soon as they're earned.
+            achievementRepository.observeAchievements()
+                .map { list -> list.any { !it.isUnlocked && it.progress >= it.target } }
+                .filter { it }
+                .collect {
+                    runCatching { achievementRepository.syncUnlocks() }
+                        .onFailure { Log.e(TAG, "Couldn't sync achievements", it) }
+                }
+        }
         applicationScope.launch {
             // Screens observe Room, so they update as soon as the seed lands.
             runCatching { seedRepository.seedIfNeeded() }

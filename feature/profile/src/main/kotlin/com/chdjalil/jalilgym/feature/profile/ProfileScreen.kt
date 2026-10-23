@@ -33,14 +33,16 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.chdjalil.jalilgym.core.designsystem.component.JgCreatedByCredit
 import com.chdjalil.jalilgym.core.designsystem.component.JgScreenHeader
 import com.chdjalil.jalilgym.core.designsystem.component.JgWordmark
+import com.chdjalil.jalilgym.core.designsystem.icon.JgIcons
 import com.chdjalil.jalilgym.core.designsystem.theme.JalilgymTheme
 import com.chdjalil.jalilgym.core.model.EffortScale
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
+import com.chdjalil.jalilgym.core.ui.EntryCard
 
 @Composable
-internal fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
+internal fun ProfileScreen(onOpenAchievements: () -> Unit, viewModel: ProfileViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val versionName = remember(context) {
@@ -48,7 +50,7 @@ internal fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
             .getOrNull()
             .orEmpty()
     }
-    ProfileContent(uiState = uiState, versionName = versionName, onEvent = viewModel::onEvent)
+    ProfileContent(uiState = uiState, versionName = versionName, onEvent = viewModel::onEvent, onOpenAchievements = onOpenAchievements)
 }
 
 @Composable
@@ -57,6 +59,7 @@ internal fun ProfileContent(
     versionName: String,
     onEvent: (ProfileEvent) -> Unit,
     modifier: Modifier = Modifier,
+    onOpenAchievements: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -68,6 +71,12 @@ internal fun ProfileContent(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
+            EntryCard(
+                title = stringResource(R.string.feature_profile_achievements),
+                description = stringResource(R.string.feature_profile_achievements_desc),
+                icon = JgIcons.Progress,
+                onClick = onOpenAchievements,
+            )
             if (uiState is ProfileUiState.Ready) {
                 SettingsSection(uiState.preferences, onEvent)
             }

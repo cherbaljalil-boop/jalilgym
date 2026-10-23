@@ -12,8 +12,18 @@ data object TodayRoute
 
 fun NavController.navigateToToday(navOptions: NavOptions? = null) = navigate(TodayRoute, navOptions)
 
-fun NavGraphBuilder.todayScreen(onOpenDay: (String) -> Unit, onChooseProgram: () -> Unit, onResumeWorkout: () -> Unit) {
+fun NavGraphBuilder.todayScreen(
+    onOpenDay: (String) -> Unit,
+    onChooseProgram: () -> Unit,
+    onResumeWorkout: () -> Unit,
+    onOpenProgress: () -> Unit,
+) {
     composable<TodayRoute> {
-        TodayScreen(onOpenDay = onOpenDay, onChooseProgram = onChooseProgram, onResumeWorkout = onResumeWorkout)
+        TodayScreen(
+            onOpenDay = onOpenDay,
+            onChooseProgram = onChooseProgram,
+            onResumeWorkout = onResumeWorkout,
+            onOpenProgress = onOpenProgress,
+        )
     }
 }

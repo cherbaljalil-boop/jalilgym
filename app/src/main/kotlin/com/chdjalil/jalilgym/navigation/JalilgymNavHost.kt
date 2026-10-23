@@ -11,13 +11,13 @@ import com.chdjalil.jalilgym.feature.exercises.navigation.navigateToExercisePick
 import com.chdjalil.jalilgym.feature.nutrition.navigation.nutritionScreen
 import com.chdjalil.jalilgym.feature.onboarding.navigation.OnboardingRoute
 import com.chdjalil.jalilgym.feature.onboarding.navigation.onboardingScreen
-import com.chdjalil.jalilgym.feature.profile.navigation.profileScreen
+import com.chdjalil.jalilgym.feature.profile.navigation.profileGraph
 import com.chdjalil.jalilgym.feature.programs.navigation.DayEditorRoute
 import com.chdjalil.jalilgym.feature.programs.navigation.TrainRoute
 import com.chdjalil.jalilgym.feature.programs.navigation.dayPreviewScreen
 import com.chdjalil.jalilgym.feature.programs.navigation.navigateToDayPreview
 import com.chdjalil.jalilgym.feature.programs.navigation.trainScreens
-import com.chdjalil.jalilgym.feature.progress.navigation.progressScreen
+import com.chdjalil.jalilgym.feature.progress.navigation.progressGraph
 import com.chdjalil.jalilgym.feature.today.navigation.TodayRoute
 import com.chdjalil.jalilgym.feature.today.navigation.todayScreen
 import com.chdjalil.jalilgym.feature.workout.navigation.navigateToActiveWorkout
@@ -53,6 +53,7 @@ fun JalilgymNavHost(
             onOpenDay = navController::navigateToDayPreview,
             onChooseProgram = { onSelectTab(TopLevelDestination.TRAIN) },
             onResumeWorkout = navController::navigateToActiveWorkout,
+            onOpenProgress = { onSelectTab(TopLevelDestination.PROGRESS) },
         )
         navigation<TrainGraph>(startDestination = TrainRoute) {
             trainScreens(
@@ -84,7 +85,7 @@ fun JalilgymNavHost(
             },
         )
         nutritionScreen()
-        progressScreen()
-        profileScreen()
+        progressGraph(navController)
+        profileGraph(navController)
     }
 }

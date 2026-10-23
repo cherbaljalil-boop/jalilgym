@@ -5,8 +5,8 @@ import androidx.annotation.StringRes
 import com.chdjalil.jalilgym.R
 import com.chdjalil.jalilgym.core.designsystem.icon.JgIcons
 import com.chdjalil.jalilgym.feature.nutrition.navigation.NutritionRoute
-import com.chdjalil.jalilgym.feature.profile.navigation.ProfileRoute
-import com.chdjalil.jalilgym.feature.progress.navigation.ProgressRoute
+import com.chdjalil.jalilgym.feature.profile.navigation.ProfileGraph
+import com.chdjalil.jalilgym.feature.progress.navigation.ProgressGraph
 import com.chdjalil.jalilgym.feature.today.navigation.TodayRoute
 import kotlin.reflect.KClass
 
@@ -27,6 +27,6 @@ enum class TopLevelDestination(
         NutritionRoute,
         NutritionRoute::class,
     ),
-    PROGRESS(JgIcons.Progress, JgIcons.ProgressFilled, R.string.tab_progress, ProgressRoute, ProgressRoute::class),
-    PROFILE(JgIcons.Profile, JgIcons.ProfileFilled, R.string.tab_profile, ProfileRoute, ProfileRoute::class),
+    PROGRESS(JgIcons.Progress, JgIcons.ProgressFilled, R.string.tab_progress, ProgressGraph, ProgressGraph::class),
+    PROFILE(JgIcons.Profile, JgIcons.ProfileFilled, R.string.tab_profile, ProfileGraph, ProfileGraph::class),
 }

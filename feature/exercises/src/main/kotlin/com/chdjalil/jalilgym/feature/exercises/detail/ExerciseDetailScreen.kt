@@ -39,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -48,12 +49,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.chdjalil.jalilgym.core.designsystem.icon.JgIcons
 import com.chdjalil.jalilgym.core.designsystem.theme.JalilgymTheme
+import com.chdjalil.jalilgym.core.domain.units.formatWeightValue
+import com.chdjalil.jalilgym.core.domain.units.weightSymbol
 import com.chdjalil.jalilgym.core.model.Exercise
 import com.chdjalil.jalilgym.core.model.Muscle
-import com.chdjalil.jalilgym.core.ui.ComingSoonCard
 import com.chdjalil.jalilgym.core.ui.ExerciseImage
 import com.chdjalil.jalilgym.core.ui.body.BodyHeatmap
 import com.chdjalil.jalilgym.core.ui.body.muscleTargetIntensities
+import com.chdjalil.jalilgym.core.ui.chart.ChartPoint
+import com.chdjalil.jalilgym.core.ui.chart.LineChart
 import com.chdjalil.jalilgym.core.ui.labelRes
 import com.chdjalil.jalilgym.feature.exercises.R
 import kotlinx.coroutines.delay
@@ -65,9 +69,10 @@ internal fun ExerciseDetailScreen(
     viewModel: ExerciseDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val history by viewModel.history.collectAsStateWithLifecycle()
     val deleted by viewModel.deleted.collectAsStateWithLifecycle()
     LaunchedEffect(deleted) { if (deleted) onBack() }
-    ExerciseDetailContent(uiState, onBack, onEdit, onDelete = viewModel::deleteExercise)
+    ExerciseDetailContent(uiState, onBack, onEdit, onDelete = viewModel::deleteExercise, history = history)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -77,6 +82,7 @@ internal fun ExerciseDetailContent(
     onBack: () -> Unit,
     onEdit: (String) -> Unit,
     onDelete: () -> Unit,
+    history: ExerciseHistoryUiState = ExerciseHistoryUiState(),
 ) {
     var confirmDelete by rememberSaveable { mutableStateOf(false) }
     val exercise = (uiState as? ExerciseDetailUiState.Success)?.exercise
@@ -117,7 +123,7 @@ internal fun ExerciseDetailContent(
                     stringResource(R.string.feature_exercises_not_found),
                     modifier = Modifier.align(Alignment.Center),
                 )
-                is ExerciseDetailUiState.Success -> ExerciseDetailBody(uiState.exercise)
+                is ExerciseDetailUiState.Success -> ExerciseDetailBody(uiState.exercise, history)
             }
         }
     }
@@ -142,7 +148,7 @@ internal fun ExerciseDetailContent(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun ExerciseDetailBody(exercise: Exercise) {
+private fun ExerciseDetailBody(exercise: Exercise, history: ExerciseHistoryUiState) {
     Column(
         Modifier
             .verticalScroll(rememberScrollState())
@@ -195,11 +201,41 @@ private fun ExerciseDetailBody(exercise: Exercise) {
             }
         }
 
-        ComingSoonCard(
-            title = stringResource(R.string.feature_exercises_history_title),
-            description = stringResource(R.string.feature_exercises_history_body),
-            phase = 3,
-            icon = JgIcons.Progress,
+        SectionTitle(R.string.feature_exercises_history_title)
+        HistorySection(history)
+    }
+}
+
+@Composable
+private fun HistorySection(history: ExerciseHistoryUiState) {
+    val units = history.units
+    fun weight(kg: Double) = "${units.formatWeightValue(kg)} ${units.weightSymbol}"
+    if (history.sessions.isEmpty()) {
+        Text(
+            stringResource(R.string.feature_exercises_history_empty),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        return
+    }
+    Text(
+        pluralStringResource(R.plurals.feature_exercises_history_sessions, history.sessions.size, history.sessions.size),
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+    history.bests.forEach { record ->
+        Row(Modifier.fillMaxWidth()) {
+            Text(stringResource(record.type.labelRes), Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
+            Text(weight(record.value), style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+        }
+    }
+    val points = history.sessions.mapNotNull { p -> p.bestEstimatedOneRepMaxKg?.let { ChartPoint(p.performedAt, it) } }
+    if (points.size >= 2) {
+        LineChart(
+            points = points,
+            contentDescription = stringResource(R.string.feature_exercises_history_chart),
+            formatY = ::weight,
+            height = 140.dp,
         )
     }
 }

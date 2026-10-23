@@ -32,16 +32,25 @@ import com.chdjalil.jalilgym.core.designsystem.theme.JalilgymTheme
 import com.chdjalil.jalilgym.core.model.ActiveProgram
 import com.chdjalil.jalilgym.core.ui.ComingSoonCard
 import com.chdjalil.jalilgym.core.ui.EntryCard
+import com.chdjalil.jalilgym.core.ui.StreakCard
 
 @Composable
 internal fun TodayScreen(
     onOpenDay: (String) -> Unit,
     onChooseProgram: () -> Unit,
     onResumeWorkout: () -> Unit,
+    onOpenProgress: () -> Unit,
     viewModel: TodayViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    TodayContent(uiState, onOpenDay, onChooseProgram, onSkip = viewModel::skipToNextDay, onResumeWorkout = onResumeWorkout)
+    TodayContent(
+        uiState,
+        onOpenDay,
+        onChooseProgram,
+        onSkip = viewModel::skipToNextDay,
+        onResumeWorkout = onResumeWorkout,
+        onOpenProgress = onOpenProgress,
+    )
 }
 
 @Composable
@@ -52,6 +61,7 @@ internal fun TodayContent(
     onSkip: () -> Unit,
     modifier: Modifier = Modifier,
     onResumeWorkout: () -> Unit = {},
+    onOpenProgress: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -91,12 +101,7 @@ internal fun TodayContent(
                 phase = 5,
                 icon = JgIcons.Nutrition,
             )
-            ComingSoonCard(
-                title = stringResource(R.string.feature_today_streak_title),
-                description = stringResource(R.string.feature_today_streak_desc),
-                phase = 4,
-                icon = JgIcons.Progress,
-            )
+            uiState.streak?.let { StreakCard(it, onClick = onOpenProgress) }
             uiState.exerciseCount?.let { count ->
                 Text(
                     pluralStringResource(R.plurals.feature_today_exercises_ready, count, count),

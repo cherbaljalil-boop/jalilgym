@@ -20,6 +20,4 @@
     </plurals>
     <string name="feature_today_macros_title">Calories &amp; macros</string>
     <string name="feature_today_macros_desc">See what\'s left to eat today at a glance.</string>
-    <string name="feature_today_streak_title">Training streak</string>
-    <string name="feature_today_streak_desc">Weeks on target — rest days never break it.</string>
 </resources>
