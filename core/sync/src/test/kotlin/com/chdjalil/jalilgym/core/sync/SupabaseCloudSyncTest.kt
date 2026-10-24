@@ -41,7 +41,7 @@ class SupabaseCloudSyncTest {
         server.start()
         val context = ApplicationProvider.getApplicationContext<Context>()
         database = Room.inMemoryDatabaseBuilder(context, JalilgymDatabase::class.java).allowMainThreadQueries().build()
-        val config = SupabaseConfig(server.url("/").toString().trimEnd('/'), "sb_publishable_test")
+        val config = SupabaseConfig("http://127.0.0.1:${server.port}", "sb_publishable_test")
         cloud = SupabaseCloudSync(config, SupabaseClient(OkHttpClient(), config), SyncEngine(database), store)
     }
 

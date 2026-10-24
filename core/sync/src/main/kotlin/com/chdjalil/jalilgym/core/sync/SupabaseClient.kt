@@ -24,7 +24,13 @@ import okhttp3.RequestBody.Companion.toRequestBody
 
 /** The project the app talks to; blank in builds without cloud sync. */
 data class SupabaseConfig(val url: String, val publishableKey: String) {
-    val isConfigured: Boolean get() = url.startsWith("https://") && publishableKey.isNotBlank()
+    /** HTTPS only, except a server on this machine (tests). */
+    val isConfigured: Boolean
+        get() = publishableKey.isNotBlank() && (url.startsWith("https://") || LOOPBACK.any { url.startsWith(it) })
+
+    private companion object {
+        val LOOPBACK = listOf("http://localhost", "http://127.0.0.1")
+    }
 }
 
 @Serializable
