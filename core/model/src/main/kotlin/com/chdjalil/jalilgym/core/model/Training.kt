@@ -1,6 +1,6 @@
 package com.chdjalil.jalilgym.core.model
 
-enum class ProgramType { PPL, FULL_BODY, CUSTOM }
+enum class ProgramType { PPL, FULL_BODY, UPPER_LOWER, STRENGTH, HOME, BODYWEIGHT, CUSTOM }
 
 /** See docs/BLUEPRINT.md §3.3.1. */
 enum class ProgressionRule { DOUBLE, LINEAR, NONE }

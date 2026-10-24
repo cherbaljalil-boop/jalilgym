@@ -7,6 +7,10 @@ object ProgramTemplates {
     const val FULL_BODY_3 = "tpl-full-body-3"
     const val PPL_3 = "tpl-ppl-3"
     const val PPL_6 = "tpl-ppl-6"
+    const val UPPER_LOWER_4 = "tpl-upper-lower-4"
+    const val STRENGTH_3 = "tpl-strength-3"
+    const val HOME_DUMBBELL_3 = "tpl-home-dumbbell-3"
+    const val BODYWEIGHT_3 = "tpl-bodyweight-3"
 }
 
 /** Template behind a starter choice; null for [StarterProgram.CUSTOM] (start from scratch). */

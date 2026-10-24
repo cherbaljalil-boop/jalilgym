@@ -126,5 +126,9 @@ private fun templateDescription(id: String): String? = when (id) {
     ProgramTemplates.FULL_BODY_3 -> stringResource(R.string.feature_programs_template_full_body_desc)
     ProgramTemplates.PPL_3 -> stringResource(R.string.feature_programs_template_ppl_3_desc)
     ProgramTemplates.PPL_6 -> stringResource(R.string.feature_programs_template_ppl_6_desc)
+    ProgramTemplates.UPPER_LOWER_4 -> stringResource(R.string.feature_programs_template_upper_lower_desc)
+    ProgramTemplates.STRENGTH_3 -> stringResource(R.string.feature_programs_template_strength_desc)
+    ProgramTemplates.HOME_DUMBBELL_3 -> stringResource(R.string.feature_programs_template_home_desc)
+    ProgramTemplates.BODYWEIGHT_3 -> stringResource(R.string.feature_programs_template_bodyweight_desc)
     else -> null
 }

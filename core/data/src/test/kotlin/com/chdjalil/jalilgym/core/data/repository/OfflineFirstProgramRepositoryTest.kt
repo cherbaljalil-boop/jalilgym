@@ -75,7 +75,7 @@ class OfflineFirstProgramRepositoryTest {
         repository.renameDay(copy.days.first().id, "Chest & shoulders")
         assertThat(repository.observeProgram(ProgramTemplates.PPL_3).first()!!.days.first().name).isEqualTo("Push")
         assertThat(repository.observeUserPrograms().first().map { it.id }).containsExactly(id)
-        assertThat(repository.observeTemplates().first()).hasSize(3)
+        assertThat(repository.observeTemplates().first()).hasSize(7)
     }
 
     @Test

@@ -83,7 +83,10 @@ class SeedImporterTest {
         val exerciseIds = exercises.exercises.map { it.id }.toSet()
 
         assertThat(programs.programs.map { it.id })
-            .containsExactly("tpl-full-body-3", "tpl-ppl-3", "tpl-ppl-6")
+            .containsExactly(
+                "tpl-full-body-3", "tpl-ppl-3", "tpl-ppl-6",
+                "tpl-upper-lower-4", "tpl-strength-3", "tpl-home-dumbbell-3", "tpl-bodyweight-3",
+            )
         programs.programs.forEach { program ->
             assertThat(program.days).isNotEmpty()
             program.days.forEach { day ->

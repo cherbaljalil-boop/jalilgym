@@ -29,6 +29,10 @@
     <string name="feature_programs_template_full_body_desc">Three whole-body sessions a week, alternating workouts A and B. Ideal for building a base.</string>
     <string name="feature_programs_template_ppl_3_desc">Push, pull and legs once a week each, with rest days in between.</string>
     <string name="feature_programs_template_ppl_6_desc">Each muscle twice a week: heavier A days and higher-rep B days.</string>
+    <string name="feature_programs_template_upper_lower_desc">Four gym days: a heavier and a lighter upper and lower day each week. A good step up from full body.</string>
+    <string name="feature_programs_template_strength_desc">Squat, bench, press, row and deadlift for 5 sets of 5, adding weight each session. Barbell and rack needed.</string>
+    <string name="feature_programs_template_home_desc">Full body with a pair of dumbbells and a bench or floor. For training at home.</string>
+    <string name="feature_programs_template_bodyweight_desc">No equipment beyond a pull-up bar and a sturdy bench or chair. Make reps harder before adding sets.</string>
     <string name="feature_programs_show_workouts">Show workouts</string>
     <string name="feature_programs_hide_workouts">Hide workouts</string>
     <string name="feature_programs_use_template">Use this program</string>

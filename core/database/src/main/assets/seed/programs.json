@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "programs": [
     {
       "id": "tpl-full-body-3",
@@ -289,7 +289,7 @@
     },
     {
       "id": "tpl-ppl-6",
-      "name": "Push / Pull / Legs \u00d72",
+      "name": "Push / Pull / Legs ×2",
       "type": "PPL",
       "daysPerWeek": 6,
       "goalTag": "intermediate",
@@ -623,6 +623,518 @@
               "repMax": 15,
               "restSeconds": 60,
               "progressionRule": "DOUBLE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tpl-upper-lower-4",
+      "name": "Upper / Lower",
+      "type": "UPPER_LOWER",
+      "daysPerWeek": 4,
+      "goalTag": "intermediate",
+      "days": [
+        {
+          "id": "tpl-upper-lower-4-0",
+          "name": "Upper A",
+          "exercises": [
+            {
+              "exerciseId": "barbell-bench-press",
+              "sets": 4,
+              "repMin": 5,
+              "repMax": 8,
+              "restSeconds": 180,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "barbell-row",
+              "sets": 4,
+              "repMin": 6,
+              "repMax": 10,
+              "restSeconds": 150,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "seated-dumbbell-shoulder-press",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 12,
+              "restSeconds": 120,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "lat-pulldown",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 12,
+              "restSeconds": 120,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "ez-bar-skull-crusher",
+              "sets": 2,
+              "repMin": 10,
+              "repMax": 12,
+              "restSeconds": 90,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "dumbbell-biceps-curl",
+              "sets": 2,
+              "repMin": 10,
+              "repMax": 12,
+              "restSeconds": 90,
+              "progressionRule": "DOUBLE"
+            }
+          ]
+        },
+        {
+          "id": "tpl-upper-lower-4-1",
+          "name": "Lower A",
+          "exercises": [
+            {
+              "exerciseId": "barbell-back-squat",
+              "sets": 4,
+              "repMin": 5,
+              "repMax": 8,
+              "restSeconds": 180,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "romanian-deadlift",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 10,
+              "restSeconds": 150,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "leg-press",
+              "sets": 3,
+              "repMin": 10,
+              "repMax": 12,
+              "restSeconds": 120,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "lying-leg-curl",
+              "sets": 3,
+              "repMin": 10,
+              "repMax": 12,
+              "restSeconds": 90,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "standing-calf-raise",
+              "sets": 3,
+              "repMin": 10,
+              "repMax": 15,
+              "restSeconds": 60,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "plank",
+              "sets": 3,
+              "repMin": 30,
+              "repMax": 60,
+              "restSeconds": 60,
+              "progressionRule": "NONE"
+            }
+          ]
+        },
+        {
+          "id": "tpl-upper-lower-4-2",
+          "name": "Upper B",
+          "exercises": [
+            {
+              "exerciseId": "overhead-press",
+              "sets": 4,
+              "repMin": 5,
+              "repMax": 8,
+              "restSeconds": 180,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "pull-up",
+              "sets": 4,
+              "repMin": 5,
+              "repMax": 10,
+              "restSeconds": 150,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "incline-dumbbell-press",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 12,
+              "restSeconds": 120,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "seated-cable-row",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 12,
+              "restSeconds": 120,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "dumbbell-lateral-raise",
+              "sets": 3,
+              "repMin": 12,
+              "repMax": 15,
+              "restSeconds": 60,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "face-pull",
+              "sets": 3,
+              "repMin": 12,
+              "repMax": 15,
+              "restSeconds": 60,
+              "progressionRule": "DOUBLE"
+            }
+          ]
+        },
+        {
+          "id": "tpl-upper-lower-4-3",
+          "name": "Lower B",
+          "exercises": [
+            {
+              "exerciseId": "conventional-deadlift",
+              "sets": 3,
+              "repMin": 3,
+              "repMax": 6,
+              "restSeconds": 180,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "front-squat",
+              "sets": 3,
+              "repMin": 6,
+              "repMax": 8,
+              "restSeconds": 150,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "dumbbell-split-squat",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 12,
+              "restSeconds": 90,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "seated-leg-curl",
+              "sets": 3,
+              "repMin": 10,
+              "repMax": 12,
+              "restSeconds": 90,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "seated-calf-raise",
+              "sets": 3,
+              "repMin": 12,
+              "repMax": 15,
+              "restSeconds": 60,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "hanging-leg-raise",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 15,
+              "restSeconds": 60,
+              "progressionRule": "DOUBLE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tpl-strength-3",
+      "name": "Strength 5×5",
+      "type": "STRENGTH",
+      "daysPerWeek": 3,
+      "goalTag": "strength",
+      "days": [
+        {
+          "id": "tpl-strength-3-0",
+          "name": "Workout A",
+          "exercises": [
+            {
+              "exerciseId": "barbell-back-squat",
+              "sets": 5,
+              "repMin": 5,
+              "repMax": 5,
+              "restSeconds": 180,
+              "progressionRule": "LINEAR"
+            },
+            {
+              "exerciseId": "barbell-bench-press",
+              "sets": 5,
+              "repMin": 5,
+              "repMax": 5,
+              "restSeconds": 180,
+              "progressionRule": "LINEAR"
+            },
+            {
+              "exerciseId": "barbell-row",
+              "sets": 5,
+              "repMin": 5,
+              "repMax": 5,
+              "restSeconds": 150,
+              "progressionRule": "LINEAR"
+            }
+          ]
+        },
+        {
+          "id": "tpl-strength-3-1",
+          "name": "Workout B",
+          "exercises": [
+            {
+              "exerciseId": "barbell-back-squat",
+              "sets": 5,
+              "repMin": 5,
+              "repMax": 5,
+              "restSeconds": 180,
+              "progressionRule": "LINEAR"
+            },
+            {
+              "exerciseId": "overhead-press",
+              "sets": 5,
+              "repMin": 5,
+              "repMax": 5,
+              "restSeconds": 180,
+              "progressionRule": "LINEAR"
+            },
+            {
+              "exerciseId": "conventional-deadlift",
+              "sets": 1,
+              "repMin": 5,
+              "repMax": 5,
+              "restSeconds": 240,
+              "progressionRule": "LINEAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tpl-home-dumbbell-3",
+      "name": "Home Dumbbells",
+      "type": "HOME",
+      "daysPerWeek": 3,
+      "goalTag": "beginner",
+      "days": [
+        {
+          "id": "tpl-home-dumbbell-3-0",
+          "name": "Home A",
+          "exercises": [
+            {
+              "exerciseId": "goblet-squat",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 12,
+              "restSeconds": 120,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "dumbbell-bench-press",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 12,
+              "restSeconds": 120,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "one-arm-dumbbell-row",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 12,
+              "restSeconds": 90,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "dumbbell-lateral-raise",
+              "sets": 2,
+              "repMin": 12,
+              "repMax": 15,
+              "restSeconds": 60,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "dumbbell-biceps-curl",
+              "sets": 2,
+              "repMin": 10,
+              "repMax": 12,
+              "restSeconds": 60,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "plank",
+              "sets": 3,
+              "repMin": 30,
+              "repMax": 60,
+              "restSeconds": 60,
+              "progressionRule": "NONE"
+            }
+          ]
+        },
+        {
+          "id": "tpl-home-dumbbell-3-1",
+          "name": "Home B",
+          "exercises": [
+            {
+              "exerciseId": "dumbbell-romanian-deadlift",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 12,
+              "restSeconds": 120,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "seated-dumbbell-shoulder-press",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 12,
+              "restSeconds": 120,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "dumbbell-split-squat",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 12,
+              "restSeconds": 90,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "push-up",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 20,
+              "restSeconds": 90,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "dumbbell-overhead-triceps-extension",
+              "sets": 2,
+              "repMin": 10,
+              "repMax": 12,
+              "restSeconds": 60,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "side-plank",
+              "sets": 2,
+              "repMin": 20,
+              "repMax": 45,
+              "restSeconds": 45,
+              "progressionRule": "NONE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tpl-bodyweight-3",
+      "name": "Bodyweight Basics",
+      "type": "BODYWEIGHT",
+      "daysPerWeek": 3,
+      "goalTag": "beginner",
+      "days": [
+        {
+          "id": "tpl-bodyweight-3-0",
+          "name": "Bodyweight A",
+          "exercises": [
+            {
+              "exerciseId": "push-up",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 20,
+              "restSeconds": 90,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "inverted-row",
+              "sets": 3,
+              "repMin": 6,
+              "repMax": 12,
+              "restSeconds": 90,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "bodyweight-squat",
+              "sets": 3,
+              "repMin": 12,
+              "repMax": 20,
+              "restSeconds": 60,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "bench-dip",
+              "sets": 3,
+              "repMin": 8,
+              "repMax": 15,
+              "restSeconds": 60,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "plank",
+              "sets": 3,
+              "repMin": 30,
+              "repMax": 60,
+              "restSeconds": 60,
+              "progressionRule": "NONE"
+            }
+          ]
+        },
+        {
+          "id": "tpl-bodyweight-3-1",
+          "name": "Bodyweight B",
+          "exercises": [
+            {
+              "exerciseId": "pull-up",
+              "sets": 3,
+              "repMin": 3,
+              "repMax": 8,
+              "restSeconds": 120,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "chest-dip",
+              "sets": 3,
+              "repMin": 5,
+              "repMax": 12,
+              "restSeconds": 120,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "bodyweight-squat",
+              "sets": 3,
+              "repMin": 15,
+              "repMax": 25,
+              "restSeconds": 60,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "hanging-leg-raise",
+              "sets": 3,
+              "repMin": 6,
+              "repMax": 12,
+              "restSeconds": 60,
+              "progressionRule": "DOUBLE"
+            },
+            {
+              "exerciseId": "side-plank",
+              "sets": 2,
+              "repMin": 20,
+              "repMax": 45,
+              "restSeconds": 45,
+              "progressionRule": "NONE"
             }
           ]
         }
