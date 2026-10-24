@@ -14,6 +14,11 @@ android {
         versionName = "1.1.0"
     }
 
+    // Lists English, French and Arabic for the per-app language setting (Android 13+).
+    androidResources {
+        generateLocaleConfig = true
+    }
+
     // Release signing comes from the environment so no key or password is ever
     // committed (see docs/RELEASING.md). Without it the release build is unsigned.
     val keystoreFile = providers.environmentVariable("JALILGYM_KEYSTORE_FILE").orNull

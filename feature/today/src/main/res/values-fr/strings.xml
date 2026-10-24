@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_today_title">Aujourd\'hui</string>
+    <string name="feature_today_subtitle">Votre programme du jour</string>
+    <string name="feature_today_todays_workout">Séance du jour</string>
+    <string name="feature_today_workout_summary">%1$s · %2$s</string>
+    <string name="feature_today_view_workout">Voir la séance</string>
+    <string name="feature_today_skip_day">Passer</string>
+    <string name="feature_today_in_progress_title">Séance en cours</string>
+    <string name="feature_today_in_progress_desc">%1$s — touchez pour reprendre là où vous en étiez.</string>
+    <string name="feature_today_choose_program_title">Choisir un programme</string>
+    <string name="feature_today_choose_program_desc">Choisissez un modèle ou créez le vôtre : votre prochaine séance s\'affichera ici.</string>
+    <plurals name="feature_today_exercise_count">
+        <item quantity="one">%1$d exercice</item>
+        <item quantity="many">%1$d exercices</item>
+        <item quantity="other">%1$d exercices</item>
+    </plurals>
+    <plurals name="feature_today_exercises_ready">
+        <item quantity="one">%1$d exercice dans votre bibliothèque</item>
+        <item quantity="many">%1$d exercices dans votre bibliothèque</item>
+        <item quantity="other">%1$d exercices dans votre bibliothèque</item>
+    </plurals>
+    <string name="feature_today_macros_title">Calories et macros</string>
+    <string name="feature_today_macros_setup">Définissez vos objectifs pour voir ce qu\'il vous reste à manger aujourd\'hui.</string>
+    <string name="feature_today_macros_progress">%1$d/%2$d kcal · %3$d/%4$d g de protéines</string>
+    <plurals name="feature_today_steps">
+        <item quantity="one">%1$,d pas aujourd\'hui · Santé Connect</item>
+        <item quantity="many">%1$,d pas aujourd\'hui · Santé Connect</item>
+        <item quantity="other">%1$,d pas aujourd\'hui · Santé Connect</item>
+    </plurals>
+</resources>

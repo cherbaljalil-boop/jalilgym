@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_today_title">اليوم</string>
+    <string name="feature_today_subtitle">خطتك لهذا اليوم</string>
+    <string name="feature_today_todays_workout">تمرين اليوم</string>
+    <string name="feature_today_workout_summary">%1$s · %2$s</string>
+    <string name="feature_today_view_workout">عرض التمرين</string>
+    <string name="feature_today_skip_day">تخطٍّ</string>
+    <string name="feature_today_in_progress_title">تمرين جارٍ</string>
+    <string name="feature_today_in_progress_desc">%1$s — اضغط للمتابعة من حيث توقفت.</string>
+    <string name="feature_today_choose_program_title">اختر برنامجًا</string>
+    <string name="feature_today_choose_program_desc">اختر قالبًا أو أنشئ برنامجك، وسيظهر تمرينك التالي هنا.</string>
+    <plurals name="feature_today_exercise_count">
+        <item quantity="zero">%1$d تمرين</item>
+        <item quantity="one">تمرين واحد</item>
+        <item quantity="two">تمرينان</item>
+        <item quantity="few">%1$d تمارين</item>
+        <item quantity="many">%1$d تمرينًا</item>
+        <item quantity="other">%1$d تمرين</item>
+    </plurals>
+    <plurals name="feature_today_exercises_ready">
+        <item quantity="zero">%1$d تمرين في مكتبتك</item>
+        <item quantity="one">تمرين واحد في مكتبتك</item>
+        <item quantity="two">تمرينان في مكتبتك</item>
+        <item quantity="few">%1$d تمارين في مكتبتك</item>
+        <item quantity="many">%1$d تمرينًا في مكتبتك</item>
+        <item quantity="other">%1$d تمرين في مكتبتك</item>
+    </plurals>
+    <string name="feature_today_macros_title">السعرات والعناصر الغذائية</string>
+    <string name="feature_today_macros_setup">حدّد أهدافك لترى ما تبقّى لك لتأكله اليوم.</string>
+    <string name="feature_today_macros_progress">%1$d من %2$d سعرة · %3$d من %4$d غ بروتين</string>
+    <plurals name="feature_today_steps">
+        <item quantity="zero">%1$,d خطوة اليوم · Health Connect</item>
+        <item quantity="one">%1$,d خطوة اليوم · Health Connect</item>
+        <item quantity="two">%1$,d خطوة اليوم · Health Connect</item>
+        <item quantity="few">%1$,d خطوات اليوم · Health Connect</item>
+        <item quantity="many">%1$,d خطوة اليوم · Health Connect</item>
+        <item quantity="other">%1$,d خطوة اليوم · Health Connect</item>
+    </plurals>
+</resources>

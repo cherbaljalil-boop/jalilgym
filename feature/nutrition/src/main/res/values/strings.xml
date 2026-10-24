@@ -243,4 +243,5 @@
         <item quantity="one">%1$d item added to your grocery list</item>
         <item quantity="other">%1$d items added to your grocery list</item>
     </plurals>
+    <string name="feature_nutrition_unit_g">g</string>
 </resources>

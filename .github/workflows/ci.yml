@@ -34,6 +34,10 @@ jobs:
           echo "369ad2b789f95a011f807e1fcb690ccef80bd7cd014fd139e73ae82dcc0baeab  $RUNNER_TEMP/ktlint.jar" | sha256sum -c -
           java -jar "$RUNNER_TEMP/ktlint.jar" "**/src/**/*.kt" "**/*.kts" "!**/build/**" --relative
 
+      # Every French and Arabic string must match the English keys and placeholders.
+      - name: Translations
+        run: python3 tools/i18n/check.py
+
       - name: Assemble debug
         run: ./gradlew assembleDebug
 

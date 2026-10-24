@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_notifications_channel_reminders">تذكيرات التمرين</string>
+    <string name="core_notifications_channel_reminders_desc">تذكير في الأيام التي اخترت التمرّن فيها</string>
+    <string name="core_notifications_channel_summary">ملخّص الأسبوع</string>
+    <string name="core_notifications_channel_summary_desc">ملخّص قصير لأسبوعك مساء الأحد</string>
+    <string name="core_notifications_reminder_title">حان وقت التمرين</string>
+    <string name="core_notifications_reminder_next_day">التمرين التالي: %1$s في %2$s.</string>
+    <string name="core_notifications_reminder_generic">تمرينك التالي بانتظارك. حتى الجلسة القصيرة تحافظ على سلسلتك.</string>
+    <string name="core_notifications_summary_title">أسبوعك في Jalilgym</string>
+    <string name="core_notifications_summary_workouts">%1$d من %2$d تمارين</string>
+    <string name="core_notifications_summary_volume">رفعت %1$s %2$s</string>
+    <string name="core_notifications_summary_logged">سجّلت الطعام %1$d من 7 أيام</string>
+    <string name="core_notifications_summary_weight">الوزن %1$s %2$s</string>
+    <string name="core_notifications_summary_separator">" · "</string>
+</resources>

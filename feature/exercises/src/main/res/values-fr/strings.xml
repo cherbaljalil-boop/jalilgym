@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_exercises_library_title">Bibliothèque d\'exercices</string>
+    <string name="feature_exercises_back">Retour</string>
+    <string name="feature_exercises_new_exercise">Nouvel exercice</string>
+    <string name="feature_exercises_search_hint">Rechercher un exercice</string>
+    <string name="feature_exercises_clear_search">Effacer la recherche</string>
+    <string name="feature_exercises_filters">Filtres</string>
+    <string name="feature_exercises_filters_count">Filtres · %1$d</string>
+    <string name="feature_exercises_remove_filter">Retirer le filtre %1$s</string>
+    <plurals name="feature_exercises_result_count">
+        <item quantity="one">%1$d exercice</item>
+        <item quantity="many">%1$d exercices</item>
+        <item quantity="other">%1$d exercices</item>
+    </plurals>
+    <plurals name="feature_exercises_show_results">
+        <item quantity="one">Afficher %1$d exercice</item>
+        <item quantity="many">Afficher %1$d exercices</item>
+        <item quantity="other">Afficher %1$d exercices</item>
+    </plurals>
+    <string name="feature_exercises_row_subtitle">%1$s · %2$s</string>
+    <string name="feature_exercises_custom">Perso</string>
+    <string name="feature_exercises_empty_title">Aucun exercice ne correspond</string>
+    <string name="feature_exercises_empty_body">Essayez une autre recherche ou assouplissez vos filtres.</string>
+    <string name="feature_exercises_clear_all">Tout effacer</string>
+    <string name="feature_exercises_filter_muscle">Muscle</string>
+    <string name="feature_exercises_filter_muscle_hint">Touchez le corps ou choisissez dans la liste.</string>
+    <string name="feature_exercises_heatmap_picker_description">Carte du corps pour choisir les muscles. Avec un lecteur d\'écran, utilisez les puces de muscles ci-dessous.</string>
+    <string name="feature_exercises_include_secondary">Inclure les exercices qui le sollicitent en secondaire</string>
+    <string name="feature_exercises_filter_equipment">Matériel</string>
+    <string name="feature_exercises_filter_type">Type</string>
+    <string name="feature_exercises_filter_level">Niveau</string>
+    <string name="feature_exercises_edit">Modifier</string>
+    <string name="feature_exercises_delete">Supprimer</string>
+    <string name="feature_exercises_cancel">Annuler</string>
+    <string name="feature_exercises_delete_title">Supprimer %1$s ?</string>
+    <string name="feature_exercises_delete_body">Il disparaît de la bibliothèque. Les séances déjà enregistrées avec cet exercice sont conservées.</string>
+    <string name="feature_exercises_not_found">Cet exercice n\'existe plus.</string>
+    <string name="feature_exercises_muscles">Muscles sollicités</string>
+    <string name="feature_exercises_heatmap_description">Muscles sollicités : %1$s</string>
+    <string name="feature_exercises_primary">Principaux</string>
+    <string name="feature_exercises_secondary">Secondaires</string>
+    <string name="feature_exercises_how_to">Comment le faire</string>
+    <string name="feature_exercises_history_title">Votre historique</string>
+    <string name="feature_exercises_history_empty">Faites cet exercice dans une séance pour voir ici vos records et la courbe de 1RM estimé.</string>
+    <plurals name="feature_exercises_history_sessions">
+        <item quantity="one">%1$d séance enregistrée</item>
+        <item quantity="many">%1$d séances enregistrées</item>
+        <item quantity="other">%1$d séances enregistrées</item>
+    </plurals>
+    <string name="feature_exercises_history_chart">1RM estimé dans le temps</string>
+    <string name="feature_exercises_new_title">Nouvel exercice</string>
+    <string name="feature_exercises_edit_title">Modifier l\'exercice</string>
+    <string name="feature_exercises_save">Enregistrer</string>
+    <string name="feature_exercises_name">Nom</string>
+    <string name="feature_exercises_error_name_blank">Donnez un nom à l\'exercice.</string>
+    <string name="feature_exercises_error_name_long">Le nom doit faire moins de %1$d caractères.</string>
+    <string name="feature_exercises_primary_muscles">Muscles principaux</string>
+    <string name="feature_exercises_secondary_muscles">Muscles secondaires</string>
+    <string name="feature_exercises_error_no_primary">Choisissez au moins un muscle principal.</string>
+    <string name="feature_exercises_force">Mouvement</string>
+    <string name="feature_exercises_tracking">Suivre par</string>
+    <string name="feature_exercises_instructions">Instructions (facultatif)</string>
+    <string name="feature_exercises_instructions_hint">Une étape par ligne.</string>
+    <string name="feature_exercises_add_photo">Ajouter une photo</string>
+    <string name="feature_exercises_change_photo">Changer la photo</string>
+    <string name="feature_exercises_remove_photo">Retirer la photo</string>
+    <string name="feature_exercises_photo_failed">Impossible de charger cette photo. Essayez-en une autre.</string>
+    <string name="feature_exercises_picker_title">Ajouter des exercices</string>
+    <string name="feature_exercises_picker_none">Sélectionnez des exercices</string>
+    <plurals name="feature_exercises_picker_add">
+        <item quantity="one">Ajouter %1$d exercice</item>
+        <item quantity="many">Ajouter %1$d exercices</item>
+        <item quantity="other">Ajouter %1$d exercices</item>
+    </plurals>
+</resources>

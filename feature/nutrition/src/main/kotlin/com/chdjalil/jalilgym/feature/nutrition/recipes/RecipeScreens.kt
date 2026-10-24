@@ -254,7 +254,7 @@ internal fun RecipeEditorContent(
                     OutlinedTextField(
                         value = row.grams,
                         onValueChange = { onGrams(index, it) },
-                        label = { Text("g") },
+                        label = { Text(stringResource(R.string.feature_nutrition_unit_g)) },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                         modifier = Modifier.width(96.dp),

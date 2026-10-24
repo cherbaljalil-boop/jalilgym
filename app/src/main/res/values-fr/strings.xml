@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tab_today">Aujourd\'hui</string>
+    <string name="tab_train">Entraînement</string>
+    <string name="tab_nutrition">Nutrition</string>
+    <string name="tab_progress">Progrès</string>
+    <string name="tab_profile">Profil</string>
+    <string name="default_custom_program_name">Mon programme</string>
+    <string name="health_rationale_title">Jalilgym et Santé Connect</string>
+    <string name="health_rationale_intro">Santé Connect est facultatif. Si vous l\'activez dans Profil, Jalilgym s\'en sert pour tenir vos autres applis de santé à jour.</string>
+    <string name="health_rationale_write">Jalilgym enregistre vos séances terminées (comme entraînements de musculation), les poids que vous notez, ainsi que les calories et macros de chaque repas de votre journal sur les 30 derniers jours. Si vous supprimez quelque chose dans Jalilgym, c\'est aussi retiré de Santé Connect.</string>
+    <string name="health_rationale_read">Jalilgym lit les pesées d\'autres applis (une balance connectée, par exemple) pour les ajouter à votre courbe de poids, ainsi que le nombre de pas du jour pour l\'écran Aujourd\'hui.</string>
+    <string name="health_rationale_private">Ces données restent sur votre appareil. Jalilgym n\'a ni compte ni serveur et n\'envoie jamais de données de santé. Vous pouvez retirer l\'accès à tout moment dans Santé Connect ou dans Profil.</string>
+    <string name="health_rationale_close">Fermer</string>
+</resources>
