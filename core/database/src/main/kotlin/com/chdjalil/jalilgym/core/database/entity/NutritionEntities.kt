@@ -225,3 +225,16 @@ data class MealPlanEntryEntity(
     val recipeId: String,
     val servings: Double,
 )
+
+/** Not tied to foods by a foreign key: the list keeps its names if a food goes away. */
+@Entity(tableName = "grocery_items", indices = [Index("foodId")])
+data class GroceryItemEntity(
+    @PrimaryKey val id: String,
+    val name: String,
+    val foodId: String?,
+    val grams: Double?,
+    val checked: Boolean,
+    val createdAt: Long,
+    val updatedAt: Long,
+    val deletedAt: Long? = null,
+)

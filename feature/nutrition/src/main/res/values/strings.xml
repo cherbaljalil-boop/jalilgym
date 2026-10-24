@@ -230,4 +230,17 @@
     <string name="feature_nutrition_water_range_fl_oz">%1$d–%2$d fl oz</string>
     <string name="feature_nutrition_water_goal_hint">The automatic goal is about 35 ml per kg of body weight. Training, heat and the food you eat all change how much you need, so treat it as a rough guide.</string>
     <string name="feature_nutrition_water_goal_automatic">Use the automatic goal</string>
+    <string name="feature_nutrition_groceries">Grocery list</string>
+    <string name="feature_nutrition_groceries_add">Add an item</string>
+    <string name="feature_nutrition_groceries_clear">Clear ticked</string>
+    <string name="feature_nutrition_groceries_empty">Nothing on the list yet. Add items here, or add a recipe or a day of meal ideas.</string>
+    <string name="feature_nutrition_groceries_to_buy">To buy</string>
+    <string name="feature_nutrition_groceries_in_cart">In the basket</string>
+    <string name="feature_nutrition_groceries_add_recipe">Add ingredients to grocery list</string>
+    <string name="feature_nutrition_groceries_add_day">Add this day to grocery list</string>
+    <string name="feature_nutrition_groceries_view">View list</string>
+    <plurals name="feature_nutrition_groceries_added">
+        <item quantity="one">%1$d item added to your grocery list</item>
+        <item quantity="other">%1$d items added to your grocery list</item>
+    </plurals>
 </resources>

@@ -3,6 +3,7 @@ package com.chdjalil.jalilgym.feature.profile
 import android.text.format.DateFormat
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,6 +39,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.time.format.TextStyle
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun RemindersSection(settings: ReminderSettings, onChange: (ReminderSettings) -> Unit) {
     val locale = LocalConfiguration.current.locales[0]

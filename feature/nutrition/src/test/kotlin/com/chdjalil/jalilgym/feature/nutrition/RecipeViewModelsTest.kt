@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.chdjalil.jalilgym.core.model.RecipeDraft
 import com.chdjalil.jalilgym.core.testing.MainDispatcherRule
 import com.chdjalil.jalilgym.core.testing.repository.FakeFoodRepository
+import com.chdjalil.jalilgym.core.testing.repository.FakeGroceryRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeRecipeRepository
 import com.chdjalil.jalilgym.feature.nutrition.recipes.RecipeEditorViewModel
 import com.google.common.truth.Truth.assertThat
@@ -26,7 +27,7 @@ class RecipeViewModelsTest {
 
     @Test
     fun buildsARecipeFromSearchedIngredients() = runTest {
-        val viewModel = RecipeEditorViewModel(SavedStateHandle(), recipes, foods)
+        val viewModel = RecipeEditorViewModel(SavedStateHandle(), recipes, foods, FakeGroceryRepository())
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
 
         viewModel.setName("Yogurt bowl")
@@ -55,7 +56,7 @@ class RecipeViewModelsTest {
     fun editingLoadsTheRecipeAndBuiltInsAreCopied() = runTest {
         val id = recipes.saveRecipe(RecipeDraft(name = "Oats", servings = 1, ingredients = listOf("oats" to 50.0)))
         recipes.recipes.value = recipes.recipes.value.map { it.copy(isBuiltIn = true) }
-        val viewModel = RecipeEditorViewModel(SavedStateHandle(mapOf("recipeId" to id)), recipes, foods)
+        val viewModel = RecipeEditorViewModel(SavedStateHandle(mapOf("recipeId" to id)), recipes, foods, FakeGroceryRepository())
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
 
         assertThat(viewModel.uiState.value.name).isEqualTo("Oats")

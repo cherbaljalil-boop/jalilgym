@@ -4,6 +4,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -77,6 +79,7 @@ data class DiaryActions(
     val onOpenSetup: () -> Unit = {},
     val onOpenRecipes: () -> Unit = {},
     val onOpenMealIdeas: () -> Unit = {},
+    val onOpenGroceries: () -> Unit = {},
 )
 
 @Composable
@@ -119,6 +122,7 @@ internal fun DiaryScreen(actions: DiaryActions, viewModel: DiaryViewModel = hilt
 
 private val dayFormat: DateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun DiaryContent(
     uiState: DiaryUiState,
@@ -162,9 +166,10 @@ internal fun DiaryContent(
             }
             uiState.checkIn?.takeIf { uiState.isToday }?.let { CheckInCard(it, onApplyCheckIn, onDismissCheckIn) }
             SummaryCard(uiState, actions.onOpenSetup)
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedButton(onClick = actions.onOpenRecipes) { Text(stringResource(R.string.feature_nutrition_recipes)) }
                 OutlinedButton(onClick = actions.onOpenMealIdeas) { Text(stringResource(R.string.feature_nutrition_meal_ideas)) }
+                OutlinedButton(onClick = actions.onOpenGroceries) { Text(stringResource(R.string.feature_nutrition_groceries)) }
             }
             WaterCard(uiState.water, onAddWater, onUndoWater, onSetWaterGoal)
             MealType.entries.forEach { meal ->

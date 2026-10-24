@@ -175,3 +175,12 @@ data class RecipeDraft(
     val ingredients: List<Pair<String, Double>>,
     val instructions: List<String> = emptyList(),
 )
+
+/** One line on the grocery list; [grams] is null for items typed in by hand. */
+data class GroceryItem(
+    val id: String,
+    val name: String,
+    val foodId: String?,
+    val grams: Double?,
+    val checked: Boolean,
+)

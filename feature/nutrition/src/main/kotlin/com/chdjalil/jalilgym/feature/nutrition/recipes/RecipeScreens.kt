@@ -55,6 +55,7 @@ import com.chdjalil.jalilgym.core.designsystem.icon.JgIcons
 import com.chdjalil.jalilgym.core.model.Food
 import com.chdjalil.jalilgym.core.model.Recipe
 import com.chdjalil.jalilgym.feature.nutrition.R
+import com.chdjalil.jalilgym.feature.nutrition.groceries.GroceriesAddedNote
 import com.chdjalil.jalilgym.feature.nutrition.ui.BackBar
 import com.chdjalil.jalilgym.feature.nutrition.ui.formatGrams
 import com.chdjalil.jalilgym.feature.nutrition.ui.formatKcal
@@ -142,6 +143,7 @@ private fun LazyListScope.section(title: Int, recipes: List<Recipe>, onOpen: (St
 internal fun RecipeEditorScreen(
     onBack: () -> Unit,
     onLogServing: (foodId: String) -> Unit,
+    onOpenGroceries: () -> Unit = {},
     viewModel: RecipeEditorViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -159,6 +161,8 @@ internal fun RecipeEditorScreen(
         onSave = viewModel::save,
         onDelete = viewModel::delete,
         onLogServing = { uiState.foodId?.let(onLogServing) },
+        onAddToGroceries = viewModel::addToGroceries,
+        onOpenGroceries = onOpenGroceries,
     )
 }
 
@@ -176,6 +180,8 @@ internal fun RecipeEditorContent(
     onSave: () -> Unit = {},
     onDelete: () -> Unit = {},
     onLogServing: () -> Unit = {},
+    onAddToGroceries: () -> Unit = {},
+    onOpenGroceries: () -> Unit = {},
 ) {
     var confirmDelete by rememberSaveable { mutableStateOf(false) }
     val title = when {
@@ -293,6 +299,12 @@ internal fun RecipeEditorContent(
                 OutlinedButton(onClick = onLogServing, modifier = Modifier.fillMaxWidth()) {
                     Text(stringResource(R.string.feature_nutrition_log_serving))
                 }
+            }
+            if (uiState.ingredients.isNotEmpty()) {
+                OutlinedButton(onClick = onAddToGroceries, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.feature_nutrition_groceries_add_recipe))
+                }
+                uiState.groceriesAdded?.let { GroceriesAddedNote(it, onOpenGroceries) }
             }
         }
     }

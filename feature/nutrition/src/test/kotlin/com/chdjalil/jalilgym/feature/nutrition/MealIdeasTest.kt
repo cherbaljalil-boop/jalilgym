@@ -8,6 +8,7 @@ import com.chdjalil.jalilgym.core.model.MealType
 import com.chdjalil.jalilgym.core.model.RecipeDraft
 import com.chdjalil.jalilgym.core.testing.MainDispatcherRule
 import com.chdjalil.jalilgym.core.testing.repository.FakeFoodRepository
+import com.chdjalil.jalilgym.core.testing.repository.FakeGroceryRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeNutritionRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeRecipeRepository
 import com.chdjalil.jalilgym.feature.nutrition.ideas.MealIdeasViewModel
@@ -43,7 +44,7 @@ class MealIdeasTest {
     fun suggestsSwapsAndLogsADay() = runTest {
         seedRecipes()
         nutrition.savePlan(DietGoal.MAINTAIN, DietStyle.BALANCED, false, MacroTargets(2000, 120, 200, 70), isManualOverride = false)
-        val viewModel = MealIdeasViewModel(SavedStateHandle(mapOf("seed" to 3L)), nutrition, recipes)
+        val viewModel = MealIdeasViewModel(SavedStateHandle(mapOf("seed" to 3L)), nutrition, recipes, FakeGroceryRepository())
 
         val plan = viewModel.uiState.value.plan!!
         assertThat(plan.meals.map { it.meal }).containsExactly(MealType.BREAKFAST, MealType.LUNCH, MealType.DINNER, MealType.SNACK).inOrder()
@@ -67,13 +68,13 @@ class MealIdeasTest {
     @Test
     fun needsTargetsAndSameSeedSameDay() = runTest {
         seedRecipes()
-        val viewModel = MealIdeasViewModel(SavedStateHandle(mapOf("seed" to 9L)), nutrition, recipes)
+        val viewModel = MealIdeasViewModel(SavedStateHandle(mapOf("seed" to 9L)), nutrition, recipes, FakeGroceryRepository())
         assertThat(viewModel.uiState.value.targets).isNull()
         assertThat(viewModel.uiState.value.plan).isNull()
 
         nutrition.savePlan(DietGoal.CUT, DietStyle.BALANCED, false, MacroTargets(1800, 130, 170, 60), isManualOverride = false)
         val first = viewModel.uiState.value.plan!!
-        val again = MealIdeasViewModel(SavedStateHandle(mapOf("seed" to 9L)), nutrition, recipes).uiState.value.plan
+        val again = MealIdeasViewModel(SavedStateHandle(mapOf("seed" to 9L)), nutrition, recipes, FakeGroceryRepository()).uiState.value.plan
         assertThat(again).isEqualTo(first)
     }
 }

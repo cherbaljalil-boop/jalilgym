@@ -3,7 +3,9 @@ package com.chdjalil.jalilgym.feature.nutrition.recipes
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chdjalil.jalilgym.core.domain.nutrition.GroceryLine
 import com.chdjalil.jalilgym.core.domain.repository.FoodRepository
+import com.chdjalil.jalilgym.core.domain.repository.GroceryRepository
 import com.chdjalil.jalilgym.core.domain.repository.RecipeRepository
 import com.chdjalil.jalilgym.core.model.Food
 import com.chdjalil.jalilgym.core.model.Nutrients
@@ -57,6 +59,8 @@ data class RecipeEditorUiState(
     val foodId: String? = null,
     val saved: Boolean = false,
     val deleted: Boolean = false,
+    /** How many items the last "add to grocery list" added. */
+    val groceriesAdded: Int? = null,
 ) {
     private val asRecipe: Recipe
         get() = Recipe(
@@ -79,6 +83,7 @@ class RecipeEditorViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val recipeRepository: RecipeRepository,
     private val foodRepository: FoodRepository,
+    private val groceryRepository: GroceryRepository,
 ) : ViewModel() {
 
     private val recipeId: String? = savedStateHandle[RECIPE_ID_ARG]
@@ -147,6 +152,16 @@ class RecipeEditorViewModel @Inject constructor(
                 ),
             )
             form.update { it.copy(saved = true, foodId = recipeRepository.foodIdFor(id)) }
+        }
+    }
+
+    /** The whole recipe, as it's shown (edits included). */
+    fun addToGroceries() {
+        val lines = form.value.ingredients.mapNotNull { row -> row.gramsValue?.let { GroceryLine(row.food.name, row.food.id, it) } }
+        if (lines.isEmpty()) return
+        viewModelScope.launch {
+            val added = groceryRepository.addLines(lines)
+            form.update { it.copy(groceriesAdded = added) }
         }
     }
 

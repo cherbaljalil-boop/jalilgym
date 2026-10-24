@@ -9,6 +9,7 @@ import com.chdjalil.jalilgym.core.database.dao.DietPlanDao
 import com.chdjalil.jalilgym.core.database.dao.ExerciseDao
 import com.chdjalil.jalilgym.core.database.dao.FoodDao
 import com.chdjalil.jalilgym.core.database.dao.FoodLogDao
+import com.chdjalil.jalilgym.core.database.dao.GroceryDao
 import com.chdjalil.jalilgym.core.database.dao.ProgramDao
 import com.chdjalil.jalilgym.core.database.dao.ProgressDao
 import com.chdjalil.jalilgym.core.database.dao.RecipeDao
@@ -26,6 +27,7 @@ import com.chdjalil.jalilgym.core.database.entity.ExerciseMuscleEntity
 import com.chdjalil.jalilgym.core.database.entity.FoodEntity
 import com.chdjalil.jalilgym.core.database.entity.FoodLogEntryEntity
 import com.chdjalil.jalilgym.core.database.entity.FoodServingEntity
+import com.chdjalil.jalilgym.core.database.entity.GroceryItemEntity
 import com.chdjalil.jalilgym.core.database.entity.MealPlanEntryEntity
 import com.chdjalil.jalilgym.core.database.entity.PersonalRecordEntity
 import com.chdjalil.jalilgym.core.database.entity.ProgramDayEntity
@@ -52,7 +54,7 @@ import com.chdjalil.jalilgym.core.database.entity.WorkoutSessionEntity
     autoMigrations = [
         // 2: saturated fat on diary entries.
         AutoMigration(from = 1, to = 2),
-        // 3: water tracker.
+        // 3: water tracker and grocery list.
         AutoMigration(from = 2, to = 3),
     ],
     entities = [
@@ -85,6 +87,7 @@ import com.chdjalil.jalilgym.core.database.entity.WorkoutSessionEntity
         SavedMealItemEntity::class,
         MealPlanEntryEntity::class,
         WaterLogEntity::class,
+        GroceryItemEntity::class,
     ],
 )
 @TypeConverters(Converters::class)
@@ -110,6 +113,8 @@ abstract class JalilgymDatabase : RoomDatabase() {
     abstract fun recipeDao(): RecipeDao
 
     abstract fun waterDao(): WaterDao
+
+    abstract fun groceryDao(): GroceryDao
 
     companion object {
         const val NAME = "jalilgym.db"

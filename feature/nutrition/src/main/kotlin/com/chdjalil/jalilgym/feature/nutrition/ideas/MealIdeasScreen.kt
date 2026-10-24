@@ -34,6 +34,7 @@ import com.chdjalil.jalilgym.core.designsystem.theme.JgTheme
 import com.chdjalil.jalilgym.core.domain.nutrition.SuggestedMeal
 import com.chdjalil.jalilgym.core.ui.EntryCard
 import com.chdjalil.jalilgym.feature.nutrition.R
+import com.chdjalil.jalilgym.feature.nutrition.groceries.GroceriesAddedNote
 import com.chdjalil.jalilgym.feature.nutrition.ui.BackBar
 import com.chdjalil.jalilgym.feature.nutrition.ui.formatGrams
 import com.chdjalil.jalilgym.feature.nutrition.ui.formatKcal
@@ -43,11 +44,23 @@ import com.chdjalil.jalilgym.feature.nutrition.ui.labelRes
 internal fun MealIdeasScreen(
     onBack: () -> Unit,
     onOpenRecipe: (String) -> Unit,
+    onOpenGroceries: () -> Unit,
     onOpenSetup: () -> Unit,
     viewModel: MealIdeasViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    MealIdeasContent(uiState, onBack, onOpenRecipe, onOpenSetup, viewModel::swap, viewModel::log, viewModel::logAll, viewModel::newDay)
+    MealIdeasContent(
+        uiState,
+        onBack,
+        onOpenRecipe,
+        onOpenSetup,
+        viewModel::swap,
+        viewModel::log,
+        viewModel::logAll,
+        viewModel::newDay,
+        onAddToGroceries = viewModel::addDayToGroceries,
+        onOpenGroceries = onOpenGroceries,
+    )
 }
 
 @Composable
@@ -60,6 +73,8 @@ internal fun MealIdeasContent(
     onLog: (Int) -> Unit = {},
     onLogAll: () -> Unit = {},
     onNewDay: () -> Unit = {},
+    onAddToGroceries: () -> Unit = {},
+    onOpenGroceries: () -> Unit = {},
 ) {
     Scaffold(
         topBar = { BackBar(stringResource(R.string.feature_nutrition_meal_ideas), onBack) },
@@ -120,6 +135,10 @@ internal fun MealIdeasContent(
                     OutlinedButton(onClick = onNewDay, modifier = Modifier.fillMaxWidth()) {
                         Text(stringResource(R.string.feature_nutrition_ideas_new_day))
                     }
+                    OutlinedButton(onClick = onAddToGroceries, modifier = Modifier.fillMaxWidth()) {
+                        Text(stringResource(R.string.feature_nutrition_groceries_add_day))
+                    }
+                    uiState.groceriesAdded?.let { GroceriesAddedNote(it, onOpenGroceries) }
                     Text(
                         stringResource(R.string.feature_nutrition_ideas_note),
                         style = MaterialTheme.typography.bodySmall,

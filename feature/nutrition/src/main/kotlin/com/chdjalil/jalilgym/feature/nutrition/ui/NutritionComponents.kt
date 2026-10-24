@@ -33,12 +33,14 @@ import androidx.compose.ui.unit.dp
 import com.chdjalil.jalilgym.core.designsystem.icon.JgIcons
 import com.chdjalil.jalilgym.core.designsystem.theme.JgTheme
 import com.chdjalil.jalilgym.core.domain.nutrition.progressFraction
+import com.chdjalil.jalilgym.core.domain.units.formatNumber
 import com.chdjalil.jalilgym.core.model.ActivityLevel
 import com.chdjalil.jalilgym.core.model.DietGoal
 import com.chdjalil.jalilgym.core.model.DietStyle
 import com.chdjalil.jalilgym.core.model.HalalFilter
 import com.chdjalil.jalilgym.core.model.HalalStatus
 import com.chdjalil.jalilgym.core.model.MealType
+import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.feature.nutrition.R
 import kotlin.math.roundToInt
 
@@ -56,6 +58,17 @@ internal fun BackBar(title: String, onBack: () -> Unit, actions: @Composable Row
         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
     )
 }
+
+/** Shopping amounts: "450 g", "1.2 kg"; "12 oz", "2.1 lb". */
+internal fun formatGroceryAmount(grams: Double, units: UnitSystem): String = when (units) {
+    UnitSystem.METRIC -> if (grams < 1_000) "${grams.roundToInt()} g" else "${formatNumber(grams / 1_000)} kg"
+    UnitSystem.IMPERIAL -> {
+        val oz = grams / GRAMS_PER_OZ
+        if (oz < 16) "${formatNumber(oz)} oz" else "${formatNumber(oz / 16)} lb"
+    }
+}
+
+private const val GRAMS_PER_OZ = 28.349523125
 
 internal fun formatKcal(value: Double): String = "${value.roundToInt()}"
 

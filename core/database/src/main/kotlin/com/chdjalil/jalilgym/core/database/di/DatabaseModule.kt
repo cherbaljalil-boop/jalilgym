@@ -8,6 +8,7 @@ import com.chdjalil.jalilgym.core.database.dao.DietPlanDao
 import com.chdjalil.jalilgym.core.database.dao.ExerciseDao
 import com.chdjalil.jalilgym.core.database.dao.FoodDao
 import com.chdjalil.jalilgym.core.database.dao.FoodLogDao
+import com.chdjalil.jalilgym.core.database.dao.GroceryDao
 import com.chdjalil.jalilgym.core.database.dao.ProgramDao
 import com.chdjalil.jalilgym.core.database.dao.ProgressDao
 import com.chdjalil.jalilgym.core.database.dao.RecipeDao
@@ -62,4 +63,7 @@ object DatabaseModule {
 
     @Provides
     fun provideWaterDao(database: JalilgymDatabase): WaterDao = database.waterDao()
+
+    @Provides
+    fun provideGroceryDao(database: JalilgymDatabase): GroceryDao = database.groceryDao()
 }

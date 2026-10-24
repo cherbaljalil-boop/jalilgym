@@ -4,8 +4,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chdjalil.jalilgym.core.domain.nutrition.DayPlan
+import com.chdjalil.jalilgym.core.domain.nutrition.dayPlanGroceryLines
 import com.chdjalil.jalilgym.core.domain.nutrition.suggestDay
 import com.chdjalil.jalilgym.core.domain.nutrition.swapMeal
+import com.chdjalil.jalilgym.core.domain.repository.GroceryRepository
 import com.chdjalil.jalilgym.core.domain.repository.NutritionRepository
 import com.chdjalil.jalilgym.core.domain.repository.RecipeRepository
 import com.chdjalil.jalilgym.core.model.MacroTargets
@@ -28,6 +30,8 @@ data class MealIdeasUiState(
     val plan: DayPlan? = null,
     /** Indexes of meals already logged today from this plan. */
     val logged: Set<Int> = emptySet(),
+    /** How many items the last "add to grocery list" added. */
+    val groceriesAdded: Int? = null,
 )
 
 @HiltViewModel
@@ -35,6 +39,7 @@ class MealIdeasViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val nutritionRepository: NutritionRepository,
     private val recipeRepository: RecipeRepository,
+    private val groceryRepository: GroceryRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MealIdeasUiState())
@@ -90,6 +95,14 @@ class MealIdeasViewModel @Inject constructor(
         _uiState.update { it.copy(logged = it.logged + index) }
         viewModelScope.launch {
             nutritionRepository.logFood(LocalDate.now(), meal.meal, recipeRepository.foodIdFor(meal.recipe.id), meal.grams)
+        }
+    }
+
+    fun addDayToGroceries() {
+        val plan = _uiState.value.plan ?: return
+        viewModelScope.launch {
+            val added = groceryRepository.addLines(dayPlanGroceryLines(plan))
+            _uiState.update { it.copy(groceriesAdded = added) }
         }
     }
 

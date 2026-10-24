@@ -6,6 +6,7 @@ import com.chdjalil.jalilgym.core.data.repository.OfflineFirstAchievementReposit
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstBodyRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstExerciseRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstFoodRepository
+import com.chdjalil.jalilgym.core.data.repository.OfflineFirstGroceryRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstNutritionRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstProgramRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstProgressRepository
@@ -21,6 +22,7 @@ import com.chdjalil.jalilgym.core.domain.repository.BodyRepository
 import com.chdjalil.jalilgym.core.domain.repository.ExerciseImageStore
 import com.chdjalil.jalilgym.core.domain.repository.ExerciseRepository
 import com.chdjalil.jalilgym.core.domain.repository.FoodRepository
+import com.chdjalil.jalilgym.core.domain.repository.GroceryRepository
 import com.chdjalil.jalilgym.core.domain.repository.NutritionRepository
 import com.chdjalil.jalilgym.core.domain.repository.ProgramRepository
 import com.chdjalil.jalilgym.core.domain.repository.ProgressRepository
@@ -79,6 +81,9 @@ internal abstract class DataModule {
 
     @Binds
     abstract fun bindsBackupRepository(impl: ContentUriBackupRepository): BackupRepository
+
+    @Binds
+    abstract fun bindsGroceryRepository(impl: OfflineFirstGroceryRepository): GroceryRepository
 
     @Binds
     abstract fun bindsWaterRepository(impl: OfflineFirstWaterRepository): WaterRepository

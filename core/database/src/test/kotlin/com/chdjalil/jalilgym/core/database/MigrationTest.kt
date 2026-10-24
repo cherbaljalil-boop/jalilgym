@@ -53,7 +53,7 @@ class MigrationTest {
     }
 
     @Test
-    fun migrate2To3KeepsDataAndAddsTheWaterLog() {
+    fun migrate2To3KeepsDataAndAddsWaterAndGroceries() {
         helper.createDatabase(name, 2).use { db ->
             db.execSQL("INSERT INTO body_weights (id, date, weightKg, healthConnectId, updatedAt, deletedAt) VALUES ('w1', '2026-10-01', 80.5, NULL, 1, NULL)")
         }
@@ -67,6 +67,13 @@ class MigrationTest {
             db.query("SELECT SUM(ml) FROM water_logs").use { cursor ->
                 assertThat(cursor.moveToFirst()).isTrue()
                 assertThat(cursor.getInt(0)).isEqualTo(250)
+            }
+            db.execSQL(
+                "INSERT INTO grocery_items (id, name, foodId, grams, checked, createdAt, updatedAt, deletedAt) VALUES ('g1', 'Milk', NULL, NULL, 0, 1, 1, NULL)",
+            )
+            db.query("SELECT name FROM grocery_items").use { cursor ->
+                assertThat(cursor.moveToFirst()).isTrue()
+                assertThat(cursor.getString(0)).isEqualTo("Milk")
             }
         }
     }
