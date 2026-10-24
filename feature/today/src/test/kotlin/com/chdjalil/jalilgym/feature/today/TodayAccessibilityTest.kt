@@ -1,10 +1,10 @@
 package com.chdjalil.jalilgym.feature.today
 
-import androidx.compose.ui.platform.LocalLayoutDirection
+import android.view.View
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performScrollTo
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.chdjalil.jalilgym.core.designsystem.theme.JalilgymTheme
 import com.chdjalil.jalilgym.core.model.MacroTargets
@@ -49,9 +49,10 @@ class TodayAccessibilityTest {
     @Test
     @Config(qualifiers = "ar-ldrtl")
     fun todayReadsInArabicRightToLeft() {
-        var direction: LayoutDirection? = null
+        var direction: Int? = null
         composeRule.setContent {
-            direction = LocalLayoutDirection.current
+            // The locale sets the direction; the app's supportsRtl applies it (test builds have no app manifest).
+            direction = LocalConfiguration.current.layoutDirection
             JalilgymTheme {
                 TodayContent(
                     TodayUiState(isLoading = false, exerciseCount = 3, targets = MacroTargets(2200, 176, 240, 61)),
@@ -61,7 +62,7 @@ class TodayAccessibilityTest {
                 )
             }
         }
-        assertThat(direction).isEqualTo(LayoutDirection.Rtl)
+        assertThat(direction).isEqualTo(View.LAYOUT_DIRECTION_RTL)
         composeRule.onNodeWithText("اختر برنامجًا").assertExists()
         composeRule.assertActionsHaveLabels()
     }
