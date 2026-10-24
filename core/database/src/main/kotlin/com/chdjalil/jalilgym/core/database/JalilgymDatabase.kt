@@ -13,6 +13,7 @@ import com.chdjalil.jalilgym.core.database.dao.ProgramDao
 import com.chdjalil.jalilgym.core.database.dao.ProgressDao
 import com.chdjalil.jalilgym.core.database.dao.RecipeDao
 import com.chdjalil.jalilgym.core.database.dao.SavedMealDao
+import com.chdjalil.jalilgym.core.database.dao.WaterDao
 import com.chdjalil.jalilgym.core.database.dao.WorkoutDao
 import com.chdjalil.jalilgym.core.database.entity.AchievementUnlockEntity
 import com.chdjalil.jalilgym.core.database.entity.ActiveProgramEntity
@@ -38,6 +39,7 @@ import com.chdjalil.jalilgym.core.database.entity.SavedMealEntity
 import com.chdjalil.jalilgym.core.database.entity.SavedMealItemEntity
 import com.chdjalil.jalilgym.core.database.entity.SessionExerciseEntity
 import com.chdjalil.jalilgym.core.database.entity.SetLogEntity
+import com.chdjalil.jalilgym.core.database.entity.WaterLogEntity
 import com.chdjalil.jalilgym.core.database.entity.WorkoutSessionEntity
 
 /**
@@ -45,11 +47,13 @@ import com.chdjalil.jalilgym.core.database.entity.WorkoutSessionEntity
  * and a migration test; destructive migration is never enabled.
  */
 @Database(
-    version = 2,
+    version = 3,
     exportSchema = true,
     autoMigrations = [
         // 2: saturated fat on diary entries.
         AutoMigration(from = 1, to = 2),
+        // 3: water tracker.
+        AutoMigration(from = 2, to = 3),
     ],
     entities = [
         // Training
@@ -80,6 +84,7 @@ import com.chdjalil.jalilgym.core.database.entity.WorkoutSessionEntity
         SavedMealEntity::class,
         SavedMealItemEntity::class,
         MealPlanEntryEntity::class,
+        WaterLogEntity::class,
     ],
 )
 @TypeConverters(Converters::class)
@@ -103,6 +108,8 @@ abstract class JalilgymDatabase : RoomDatabase() {
     abstract fun dietPlanDao(): DietPlanDao
 
     abstract fun recipeDao(): RecipeDao
+
+    abstract fun waterDao(): WaterDao
 
     companion object {
         const val NAME = "jalilgym.db"

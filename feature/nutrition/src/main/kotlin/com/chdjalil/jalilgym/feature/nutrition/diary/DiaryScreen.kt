@@ -109,6 +109,9 @@ internal fun DiaryScreen(actions: DiaryActions, viewModel: DiaryViewModel = hilt
             onSaveMeal = viewModel::saveMeal,
             onApplyCheckIn = viewModel::applyCheckIn,
             onDismissCheckIn = viewModel::dismissCheckIn,
+            onAddWater = viewModel::addWater,
+            onUndoWater = viewModel::undoWater,
+            onSetWaterGoal = viewModel::setWaterGoal,
         )
         SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter))
     }
@@ -129,6 +132,9 @@ internal fun DiaryContent(
     onSaveMeal: (MealType, String) -> Unit = { _, _ -> },
     onApplyCheckIn: () -> Unit = {},
     onDismissCheckIn: () -> Unit = {},
+    onAddWater: (Int) -> Unit = {},
+    onUndoWater: () -> Unit = {},
+    onSetWaterGoal: (Int?) -> Unit = {},
 ) {
     var quickAddMeal by rememberSaveable { mutableStateOf<MealType?>(null) }
     var saveMealFor by rememberSaveable { mutableStateOf<MealType?>(null) }
@@ -160,6 +166,7 @@ internal fun DiaryContent(
                 OutlinedButton(onClick = actions.onOpenRecipes) { Text(stringResource(R.string.feature_nutrition_recipes)) }
                 OutlinedButton(onClick = actions.onOpenMealIdeas) { Text(stringResource(R.string.feature_nutrition_meal_ideas)) }
             }
+            WaterCard(uiState.water, onAddWater, onUndoWater, onSetWaterGoal)
             MealType.entries.forEach { meal ->
                 MealSection(
                     meal = meal,

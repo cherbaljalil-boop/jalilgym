@@ -23,6 +23,8 @@ data class UserPreferences(
     /** When the weekly nutrition check-in was last applied or dismissed. */
     val lastCheckIn: LocalDate? = null,
     val healthConnectEnabled: Boolean = false,
+    /** Daily water goal set by the user; null means work it out from body weight. */
+    val waterGoalMl: Int? = null,
 )
 
 enum class Goal { BUILD_MUSCLE, LOSE_FAT, GET_STRONGER, GENERAL_FITNESS, ENDURANCE }

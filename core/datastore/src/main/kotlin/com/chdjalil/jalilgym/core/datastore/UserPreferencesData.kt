@@ -44,6 +44,7 @@ data class UserPreferencesData(
     /** ISO-8601 date. */
     val lastCheckIn: String? = null,
     val healthConnectEnabled: Boolean = false,
+    val waterGoalMl: Int? = null,
 )
 
 /** [birthDate] is ISO-8601 (yyyy-MM-dd). */
@@ -77,4 +78,5 @@ internal fun UserPreferencesData.toModel() = UserPreferences(
     halalFilter = halalFilter,
     lastCheckIn = lastCheckIn?.let { runCatching { LocalDate.parse(it) }.getOrNull() },
     healthConnectEnabled = healthConnectEnabled,
+    waterGoalMl = waterGoalMl,
 )

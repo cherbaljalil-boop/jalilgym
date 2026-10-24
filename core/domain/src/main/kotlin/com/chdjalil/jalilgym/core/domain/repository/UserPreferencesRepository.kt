@@ -29,6 +29,9 @@ interface UserPreferencesRepository {
 
     suspend fun setHealthConnectEnabled(enabled: Boolean)
 
+    /** Null goes back to the automatic goal. */
+    suspend fun setWaterGoal(ml: Int?)
+
     /** Any answer may be null when the user skipped it. */
     suspend fun markStarterProgramApplied()
 

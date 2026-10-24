@@ -12,6 +12,7 @@ import com.chdjalil.jalilgym.core.data.repository.OfflineFirstProgressRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstRecipeRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstSeedRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstUserPreferencesRepository
+import com.chdjalil.jalilgym.core.data.repository.OfflineFirstWaterRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstWorkoutRepository
 import com.chdjalil.jalilgym.core.data.workout.InMemoryRestTimer
 import com.chdjalil.jalilgym.core.domain.repository.AchievementRepository
@@ -27,6 +28,7 @@ import com.chdjalil.jalilgym.core.domain.repository.RecipeRepository
 import com.chdjalil.jalilgym.core.domain.repository.RestTimer
 import com.chdjalil.jalilgym.core.domain.repository.SeedRepository
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
+import com.chdjalil.jalilgym.core.domain.repository.WaterRepository
 import com.chdjalil.jalilgym.core.domain.repository.WorkoutRepository
 import dagger.Binds
 import dagger.Module
@@ -77,6 +79,9 @@ internal abstract class DataModule {
 
     @Binds
     abstract fun bindsBackupRepository(impl: ContentUriBackupRepository): BackupRepository
+
+    @Binds
+    abstract fun bindsWaterRepository(impl: OfflineFirstWaterRepository): WaterRepository
 
     @Binds
     abstract fun bindsSeedRepository(impl: OfflineFirstSeedRepository): SeedRepository

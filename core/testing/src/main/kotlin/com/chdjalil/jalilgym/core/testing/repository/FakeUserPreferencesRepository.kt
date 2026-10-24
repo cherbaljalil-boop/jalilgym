@@ -39,6 +39,8 @@ class FakeUserPreferencesRepository(
 
     override suspend fun setHealthConnectEnabled(enabled: Boolean) = state.update { it.copy(healthConnectEnabled = enabled) }
 
+    override suspend fun setWaterGoal(ml: Int?) = state.update { it.copy(waterGoalMl = ml) }
+
     override suspend fun markStarterProgramApplied() = state.update { it.copy(starterProgramApplied = true) }
 
     override suspend fun completeOnboarding(

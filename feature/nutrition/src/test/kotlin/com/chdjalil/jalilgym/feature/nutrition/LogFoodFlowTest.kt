@@ -26,6 +26,7 @@ import com.chdjalil.jalilgym.core.testing.repository.FakeBodyRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeFoodRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeNutritionRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeUserPreferencesRepository
+import com.chdjalil.jalilgym.core.testing.repository.FakeWaterRepository
 import com.chdjalil.jalilgym.feature.nutrition.diary.DiaryActions
 import com.chdjalil.jalilgym.feature.nutrition.diary.DiaryContent
 import com.chdjalil.jalilgym.feature.nutrition.diary.DiaryViewModel
@@ -69,7 +70,7 @@ class LogFoodFlowTest {
         val args = mapOf("date" to "$today", "meal" to "BREAKFAST")
         when (val current = screen) {
             Screen.Diary -> {
-                val viewModel = remember { DiaryViewModel(nutrition, FakeBodyRepository(), prefs) }
+                val viewModel = remember { DiaryViewModel(nutrition, FakeBodyRepository(), prefs, FakeWaterRepository()) }
                 val state by viewModel.uiState.collectAsState()
                 DiaryContent(state, DiaryActions(onAddFood = { _, _ -> screen = Screen.Search }))
             }

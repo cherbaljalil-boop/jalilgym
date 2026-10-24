@@ -57,6 +57,8 @@ class JgPreferencesDataSource @Inject constructor(
 
     suspend fun setHealthConnectEnabled(enabled: Boolean) = update { it.copy(healthConnectEnabled = enabled) }
 
+    suspend fun setWaterGoal(ml: Int?) = update { it.copy(waterGoalMl = ml) }
+
     suspend fun markStarterProgramApplied() = update { it.copy(starterProgramApplied = true) }
 
     suspend fun setThemeMode(themeMode: ThemeMode) = update { it.copy(themeMode = themeMode) }

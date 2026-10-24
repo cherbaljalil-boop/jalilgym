@@ -35,6 +35,8 @@ internal class OfflineFirstUserPreferencesRepository @Inject constructor(
 
     override suspend fun setHealthConnectEnabled(enabled: Boolean) = dataSource.setHealthConnectEnabled(enabled)
 
+    override suspend fun setWaterGoal(ml: Int?) = dataSource.setWaterGoal(ml)
+
     override suspend fun markStarterProgramApplied() = dataSource.markStarterProgramApplied()
 
     override suspend fun completeOnboarding(

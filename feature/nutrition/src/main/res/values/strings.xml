@@ -216,4 +216,18 @@
     <string name="feature_nutrition_scan_again">Scan again</string>
     <string name="feature_nutrition_type_barcode">Or type the barcode</string>
     <string name="feature_nutrition_look_up">Look up</string>
+    <string name="feature_nutrition_water">Water</string>
+    <string name="feature_nutrition_water_ml">%1$s ml</string>
+    <string name="feature_nutrition_water_fl_oz">%1$d fl oz</string>
+    <string name="feature_nutrition_water_progress">%1$s of %2$s</string>
+    <string name="feature_nutrition_water_add">+ %1$s</string>
+    <string name="feature_nutrition_water_undo">Undo</string>
+    <string name="feature_nutrition_water_set_goal">Daily goal</string>
+    <string name="feature_nutrition_water_goal_title">Daily water goal</string>
+    <string name="feature_nutrition_water_goal_ml">Goal (ml)</string>
+    <string name="feature_nutrition_water_goal_fl_oz">Goal (fl oz)</string>
+    <string name="feature_nutrition_water_range_ml">%1$d–%2$d ml</string>
+    <string name="feature_nutrition_water_range_fl_oz">%1$d–%2$d fl oz</string>
+    <string name="feature_nutrition_water_goal_hint">The automatic goal is about 35 ml per kg of body weight. Training, heat and the food you eat all change how much you need, so treat it as a rough guide.</string>
+    <string name="feature_nutrition_water_goal_automatic">Use the automatic goal</string>
 </resources>

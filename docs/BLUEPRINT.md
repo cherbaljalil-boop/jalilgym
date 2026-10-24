@@ -867,7 +867,11 @@ message UserPreferences {
 ### v1.1
 Recipe builder · curated recipes and meal suggestions · Health Connect (workouts, weight, nutrition, steps) · JSON export/import · weekly nutrition check-in (calorie auto-adjust).
 
-### v2 candidates (out of scope now)
+### v2 candidates
+**v2 notes.**
+- **Water tracker.** The diary has a Water card with one-tap glass and bottle amounts (250/500 ml, or 8/16 fl oz in imperial units), undo, and a daily goal. The automatic goal is about 35 ml per kg of the latest weigh-in, rounded to 250 ml and kept between 1.5 and 4 L, or 2.5 L with no weight. A goal set by hand (0.5–6 L) overrides it. Drinks live in a new `water_logs` table (schema 3, auto-migration) and are included in backups. They aren't sent to Health Connect yet, which would need another permission declaration.
+
+
 Hydration tracker · grocery list · workout reminders and weekly summary notifications · Glance home widgets · animated or video exercise media · more program types (Upper/Lower, powerlifting, HIIT, calisthenics, home) · cloud sync (Supabase or Firebase) with optional account · Wear OS · more languages (FR/AR with RTL).
 
 ---

@@ -2,6 +2,9 @@ package com.chdjalil.jalilgym.feature.nutrition.diary
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chdjalil.jalilgym.core.domain.hydration.DEFAULT_WATER_GOAL_ML
+import com.chdjalil.jalilgym.core.domain.hydration.quickWaterAmountsMl
+import com.chdjalil.jalilgym.core.domain.hydration.waterGoalMl
 import com.chdjalil.jalilgym.core.domain.nutrition.CheckIn
 import com.chdjalil.jalilgym.core.domain.nutrition.CheckInVerdict
 import com.chdjalil.jalilgym.core.domain.nutrition.adjustTargets
@@ -11,11 +14,13 @@ import com.chdjalil.jalilgym.core.domain.nutrition.weeklyCheckIn
 import com.chdjalil.jalilgym.core.domain.repository.BodyRepository
 import com.chdjalil.jalilgym.core.domain.repository.NutritionRepository
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
+import com.chdjalil.jalilgym.core.domain.repository.WaterRepository
 import com.chdjalil.jalilgym.core.model.DiaryDay
 import com.chdjalil.jalilgym.core.model.DietPlan
 import com.chdjalil.jalilgym.core.model.MealType
 import com.chdjalil.jalilgym.core.model.Nutrients
 import com.chdjalil.jalilgym.core.model.Sex
+import com.chdjalil.jalilgym.core.model.UnitSystem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
 import javax.inject.Inject
@@ -43,6 +48,16 @@ data class DiaryUiState(
     val loggingStreak: Int = 0,
     /** This week's check-in, when one is due and there's enough weight data. */
     val checkIn: CheckIn? = null,
+    val water: WaterUiState = WaterUiState(),
+)
+
+data class WaterUiState(
+    val totalMl: Int = 0,
+    val goalMl: Int = DEFAULT_WATER_GOAL_ML,
+    /** False while the goal is worked out from body weight. */
+    val isCustomGoal: Boolean = false,
+    val units: UnitSystem = UnitSystem.METRIC,
+    val quickAmountsMl: List<Int> = quickWaterAmountsMl(UnitSystem.METRIC),
 )
 
 /** One-off messages for a snackbar. */
@@ -62,6 +77,7 @@ class DiaryViewModel @Inject constructor(
     private val nutritionRepository: NutritionRepository,
     bodyRepository: BodyRepository,
     private val preferencesRepository: UserPreferencesRepository,
+    private val waterRepository: WaterRepository,
 ) : ViewModel() {
 
     private val date = MutableStateFlow(LocalDate.now())
@@ -79,12 +95,27 @@ class DiaryViewModel @Inject constructor(
             .takeIf { it.verdict != CheckInVerdict.NOT_ENOUGH_DATA }
     }
 
+    private val water = combine(
+        date.flatMapLatest { waterRepository.observeDay(it) },
+        preferencesRepository.userPreferences,
+        bodyRepository.observeWeights(),
+    ) { day, prefs, weights ->
+        WaterUiState(
+            totalMl = day.totalMl,
+            goalMl = waterGoalMl(prefs.waterGoalMl, weights.lastOrNull()?.weightKg),
+            isCustomGoal = prefs.waterGoalMl != null,
+            units = prefs.units,
+            quickAmountsMl = quickWaterAmountsMl(prefs.units),
+        )
+    }
+
     val uiState: StateFlow<DiaryUiState> = combine(
         date.flatMapLatest { nutritionRepository.observeDiary(it) },
         nutritionRepository.observeActivePlan(),
         nutritionRepository.observeLoggingStreak(),
         checkIn,
-    ) { day, plan, streak, checkIn ->
+        water,
+    ) { day, plan, streak, checkIn, water ->
         DiaryUiState(
             isLoading = false,
             date = day.date,
@@ -93,6 +124,7 @@ class DiaryViewModel @Inject constructor(
             plan = plan,
             loggingStreak = streak,
             checkIn = checkIn,
+            water = water,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), DiaryUiState())
 
@@ -127,6 +159,21 @@ class DiaryViewModel @Inject constructor(
     /** Keeps the targets as they are until next week. */
     fun dismissCheckIn() {
         viewModelScope.launch { preferencesRepository.setLastCheckIn(LocalDate.now()) }
+    }
+
+    fun addWater(ml: Int) {
+        val day = date.value
+        viewModelScope.launch { waterRepository.add(day, ml) }
+    }
+
+    fun undoWater() {
+        val day = date.value
+        viewModelScope.launch { waterRepository.undoLast(day) }
+    }
+
+    /** Null goes back to the goal worked out from body weight. */
+    fun setWaterGoal(ml: Int?) {
+        viewModelScope.launch { preferencesRepository.setWaterGoal(ml) }
     }
 
     fun quickAdd(meal: MealType, name: String, nutrients: Nutrients) {

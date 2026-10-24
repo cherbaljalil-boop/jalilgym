@@ -53,6 +53,25 @@ class MigrationTest {
     }
 
     @Test
+    fun migrate2To3KeepsDataAndAddsTheWaterLog() {
+        helper.createDatabase(name, 2).use { db ->
+            db.execSQL("INSERT INTO body_weights (id, date, weightKg, healthConnectId, updatedAt, deletedAt) VALUES ('w1', '2026-10-01', 80.5, NULL, 1, NULL)")
+        }
+
+        helper.runMigrationsAndValidate(name, 3, true).use { db ->
+            db.query("SELECT weightKg FROM body_weights WHERE id = 'w1'").use { cursor ->
+                assertThat(cursor.moveToFirst()).isTrue()
+                assertThat(cursor.getDouble(0)).isEqualTo(80.5)
+            }
+            db.execSQL("INSERT INTO water_logs (id, date, ml, loggedAt, updatedAt, deletedAt) VALUES ('d1', '2026-10-01', 250, 1, 1, NULL)")
+            db.query("SELECT SUM(ml) FROM water_logs").use { cursor ->
+                assertThat(cursor.moveToFirst()).isTrue()
+                assertThat(cursor.getInt(0)).isEqualTo(250)
+            }
+        }
+    }
+
+    @Test
     fun migratedDatabaseOpensWithTheCurrentSchema() = runTest {
         helper.createDatabase(name, 1).close()
         val context = ApplicationProvider.getApplicationContext<Context>()
@@ -60,7 +79,8 @@ class MigrationTest {
         val database = Room.databaseBuilder(context, JalilgymDatabase::class.java, name).allowMainThreadQueries().build()
         try {
             assertThat(database.foodLogDao().observeDay(LocalDate.of(2026, 10, 1)).first()).isEmpty()
-            assertThat(database.openHelper.readableDatabase.version).isEqualTo(2)
+            assertThat(database.waterDao().observeDay(LocalDate.of(2026, 10, 1)).first()).isEmpty()
+            assertThat(database.openHelper.readableDatabase.version).isEqualTo(3)
         } finally {
             database.close()
         }

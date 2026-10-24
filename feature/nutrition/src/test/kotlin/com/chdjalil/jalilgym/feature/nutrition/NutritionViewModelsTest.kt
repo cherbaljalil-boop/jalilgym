@@ -17,6 +17,7 @@ import com.chdjalil.jalilgym.core.testing.repository.FakeBodyRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeFoodRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeNutritionRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeUserPreferencesRepository
+import com.chdjalil.jalilgym.core.testing.repository.FakeWaterRepository
 import com.chdjalil.jalilgym.feature.nutrition.diary.DiaryMessage
 import com.chdjalil.jalilgym.feature.nutrition.diary.DiaryViewModel
 import com.chdjalil.jalilgym.feature.nutrition.food.CustomFoodViewModel
@@ -165,7 +166,7 @@ class NutritionViewModelsTest {
     @Test
     fun `diary copies the previous day's meal and reports what happened`() = runTest {
         nutrition.logFood(today.minusDays(1), MealType.BREAKFAST, "oats", 50.0)
-        val viewModel = DiaryViewModel(nutrition, FakeBodyRepository(), prefs)
+        val viewModel = DiaryViewModel(nutrition, FakeBodyRepository(), prefs, FakeWaterRepository())
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
         val messages = mutableListOf<DiaryMessage>()
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.messages.collect { messages += it } }
@@ -214,7 +215,7 @@ class NutritionViewModelsTest {
         val body = FakeBodyRepository()
         // Losing only 0.05 kg a week on a cut: stalled.
         listOf(12L to 80.0, 9L to 80.0, 4L to 79.95, 0L to 79.95).forEach { (daysAgo, kg) -> body.logWeight(today.minusDays(daysAgo), kg) }
-        val viewModel = DiaryViewModel(nutrition, body, prefs)
+        val viewModel = DiaryViewModel(nutrition, body, prefs, FakeWaterRepository())
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
 
         val checkIn = viewModel.uiState.value.checkIn!!
@@ -231,10 +232,35 @@ class NutritionViewModelsTest {
     @Test
     fun `no check-in without a plan or enough weigh-ins`() = runTest {
         val body = FakeBodyRepository().apply { logWeight(today, 80.0) }
-        val viewModel = DiaryViewModel(nutrition, body, prefs)
+        val viewModel = DiaryViewModel(nutrition, body, prefs, FakeWaterRepository())
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
         assertThat(viewModel.uiState.value.checkIn).isNull()
         nutrition.savePlan(DietGoal.CUT, DietStyle.BALANCED, false, MacroTargets(2200, 176, 240, 61), isManualOverride = false)
         assertThat(viewModel.uiState.value.checkIn).isNull()
+    }
+
+    @Test
+    fun `water tracker adds, undoes and follows the goal`() = runTest {
+        val body = FakeBodyRepository().apply { logWeight(today, 80.0) }
+        val water = FakeWaterRepository()
+        val viewModel = DiaryViewModel(nutrition, body, prefs, water)
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
+
+        assertThat(viewModel.uiState.value.water.goalMl).isEqualTo(2_750)
+        viewModel.addWater(250)
+        viewModel.addWater(500)
+        assertThat(viewModel.uiState.value.water.totalMl).isEqualTo(750)
+        viewModel.undoWater()
+        assertThat(viewModel.uiState.value.water.totalMl).isEqualTo(250)
+
+        viewModel.setWaterGoal(3_000)
+        assertThat(viewModel.uiState.value.water.goalMl).isEqualTo(3_000)
+        assertThat(viewModel.uiState.value.water.isCustomGoal).isTrue()
+        viewModel.setWaterGoal(null)
+        assertThat(viewModel.uiState.value.water.goalMl).isEqualTo(2_750)
+
+        // Each day has its own total.
+        viewModel.previousDay()
+        assertThat(viewModel.uiState.value.water.totalMl).isEqualTo(0)
     }
 }
