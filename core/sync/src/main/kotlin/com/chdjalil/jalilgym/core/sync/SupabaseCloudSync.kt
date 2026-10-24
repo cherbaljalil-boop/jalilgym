@@ -77,7 +77,7 @@ class SupabaseCloudSync @Inject constructor(
             engine.disableTracking()
         } else {
             engine.enableTracking(markEverything = false)
-            status.update { it.copy(pendingChanges = engine.pendingChanges()) }
+            status.update { it.copy(email = store.session?.email, pendingChanges = engine.pendingChanges()) }
         }
     }
 
