@@ -55,6 +55,8 @@ class JgPreferencesDataSource @Inject constructor(
 
     suspend fun setLastCheckIn(date: LocalDate) = update { it.copy(lastCheckIn = date.toString()) }
 
+    suspend fun setHealthConnectEnabled(enabled: Boolean) = update { it.copy(healthConnectEnabled = enabled) }
+
     suspend fun markStarterProgramApplied() = update { it.copy(starterProgramApplied = true) }
 
     suspend fun setThemeMode(themeMode: ThemeMode) = update { it.copy(themeMode = themeMode) }

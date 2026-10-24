@@ -1,5 +1,7 @@
 package com.chdjalil.jalilgym.feature.profile
 
+import android.content.Intent
+import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
@@ -13,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
@@ -25,6 +28,7 @@ import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -39,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,12 +55,20 @@ import com.chdjalil.jalilgym.core.designsystem.component.JgScreenHeader
 import com.chdjalil.jalilgym.core.designsystem.component.JgWordmark
 import com.chdjalil.jalilgym.core.designsystem.icon.JgIcons
 import com.chdjalil.jalilgym.core.designsystem.theme.JalilgymTheme
+import com.chdjalil.jalilgym.core.domain.repository.HealthAvailability
+import com.chdjalil.jalilgym.core.domain.repository.HealthStatus
+import com.chdjalil.jalilgym.core.health.HEALTH_CONNECT_STORE_URI
+import com.chdjalil.jalilgym.core.health.healthPermissionContract
 import com.chdjalil.jalilgym.core.model.EffortScale
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
 import com.chdjalil.jalilgym.core.ui.EntryCard
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 @Composable
 internal fun ProfileScreen(
@@ -71,6 +84,9 @@ internal fun ProfileScreen(
             .orEmpty()
     }
     val backupBusy by viewModel.backupBusy.collectAsStateWithLifecycle()
+    val healthStatus by viewModel.healthStatus.collectAsStateWithLifecycle()
+    val healthPermissionLauncher = rememberLauncherForActivityResult(healthPermissionContract()) { viewModel.onHealthPermissionsResult() }
+    LaunchedEffect(Unit) { viewModel.refreshHealth() }
     val snackbar = remember { SnackbarHostState() }
     val resources = LocalResources.current
     LaunchedEffect(viewModel) {
@@ -104,6 +120,18 @@ internal fun ProfileScreen(
             onExport = { exportLauncher.launch("jalilgym-backup-${LocalDate.now()}.json") },
             // Some providers label JSON as plain text or binary.
             onImport = { importLauncher.launch(arrayOf(BACKUP_MIME_TYPE, "text/plain", "application/octet-stream")) },
+            healthStatus = healthStatus,
+            onHealthEnabled = { enabled ->
+                viewModel.setHealthEnabled(enabled)
+                if (enabled && !healthStatus.granted.containsAll(viewModel.healthPermissions)) {
+                    healthPermissionLauncher.launch(viewModel.healthPermissions)
+                }
+            },
+            onGrantHealth = { healthPermissionLauncher.launch(viewModel.healthPermissions) },
+            onInstallHealth = {
+                runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(HEALTH_CONNECT_STORE_URI))) }
+            },
+            onSyncHealth = viewModel::syncHealthNow,
         )
         SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter))
     }
@@ -122,6 +150,11 @@ internal fun ProfileContent(
     backupBusy: Boolean = false,
     onExport: () -> Unit = {},
     onImport: () -> Unit = {},
+    healthStatus: HealthStatus = HealthStatus(),
+    onHealthEnabled: (Boolean) -> Unit = {},
+    onGrantHealth: () -> Unit = {},
+    onInstallHealth: () -> Unit = {},
+    onSyncHealth: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -142,6 +175,7 @@ internal fun ProfileContent(
             if (uiState is ProfileUiState.Ready) {
                 SettingsSection(uiState.preferences, onEvent)
             }
+            HealthSection(healthStatus, onHealthEnabled, onGrantHealth, onInstallHealth, onSyncHealth)
             DataSection(backupBusy, onExport, onImport)
             AboutSection(versionName, onOpenLicenses)
         }
@@ -244,6 +278,75 @@ private fun AboutSection(versionName: String, onOpenLicenses: () -> Unit) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             TextButton(onClick = onOpenLicenses) { Text(stringResource(R.string.feature_profile_licenses)) }
+        }
+    }
+}
+
+private val syncTimeFormat: DateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
+
+@Composable
+private fun HealthSection(
+    status: HealthStatus,
+    onEnabled: (Boolean) -> Unit,
+    onGrant: () -> Unit,
+    onInstall: () -> Unit,
+    onSync: () -> Unit,
+) {
+    SectionTitle(R.string.feature_profile_health)
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(
+                stringResource(R.string.feature_profile_health_desc),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            when (status.availability) {
+                HealthAvailability.NOT_SUPPORTED -> Text(
+                    stringResource(R.string.feature_profile_health_unsupported),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                HealthAvailability.NEEDS_INSTALL_OR_UPDATE -> OutlinedButton(onClick = onInstall) {
+                    Text(stringResource(R.string.feature_profile_health_install))
+                }
+                HealthAvailability.AVAILABLE -> {
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .toggleable(value = status.enabled, role = Role.Switch, onValueChange = onEnabled),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(stringResource(R.string.feature_profile_health_toggle), Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
+                        Switch(checked = status.enabled, onCheckedChange = null)
+                    }
+                    if (status.enabled && !status.granted.containsAll(status.required)) {
+                        Text(
+                            stringResource(R.string.feature_profile_health_needs_access),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                        OutlinedButton(onClick = onGrant) { Text(stringResource(R.string.feature_profile_health_grant)) }
+                    }
+                    if (status.ready) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                status.lastSyncedAt?.let {
+                                    stringResource(
+                                        R.string.feature_profile_health_synced,
+                                        syncTimeFormat.format(Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault())),
+                                    )
+                                } ?: stringResource(R.string.feature_profile_health_not_synced),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.weight(1f),
+                            )
+                            TextButton(onClick = onSync) { Text(stringResource(R.string.feature_profile_health_sync_now)) }
+                        }
+                    }
+                }
+            }
         }
     }
 }

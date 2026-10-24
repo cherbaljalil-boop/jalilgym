@@ -1,0 +1,21 @@
+plugins {
+    alias(libs.plugins.jalilgym.android.library)
+    alias(libs.plugins.jalilgym.hilt)
+}
+
+android {
+    namespace = "com.chdjalil.jalilgym.core.health"
+}
+
+dependencies {
+    api(projects.core.domain)
+    implementation(projects.core.common)
+    implementation(libs.androidx.health.connect.client)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.kotlinx.coroutines.android)
+
+    testImplementation(projects.core.testing)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.androidx.test.ext.junit)
+}

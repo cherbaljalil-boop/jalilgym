@@ -23,6 +23,7 @@ androidxBenchmark = "1.5.0"
 androidxProfileInstaller = "1.4.1"
 androidxUiAutomator = "2.4.0"
 androidxTestRunner = "1.7.0"
+androidxHealthConnect = "1.1.0"
 composeBom = "2026.09.00"
 
 # Images
@@ -64,6 +65,7 @@ androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profi
 androidx-benchmark-macro-junit4 = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidxBenchmark" }
 androidx-test-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "androidxUiAutomator" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
+androidx-health-connect-client = { group = "androidx.health.connect", name = "connect-client", version.ref = "androidxHealthConnect" }
 
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }

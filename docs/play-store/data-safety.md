@@ -1,7 +1,7 @@
 # Data safety form answers
 
 How to answer Play Console → Policy → App content → Data safety, based on what
-the code does (checked for version 1.0.0). Review before submitting: Play's
+the code does (checked for version 1.1.0). Review before submitting: Play's
 definitions change, and the developer account owner is responsible for them.
 
 ## Data collection and security
@@ -23,7 +23,11 @@ Declare only this one:
 Everything else stays on the device and is **not collected** under Play's
 definition (data that never leaves the device doesn't need to be declared):
 health and fitness data (workouts, nutrition, weight, measurements), photos,
-personal info from setup (sex, birth date, height), and settings.
+personal info from setup (sex, birth date, height), and settings. Optional
+Health Connect sync reads and writes health data only between the app and
+Health Connect on the same device. Nothing is transmitted off the device, so
+it isn't collected either. Export files are written only where the user
+chooses through the system file picker.
 
 The app has no account, no advertising ID usage, no analytics and no
 crash-reporting SDKs.
@@ -37,6 +41,18 @@ crash-reporting SDKs.
   timer and set controls in a notification so users can log sets and hear the
   rest-timer alert with the screen off. It runs only between starting and
   finishing a workout." Attach a short screen recording of the notification.
+- **Health Connect permissions declaration:** declare each permission in Play
+  Console → App content → Health apps, with these justifications:
+  - `WRITE_EXERCISE`: "Writes the user's finished strength-training workouts
+    to Health Connect so other fitness apps can see them."
+  - `READ_WEIGHT` and `WRITE_WEIGHT`: "Shares the body weights logged in
+    Jalilgym and imports weigh-ins from scale apps into the weight trend."
+  - `WRITE_NUTRITION`: "Writes the calories and macronutrients of each meal
+    logged in the food diary."
+  - `READ_STEPS`: "Shows today's step count on the Today dashboard."
+  The privacy policy has a Health Connect section. The app shows a rationale
+  screen (`HealthPermissionsActivity`) linked from Health Connect. Health
+  data isn't read in the background.
 - **Camera permission:** barcode scanning only, requested when the scanner opens.
 - **Health apps declaration:** the app is a fitness and nutrition tracker, not a
   medical device. It shows "Not medical advice" with calorie targets, and its

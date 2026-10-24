@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,6 +45,7 @@ internal fun TodayScreen(
     viewModel: TodayViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    LaunchedEffect(Unit) { viewModel.refreshSteps() }
     TodayContent(
         uiState,
         onOpenDay,
@@ -116,6 +118,13 @@ internal fun TodayContent(
                 icon = JgIcons.Nutrition,
                 onClick = onOpenNutrition,
             )
+            uiState.steps?.let { steps ->
+                Text(
+                    pluralStringResource(R.plurals.feature_today_steps, steps.coerceAtMost(Int.MAX_VALUE.toLong()).toInt(), steps),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
             uiState.streak?.let { StreakCard(it, onClick = onOpenProgress) }
             uiState.exerciseCount?.let { count ->
                 Text(

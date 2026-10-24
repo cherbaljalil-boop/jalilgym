@@ -33,6 +33,8 @@ internal class OfflineFirstUserPreferencesRepository @Inject constructor(
 
     override suspend fun setLastCheckIn(date: LocalDate) = dataSource.setLastCheckIn(date)
 
+    override suspend fun setHealthConnectEnabled(enabled: Boolean) = dataSource.setHealthConnectEnabled(enabled)
+
     override suspend fun markStarterProgramApplied() = dataSource.markStarterProgramApplied()
 
     override suspend fun completeOnboarding(

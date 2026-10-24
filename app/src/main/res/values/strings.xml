@@ -7,4 +7,10 @@
     <string name="tab_progress">Progress</string>
     <string name="tab_profile">Profile</string>
     <string name="default_custom_program_name">My program</string>
+    <string name="health_rationale_title">Jalilgym and Health Connect</string>
+    <string name="health_rationale_intro">Health Connect is optional. When you turn it on in Profile, Jalilgym uses it to keep your other health apps up to date.</string>
+    <string name="health_rationale_write">Jalilgym writes your finished workouts (as strength-training sessions), the body weights you log and the calories and macros of each meal in your diary for the last 30 days. If you delete something in Jalilgym, it\'s removed from Health Connect too.</string>
+    <string name="health_rationale_read">Jalilgym reads weigh-ins from other apps (such as a smart scale) to add them to your weight trend, and today\'s step count to show on the Today screen.</string>
+    <string name="health_rationale_private">This data stays on your device. Jalilgym has no account or server and never sends health data anywhere. You can turn off access at any time in Health Connect or in Profile.</string>
+    <string name="health_rationale_close">Close</string>
 </resources>

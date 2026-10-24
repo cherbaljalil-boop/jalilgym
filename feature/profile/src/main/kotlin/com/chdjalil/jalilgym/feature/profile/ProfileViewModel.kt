@@ -3,6 +3,8 @@ package com.chdjalil.jalilgym.feature.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chdjalil.jalilgym.core.domain.repository.BackupRepository
+import com.chdjalil.jalilgym.core.domain.repository.HealthRepository
+import com.chdjalil.jalilgym.core.domain.repository.HealthStatus
 import com.chdjalil.jalilgym.core.domain.repository.ImportResult
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
 import com.chdjalil.jalilgym.core.model.EffortScale
@@ -54,7 +56,38 @@ sealed interface BackupMessage {
 class ProfileViewModel @Inject constructor(
     private val preferencesRepository: UserPreferencesRepository,
     private val backupRepository: BackupRepository,
+    private val healthRepository: HealthRepository,
 ) : ViewModel() {
+
+    val healthStatus: StateFlow<HealthStatus> = healthRepository.observeStatus()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HealthStatus())
+
+    val healthPermissions: Set<String> get() = healthRepository.requiredPermissions
+
+    /** Re-checks Health Connect (call when the screen shows: the user may have changed access elsewhere). */
+    fun refreshHealth() {
+        viewModelScope.launch { healthRepository.refresh() }
+    }
+
+    fun setHealthEnabled(enabled: Boolean) {
+        viewModelScope.launch {
+            healthRepository.setEnabled(enabled)
+            healthRepository.refresh()
+            if (enabled) healthRepository.sync()
+        }
+    }
+
+    /** After Health Connect's permission screen. */
+    fun onHealthPermissionsResult() {
+        viewModelScope.launch {
+            healthRepository.refresh()
+            healthRepository.sync()
+        }
+    }
+
+    fun syncHealthNow() {
+        viewModelScope.launch { healthRepository.sync() }
+    }
 
     private val _backupBusy = MutableStateFlow(false)
 

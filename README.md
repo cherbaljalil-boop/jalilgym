@@ -18,8 +18,10 @@ core/model            Pure Kotlin domain models
 core/common           Dispatchers, units
 core/domain           Repository interfaces (and, later, use cases & calculators)
 core/data             Offline-first repository implementations
-core/database         Room schema v1, DAOs, seed importer (assets/seed)
+core/database         Room schema, DAOs, seed importer (assets/seed: exercises, foods, recipes)
 core/datastore        Typed DataStore for user settings
+core/network          Open Food Facts client
+core/health           Optional Health Connect sync (workouts, weight, meals, steps)
 core/designsystem     Theme, fonts, icons, Jg* components
 core/ui               Shared composables
 core/testing          Fakes and test rules

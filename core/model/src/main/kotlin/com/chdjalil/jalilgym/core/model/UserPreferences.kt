@@ -22,6 +22,7 @@ data class UserPreferences(
     val halalFilter: HalalFilter = HalalFilter.ALL,
     /** When the weekly nutrition check-in was last applied or dismissed. */
     val lastCheckIn: LocalDate? = null,
+    val healthConnectEnabled: Boolean = false,
 )
 
 enum class Goal { BUILD_MUSCLE, LOSE_FAT, GET_STRONGER, GENERAL_FITNESS, ENDURANCE }

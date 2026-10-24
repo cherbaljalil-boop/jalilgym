@@ -50,7 +50,13 @@ data class TrainingStreak(
     val lastWorkoutDate: LocalDate?,
 )
 
-data class BodyWeight(val id: String, val date: LocalDate, val weightKg: Double)
+data class BodyWeight(
+    val id: String,
+    val date: LocalDate,
+    val weightKg: Double,
+    /** Set when imported from Health Connect (another app wrote it). */
+    val healthConnectId: String? = null,
+)
 
 data class BodyMeasurement(val id: String, val date: LocalDate, val type: MeasurementType, val value: Double)
 

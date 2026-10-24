@@ -37,6 +37,8 @@ class FakeUserPreferencesRepository(
 
     override suspend fun setLastCheckIn(date: LocalDate) = state.update { it.copy(lastCheckIn = date) }
 
+    override suspend fun setHealthConnectEnabled(enabled: Boolean) = state.update { it.copy(healthConnectEnabled = enabled) }
+
     override suspend fun markStarterProgramApplied() = state.update { it.copy(starterProgramApplied = true) }
 
     override suspend fun completeOnboarding(

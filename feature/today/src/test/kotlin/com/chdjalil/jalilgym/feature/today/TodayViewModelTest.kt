@@ -6,6 +6,7 @@ import com.chdjalil.jalilgym.core.model.ProgramType
 import com.chdjalil.jalilgym.core.testing.MainDispatcherRule
 import com.chdjalil.jalilgym.core.testing.data.sampleExercise
 import com.chdjalil.jalilgym.core.testing.repository.FakeExerciseRepository
+import com.chdjalil.jalilgym.core.testing.repository.FakeHealthRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeNutritionRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeProgramRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeProgressRepository
@@ -35,7 +36,7 @@ class TodayViewModelTest {
     @Test
     fun `shows the next workout of the active program and can skip it`() = runTest {
         val workouts = FakeWorkoutRepository(programs = programs)
-        val viewModel = TodayViewModel(exercises, programs, workouts, FakeProgressRepository(), FakeNutritionRepository())
+        val viewModel = TodayViewModel(exercises, programs, workouts, FakeProgressRepository(), FakeNutritionRepository(), FakeHealthRepository())
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
 
         assertThat(viewModel.uiState.value.active).isNull()
@@ -51,5 +52,18 @@ class TodayViewModelTest {
 
         workouts.startEmpty("Quick")
         assertThat(viewModel.uiState.value.workoutInProgress).isEqualTo("Quick")
+    }
+
+    @Test
+    fun `shows today's steps once Health Connect reports them`() = runTest {
+        val health = FakeHealthRepository()
+        val viewModel = TodayViewModel(
+            exercises, programs, FakeWorkoutRepository(programs = programs), FakeProgressRepository(), FakeNutritionRepository(), health,
+        )
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
+
+        assertThat(viewModel.uiState.value.steps).isNull()
+        health.steps.value = 8_432
+        assertThat(viewModel.uiState.value.steps).isEqualTo(8_432)
     }
 }

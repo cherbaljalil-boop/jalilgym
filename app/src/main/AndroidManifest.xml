@@ -37,5 +37,25 @@
                 <data android:scheme="jalilgym" android:host="nutrition" />
             </intent-filter>
         </activity>
+
+        <!-- Health Connect links here to explain why Jalilgym asks for health data. -->
+        <activity
+            android:name=".HealthPermissionsActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Jalilgym">
+            <intent-filter>
+                <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
+            </intent-filter>
+        </activity>
+        <activity-alias
+            android:name="ViewPermissionUsageActivity"
+            android:exported="true"
+            android:permission="android.permission.START_VIEW_PERMISSION_USAGE"
+            android:targetActivity=".HealthPermissionsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW_PERMISSION_USAGE" />
+                <category android:name="android.intent.category.HEALTH_PERMISSIONS" />
+            </intent-filter>
+        </activity-alias>
     </application>
 </manifest>

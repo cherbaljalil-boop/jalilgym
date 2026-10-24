@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Health Connect (docs/BLUEPRINT.md §5.5); requested only when the user turns it on. -->
+    <uses-permission android:name="android.permission.health.WRITE_EXERCISE" />
+    <uses-permission android:name="android.permission.health.WRITE_WEIGHT" />
+    <uses-permission android:name="android.permission.health.READ_WEIGHT" />
+    <uses-permission android:name="android.permission.health.WRITE_NUTRITION" />
+    <uses-permission android:name="android.permission.health.READ_STEPS" />
+
+    <queries>
+        <package android:name="com.google.android.apps.healthdata" />
+    </queries>
+</manifest>

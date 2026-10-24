@@ -37,7 +37,7 @@ internal class OfflineFirstBodyRepository @Inject constructor(
     private fun now() = System.currentTimeMillis()
 
     override fun observeWeights(): Flow<List<BodyWeight>> =
-        bodyDao.observeWeights().map { list -> list.map { BodyWeight(it.id, it.date, it.weightKg) } }
+        bodyDao.observeWeights().map { list -> list.map { BodyWeight(it.id, it.date, it.weightKg, it.healthConnectId) } }
 
     override suspend fun logWeight(date: LocalDate, weightKg: Double) {
         val existing = bodyDao.weightOn(date)
@@ -46,13 +46,28 @@ internal class OfflineFirstBodyRepository @Inject constructor(
                 id = existing?.id ?: UUID.randomUUID().toString(),
                 date = date,
                 weightKg = weightKg,
-                healthConnectId = existing?.healthConnectId,
+                // Logged here, so it's ours now (and gets written to Health Connect).
+                healthConnectId = null,
                 updatedAt = now(),
             ),
         )
     }
 
     override suspend fun deleteWeight(id: String) = bodyDao.deleteWeight(id)
+
+    override suspend fun importWeight(date: LocalDate, weightKg: Double, healthConnectId: String): Boolean {
+        if (bodyDao.weightOn(date) != null) return false
+        bodyDao.upsertWeight(
+            BodyWeightEntity(
+                id = UUID.randomUUID().toString(),
+                date = date,
+                weightKg = weightKg,
+                healthConnectId = healthConnectId,
+                updatedAt = now(),
+            ),
+        )
+        return true
+    }
 
     override fun observeMeasurements(): Flow<List<BodyMeasurement>> = bodyDao.observeMeasurements().map { list ->
         list.map { BodyMeasurement(it.id, it.date, it.type, it.value) }

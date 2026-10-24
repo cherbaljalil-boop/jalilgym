@@ -8,6 +8,7 @@ import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
 import com.chdjalil.jalilgym.core.testing.MainDispatcherRule
 import com.chdjalil.jalilgym.core.testing.repository.FakeBackupRepository
+import com.chdjalil.jalilgym.core.testing.repository.FakeHealthRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeUserPreferencesRepository
 import com.google.common.truth.Truth.assertThat
 import java.io.IOException
@@ -27,7 +28,7 @@ class ProfileViewModelTest {
 
     @Test
     fun `emits stored preferences`() = runTest {
-        val viewModel = ProfileViewModel(repository, backup)
+        val viewModel = ProfileViewModel(repository, backup, FakeHealthRepository())
         viewModel.uiState.test {
             val first = awaitItem()
             val ready = if (first is ProfileUiState.Loading) awaitItem() else first
@@ -38,7 +39,7 @@ class ProfileViewModelTest {
     @Test
     fun `events update preferences`() = runTest {
         // Created inside the test so viewModelScope picks up the test Main dispatcher.
-        val viewModel = ProfileViewModel(repository, backup)
+        val viewModel = ProfileViewModel(repository, backup, FakeHealthRepository())
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
 
         viewModel.onEvent(ProfileEvent.ThemeSelected(ThemeMode.LIGHT))
@@ -56,7 +57,7 @@ class ProfileViewModelTest {
 
     @Test
     fun `backups report their outcome`() = runTest {
-        val viewModel = ProfileViewModel(repository, backup)
+        val viewModel = ProfileViewModel(repository, backup, FakeHealthRepository())
         val messages = mutableListOf<BackupMessage>()
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.messages.collect { messages += it } }
 

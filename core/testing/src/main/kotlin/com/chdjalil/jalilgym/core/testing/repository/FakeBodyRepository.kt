@@ -25,6 +25,12 @@ class FakeBodyRepository : BodyRepository {
 
     override suspend fun deleteWeight(id: String) = weights.update { list -> list.filterNot { it.id == id } }
 
+    override suspend fun importWeight(date: LocalDate, weightKg: Double, healthConnectId: String): Boolean {
+        if (weights.value.any { it.date == date }) return false
+        weights.update { list -> (list + BodyWeight("w${nextId++}", date, weightKg, healthConnectId)).sortedBy { it.date } }
+        return true
+    }
+
     override fun observeMeasurements(): Flow<List<BodyMeasurement>> = measurements
 
     override suspend fun logMeasurement(date: LocalDate, type: MeasurementType, value: Double) = measurements.update { list ->

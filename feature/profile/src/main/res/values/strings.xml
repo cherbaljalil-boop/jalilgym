@@ -36,4 +36,14 @@
     <string name="feature_profile_backup_imported">Backup restored (%1$d records).</string>
     <string name="feature_profile_backup_too_new">This backup is from a newer version of Jalilgym. Update the app, then try again.</string>
     <string name="feature_profile_backup_invalid">That file isn\'t a Jalilgym backup, or it\'s damaged. Nothing was changed.</string>
+    <string name="feature_profile_health">Health Connect</string>
+    <string name="feature_profile_health_desc">Share workouts, body weight and meals with other health apps, and bring in weigh-ins from your scale app and today\'s steps. Off unless you turn it on.</string>
+    <string name="feature_profile_health_unsupported">Health Connect isn\'t available on this device.</string>
+    <string name="feature_profile_health_install">Get Health Connect</string>
+    <string name="feature_profile_health_toggle">Sync with Health Connect</string>
+    <string name="feature_profile_health_needs_access">Jalilgym needs access to the listed data to sync.</string>
+    <string name="feature_profile_health_grant">Grant access</string>
+    <string name="feature_profile_health_synced">Last synced %1$s</string>
+    <string name="feature_profile_health_not_synced">Not synced yet</string>
+    <string name="feature_profile_health_sync_now">Sync now</string>
 </resources>

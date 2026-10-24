@@ -31,6 +31,26 @@ device identifier. Open Food Facts handles these requests under its own
 Nothing else is sent anywhere. Jalilgym contains no advertising, analytics or
 crash-reporting libraries.
 
+## Health Connect (optional)
+
+If you turn on Health Connect in Profile and grant access, Jalilgym exchanges
+data with Health Connect, Android's on-device health data store:
+
+- **Written:** your finished workouts (as strength-training sessions with their
+  start and end times), the body weights you log, and the calories and
+  nutrients of each meal in your diary, for the last 30 days.
+- **Read:** body weights recorded by other apps (for example a smart scale),
+  which are added to your weight history, and today's step count, which is
+  shown on the Today screen.
+
+This data moves only between Jalilgym and Health Connect on your device.
+Jalilgym never sends it to us or to anyone else, and doesn't use it for
+advertising. Jalilgym's use of data from Health Connect follows the
+[Health Connect Permissions policy](https://support.google.com/googleplay/android-developer/answer/12991134),
+including its Limited Use requirements. You can turn the integration off in
+Profile, and remove Jalilgym's access or its data in Health Connect settings,
+at any time.
+
 ## Camera
 
 The camera is used only to read barcodes, on the device, when you open the

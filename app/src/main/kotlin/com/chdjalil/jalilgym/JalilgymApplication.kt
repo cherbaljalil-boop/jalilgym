@@ -1,18 +1,26 @@
 package com.chdjalil.jalilgym
 
+import android.app.Activity
 import android.app.Application
+import android.os.Bundle
 import android.util.Log
 import com.chdjalil.jalilgym.core.common.ApplicationScope
 import com.chdjalil.jalilgym.core.domain.program.ApplyStarterProgramUseCase
 import com.chdjalil.jalilgym.core.domain.repository.AchievementRepository
+import com.chdjalil.jalilgym.core.domain.repository.HealthRepository
 import com.chdjalil.jalilgym.core.domain.repository.SeedRepository
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 
 @HiltAndroidApp
@@ -31,11 +39,48 @@ class JalilgymApplication : Application() {
     lateinit var achievementRepository: AchievementRepository
 
     @Inject
+    lateinit var healthRepository: HealthRepository
+
+    @Inject
     @ApplicationScope
     lateinit var applicationScope: CoroutineScope
 
+    /** Asks for a Health Connect sync; extra requests while one is pending are merged. */
+    private val healthSyncRequests = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+
+    @OptIn(FlowPreview::class)
     override fun onCreate() {
         super.onCreate()
+        applicationScope.launch {
+            // Sync when access is granted and whenever the app goes to the background,
+            // so other health apps see today's workouts, weigh-ins and meals.
+            runCatching { healthRepository.refresh() }
+            val becameReady = healthRepository.observeStatus()
+                .map { it.ready }
+                .distinctUntilChanged()
+                .filter { it }
+                .map { }
+            merge(becameReady, healthSyncRequests)
+                .debounce(HEALTH_SYNC_DEBOUNCE_MS)
+                .collect {
+                    runCatching { healthRepository.sync() }
+                        .onFailure { Log.e(TAG, "Health Connect sync failed", it) }
+                }
+        }
+        registerActivityLifecycleCallbacks(
+            object : ActivityLifecycleCallbacks {
+                override fun onActivityStopped(activity: Activity) {
+                    if (activity is MainActivity) healthSyncRequests.tryEmit(Unit)
+                }
+
+                override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) = Unit
+                override fun onActivityStarted(activity: Activity) = Unit
+                override fun onActivityResumed(activity: Activity) = Unit
+                override fun onActivityPaused(activity: Activity) = Unit
+                override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) = Unit
+                override fun onActivityDestroyed(activity: Activity) = Unit
+            },
+        )
         applicationScope.launch {
             // Badges earned outside a workout (a photo, a custom exercise…) unlock as soon as they're earned.
             achievementRepository.observeAchievements()
@@ -65,5 +110,6 @@ class JalilgymApplication : Application() {
 
     private companion object {
         const val TAG = "Jalilgym"
+        const val HEALTH_SYNC_DEBOUNCE_MS = 2_000L
     }
 }

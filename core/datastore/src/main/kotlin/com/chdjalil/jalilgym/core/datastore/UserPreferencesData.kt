@@ -43,6 +43,7 @@ data class UserPreferencesData(
     val halalFilter: HalalFilter = HalalFilter.ALL,
     /** ISO-8601 date. */
     val lastCheckIn: String? = null,
+    val healthConnectEnabled: Boolean = false,
 )
 
 /** [birthDate] is ISO-8601 (yyyy-MM-dd). */
@@ -75,4 +76,5 @@ internal fun UserPreferencesData.toModel() = UserPreferences(
     bodyProfile = bodyProfile?.toModel(),
     halalFilter = halalFilter,
     lastCheckIn = lastCheckIn?.let { runCatching { LocalDate.parse(it) }.getOrNull() },
+    healthConnectEnabled = healthConnectEnabled,
 )

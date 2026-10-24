@@ -10,8 +10,8 @@ android {
 
     defaultConfig {
         applicationId = "com.chdjalil.jalilgym"
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
     }
 
     // Release signing comes from the environment so no key or password is ever
@@ -51,6 +51,7 @@ dependencies {
 
     implementation(projects.core.common)
     implementation(projects.core.data)
+    implementation(projects.core.health)
     implementation(projects.core.domain)
     implementation(projects.core.designsystem)
     implementation(projects.core.ui)

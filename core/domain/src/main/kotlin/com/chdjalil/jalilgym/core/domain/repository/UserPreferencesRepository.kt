@@ -27,6 +27,8 @@ interface UserPreferencesRepository {
 
     suspend fun setLastCheckIn(date: LocalDate)
 
+    suspend fun setHealthConnectEnabled(enabled: Boolean)
+
     /** Any answer may be null when the user skipped it. */
     suspend fun markStarterProgramApplied()
 

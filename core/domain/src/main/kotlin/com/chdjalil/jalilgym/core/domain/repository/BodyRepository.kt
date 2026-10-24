@@ -17,6 +17,9 @@ interface BodyRepository {
 
     suspend fun deleteWeight(id: String)
 
+    /** Stores a weight read from Health Connect, unless that day already has one. Returns whether it was added. */
+    suspend fun importWeight(date: LocalDate, weightKg: Double, healthConnectId: String): Boolean
+
     /** Newest first. */
     fun observeMeasurements(): Flow<List<BodyMeasurement>>
 
