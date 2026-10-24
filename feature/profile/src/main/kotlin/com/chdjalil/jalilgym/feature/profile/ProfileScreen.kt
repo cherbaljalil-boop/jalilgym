@@ -58,6 +58,7 @@ import com.chdjalil.jalilgym.core.designsystem.component.JgScreenHeader
 import com.chdjalil.jalilgym.core.designsystem.component.JgWordmark
 import com.chdjalil.jalilgym.core.designsystem.icon.JgIcons
 import com.chdjalil.jalilgym.core.designsystem.theme.JalilgymTheme
+import com.chdjalil.jalilgym.core.domain.repository.CloudSyncStatus
 import com.chdjalil.jalilgym.core.domain.repository.HealthAvailability
 import com.chdjalil.jalilgym.core.domain.repository.HealthStatus
 import com.chdjalil.jalilgym.core.health.HEALTH_CONNECT_STORE_URI
@@ -88,6 +89,7 @@ internal fun ProfileScreen(
     }
     val backupBusy by viewModel.backupBusy.collectAsStateWithLifecycle()
     val healthStatus by viewModel.healthStatus.collectAsStateWithLifecycle()
+    val cloudStatus by viewModel.cloudStatus.collectAsStateWithLifecycle()
     val healthPermissionLauncher = rememberLauncherForActivityResult(healthPermissionContract()) { viewModel.onHealthPermissionsResult() }
     LaunchedEffect(Unit) { viewModel.refreshHealth() }
     val snackbar = remember { SnackbarHostState() }
@@ -147,6 +149,15 @@ internal fun ProfileScreen(
                 runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(HEALTH_CONNECT_STORE_URI))) }
             },
             onSyncHealth = viewModel::syncHealthNow,
+            cloudStatus = cloudStatus,
+            cloudActions = CloudSyncActions(
+                onSendCode = viewModel::sendCloudCode,
+                onVerifyCode = viewModel::verifyCloudCode,
+                onCancel = viewModel::cancelCloudSignIn,
+                onSyncNow = viewModel::syncCloudNow,
+                onSignOut = viewModel::signOutCloud,
+                onDeleteAccount = viewModel::deleteCloudAccount,
+            ),
         )
         SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter))
     }
@@ -170,6 +181,8 @@ internal fun ProfileContent(
     onGrantHealth: () -> Unit = {},
     onInstallHealth: () -> Unit = {},
     onSyncHealth: () -> Unit = {},
+    cloudStatus: CloudSyncStatus = CloudSyncStatus(),
+    cloudActions: CloudSyncActions = CloudSyncActions(),
 ) {
     Column(
         modifier = modifier
@@ -192,6 +205,7 @@ internal fun ProfileContent(
                 RemindersSection(uiState.preferences.reminders) { onEvent(ProfileEvent.RemindersChanged(it)) }
             }
             HealthSection(healthStatus, onHealthEnabled, onGrantHealth, onInstallHealth, onSyncHealth)
+            CloudSyncSection(cloudStatus, cloudActions)
             DataSection(backupBusy, onExport, onImport)
             AboutSection(versionName, onOpenLicenses)
         }

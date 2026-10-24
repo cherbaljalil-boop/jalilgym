@@ -3,6 +3,8 @@ package com.chdjalil.jalilgym.feature.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chdjalil.jalilgym.core.domain.repository.BackupRepository
+import com.chdjalil.jalilgym.core.domain.repository.CloudSyncRepository
+import com.chdjalil.jalilgym.core.domain.repository.CloudSyncStatus
 import com.chdjalil.jalilgym.core.domain.repository.HealthRepository
 import com.chdjalil.jalilgym.core.domain.repository.HealthStatus
 import com.chdjalil.jalilgym.core.domain.repository.ImportResult
@@ -60,7 +62,35 @@ class ProfileViewModel @Inject constructor(
     private val preferencesRepository: UserPreferencesRepository,
     private val backupRepository: BackupRepository,
     private val healthRepository: HealthRepository,
+    private val cloudSyncRepository: CloudSyncRepository,
 ) : ViewModel() {
+
+    val cloudStatus: StateFlow<CloudSyncStatus> = cloudSyncRepository.observeStatus()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CloudSyncStatus())
+
+    fun sendCloudCode(email: String) {
+        viewModelScope.launch { cloudSyncRepository.sendCode(email) }
+    }
+
+    fun verifyCloudCode(code: String) {
+        viewModelScope.launch { cloudSyncRepository.verifyCode(code) }
+    }
+
+    fun cancelCloudSignIn() {
+        viewModelScope.launch { cloudSyncRepository.cancelSignIn() }
+    }
+
+    fun syncCloudNow() {
+        viewModelScope.launch { cloudSyncRepository.sync() }
+    }
+
+    fun signOutCloud() {
+        viewModelScope.launch { cloudSyncRepository.signOut() }
+    }
+
+    fun deleteCloudAccount() {
+        viewModelScope.launch { cloudSyncRepository.deleteAccount() }
+    }
 
     val healthStatus: StateFlow<HealthStatus> = healthRepository.observeStatus()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HealthStatus())

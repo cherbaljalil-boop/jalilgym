@@ -23,6 +23,7 @@ core/datastore        Typed DataStore for user settings
 core/network          Open Food Facts client
 core/health           Optional Health Connect sync (workouts, weight, meals, steps)
 core/notifications    Workout reminders and weekly summary (WorkManager)
+core/sync             Optional Supabase cloud sync (docs/supabase/SETUP.md)
 core/designsystem     Theme, fonts, icons, Jg* components
 core/ui               Shared composables
 core/testing          Fakes and test rules

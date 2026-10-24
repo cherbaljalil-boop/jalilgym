@@ -15,7 +15,7 @@
     <string name="feature_profile_effort_off">Désactivé</string>
     <string name="feature_profile_about">À propos</string>
     <string name="feature_profile_version">Version %1$s</string>
-    <string name="feature_profile_privacy">Vos données restent sur cet appareil. Seules les recherches d\'aliments et de codes-barres sont envoyées à Open Food Facts, sans rien qui vous identifie. Pas de compte, pas de pub, pas de pistage.</string>
+    <string name="feature_profile_privacy">Vos données restent sur cet appareil, sauf si vous activez la synchronisation cloud. Les recherches d\'aliments et de codes-barres vont à Open Food Facts sans rien qui vous identifie. Pas de pub, pas de pistage.</string>
     <string name="feature_profile_attributions">Données et photos d\'exercices : free-exercise-db (domaine public, Unlicense). Données alimentaires : Open Food Facts (Open Database License, ODbL ; images CC BY-SA) et USDA FoodData Central (domaine public). Polices : Bebas Neue et Inter (SIL Open Font License 1.1). Icônes : Material Symbols (Apache License 2.0).</string>
     <string name="feature_profile_back">Retour</string>
     <string name="feature_profile_achievements">Succès</string>
@@ -54,4 +54,33 @@
     <string name="feature_profile_reminders_time_cancel">Annuler</string>
     <string name="feature_profile_reminders_summary">Bilan de la semaine</string>
     <string name="feature_profile_reminders_summary_desc">Séances, volume, repas notés et évolution du poids, chaque dimanche soir</string>
+    <string name="feature_profile_cloud">Synchronisation cloud</string>
+    <string name="feature_profile_cloud_desc">Facultatif. Connectez-vous avec votre e-mail pour synchroniser vos données entre téléphones. Sans compte, tout reste sur ce téléphone comme avant.</string>
+    <string name="feature_profile_cloud_email">E-mail</string>
+    <string name="feature_profile_cloud_send_code">M\'envoyer un code de connexion</string>
+    <string name="feature_profile_cloud_code_sent">Nous avons envoyé un code à 6 chiffres à %1$s. Il peut mettre une minute à arriver.</string>
+    <string name="feature_profile_cloud_code">Code à 6 chiffres</string>
+    <string name="feature_profile_cloud_sign_in">Se connecter</string>
+    <string name="feature_profile_cloud_resend">Envoyer un nouveau code</string>
+    <string name="feature_profile_cloud_other_email">Utiliser un autre e-mail</string>
+    <string name="feature_profile_cloud_signed_in">Connecté en tant que %1$s</string>
+    <string name="feature_profile_cloud_synced">Dernière synchro : %1$s</string>
+    <string name="feature_profile_cloud_not_synced">Pas encore synchronisé</string>
+    <string name="feature_profile_cloud_sync_now">Synchroniser</string>
+    <string name="feature_profile_cloud_sign_out">Se déconnecter</string>
+    <string name="feature_profile_cloud_delete">Supprimer le compte</string>
+    <string name="feature_profile_cloud_delete_title">Supprimer votre compte ?</string>
+    <string name="feature_profile_cloud_delete_body">Votre compte et tout ce qui y est synchronisé sont supprimés du serveur. Les données de ce téléphone restent. Impossible d\'annuler.</string>
+    <string name="feature_profile_cloud_delete_confirm">Supprimer le compte</string>
+    <string name="feature_profile_cloud_error_network">Serveur injoignable. Les modifications sont gardées et seront synchronisées une fois en ligne.</string>
+    <string name="feature_profile_cloud_error_email">Vérifiez l\'adresse e-mail et réessayez.</string>
+    <string name="feature_profile_cloud_error_code">Ce code est faux ou a expiré. Réessayez ou demandez-en un nouveau.</string>
+    <string name="feature_profile_cloud_error_rate">Trop de tentatives. Patientez quelques minutes puis réessayez.</string>
+    <string name="feature_profile_cloud_error_expired">Vous avez été déconnecté. Reconnectez-vous pour continuer à synchroniser.</string>
+    <string name="feature_profile_cloud_error_unknown">Un problème est survenu avec la synchro. Nouvel essai plus tard.</string>
+    <plurals name="feature_profile_cloud_pending">
+        <item quantity="one">%1$d modification en attente d\'envoi</item>
+        <item quantity="many">%1$d modifications en attente d\'envoi</item>
+        <item quantity="other">%1$d modifications en attente d\'envoi</item>
+    </plurals>
 </resources>

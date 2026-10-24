@@ -8,19 +8,27 @@ definitions change, and the developer account owner is responsible for them.
 
 | Question | Answer | Why |
 |---|---|---|
-| Does your app collect or share any of the required user data types? | **Yes** | Food search terms and barcodes are sent to Open Food Facts. |
+| Does your app collect or share any of the required user data types? | **Yes** | Food search terms and barcodes are sent to Open Food Facts; optional cloud sync uploads the account email and app data. |
 | Is all of the user data collected by your app encrypted in transit? | **Yes** | HTTPS only; cleartext traffic is disabled (`network_security_config.xml`). |
-| Do you provide a way for users to request that their data is deleted? | **Yes** | All data is on the device: delete entries in the app, clear storage or uninstall. |
+| Do you provide a way for users to request that their data is deleted? | **Yes** | Profile → Cloud sync → Delete account deletes the account and its synced data. Everything else is on the device: delete entries, clear storage or uninstall. |
+| Can users create an account? | **Yes, optional** | Email + one-time code. Add the account-deletion link (a web page or the in-app path) in Play Console → App content → Data deletion. |
 
 ## Data types
 
-Declare only this one:
+Declare these:
 
 | Data type | Collected | Shared | Optional | Purpose | Notes |
 |---|---|---|---|---|---|
 | App activity → **Other user-generated content** (food search terms and barcode numbers) | Yes | Yes (Open Food Facts) | Yes: searching online and scanning are optional; the built-in foods work without them | App functionality | Not linked to the user; no identifiers are sent; not used for tracking or ads |
+| Personal info → **Email address** | Yes | No | Yes (cloud sync only) | App functionality, Account management | Used only to sign in; Supabase is a service provider, not sharing |
+| Health and fitness → **Fitness info** (workouts, body weight, measurements) | Yes | No | Yes (cloud sync only) | App functionality | Linked to the account; encrypted in transit and at rest |
+| Health and fitness → **Health info** (food diary, nutrition targets, water) | Yes | No | Yes (cloud sync only) | App functionality | Linked to the account; encrypted in transit and at rest |
+| App activity → **Other user-generated content** (custom exercises, recipes, grocery list) | Yes | No | Yes (cloud sync only) | App functionality | Linked to the account |
 
-Everything else stays on the device and is **not collected** under Play's
+Processing by Supabase on our behalf counts as a service provider, so these
+are "collected", not "shared".
+
+Without cloud sync, everything else stays on the device and is **not collected** under Play's
 definition (data that never leaves the device doesn't need to be declared):
 health and fitness data (workouts, nutrition, weight, measurements), photos,
 personal info from setup (sex, birth date, height), and settings. Optional
@@ -29,8 +37,8 @@ Health Connect on the same device. Nothing is transmitted off the device, so
 it isn't collected either. Export files are written only where the user
 chooses through the system file picker.
 
-The app has no account, no advertising ID usage, no analytics and no
-crash-reporting SDKs.
+Apart from the optional cloud sync account, the app has no account, no
+advertising ID usage, no analytics and no crash-reporting SDKs.
 
 ## Related declarations
 

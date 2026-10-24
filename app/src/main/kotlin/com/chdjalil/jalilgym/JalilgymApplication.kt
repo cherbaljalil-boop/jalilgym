@@ -7,6 +7,7 @@ import android.util.Log
 import com.chdjalil.jalilgym.core.common.ApplicationScope
 import com.chdjalil.jalilgym.core.domain.program.ApplyStarterProgramUseCase
 import com.chdjalil.jalilgym.core.domain.repository.AchievementRepository
+import com.chdjalil.jalilgym.core.domain.repository.CloudSyncRepository
 import com.chdjalil.jalilgym.core.domain.repository.HealthRepository
 import com.chdjalil.jalilgym.core.domain.repository.SeedRepository
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
@@ -47,11 +48,14 @@ class JalilgymApplication : Application() {
     lateinit var reminderScheduler: ReminderScheduler
 
     @Inject
+    lateinit var cloudSyncRepository: CloudSyncRepository
+
+    @Inject
     @ApplicationScope
     lateinit var applicationScope: CoroutineScope
 
-    /** Asks for a Health Connect sync; extra requests while one is pending are merged. */
-    private val healthSyncRequests = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    /** Asks for Health Connect and cloud syncs; extra requests while one is pending are merged. */
+    private val backgroundSyncRequests = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
     @OptIn(FlowPreview::class)
     override fun onCreate() {
@@ -65,8 +69,8 @@ class JalilgymApplication : Application() {
                 .distinctUntilChanged()
                 .filter { it }
                 .map { }
-            merge(becameReady, healthSyncRequests)
-                .debounce(HEALTH_SYNC_DEBOUNCE_MS)
+            merge(becameReady, backgroundSyncRequests)
+                .debounce(BACKGROUND_SYNC_DEBOUNCE_MS)
                 .collect {
                     runCatching { healthRepository.sync() }
                         .onFailure { Log.e(TAG, "Health Connect sync failed", it) }
@@ -86,10 +90,24 @@ class JalilgymApplication : Application() {
             runCatching { TodayWidget.refreshOnChanges(this@JalilgymApplication) }
                 .onFailure { Log.e(TAG, "Widget updates stopped", it) }
         }
+        applicationScope.launch {
+            // Optional cloud sync: catch up on start,
+            // then upload whenever the app goes to the background.
+            runCatching {
+                cloudSyncRepository.initialize()
+                cloudSyncRepository.sync()
+            }.onFailure { Log.e(TAG, "Cloud sync failed", it) }
+            backgroundSyncRequests
+                .debounce(BACKGROUND_SYNC_DEBOUNCE_MS)
+                .collect {
+                    runCatching { cloudSyncRepository.sync() }
+                        .onFailure { Log.e(TAG, "Cloud sync failed", it) }
+                }
+        }
         registerActivityLifecycleCallbacks(
             object : ActivityLifecycleCallbacks {
                 override fun onActivityStopped(activity: Activity) {
-                    if (activity is MainActivity) healthSyncRequests.tryEmit(Unit)
+                    if (activity is MainActivity) backgroundSyncRequests.tryEmit(Unit)
                 }
 
                 override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) = Unit
@@ -129,6 +147,6 @@ class JalilgymApplication : Application() {
 
     private companion object {
         const val TAG = "Jalilgym"
-        const val HEALTH_SYNC_DEBOUNCE_MS = 2_000L
+        const val BACKGROUND_SYNC_DEBOUNCE_MS = 2_000L
     }
 }

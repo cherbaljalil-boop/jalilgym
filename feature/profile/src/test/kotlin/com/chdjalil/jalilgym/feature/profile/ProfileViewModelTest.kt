@@ -9,6 +9,7 @@ import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
 import com.chdjalil.jalilgym.core.testing.MainDispatcherRule
 import com.chdjalil.jalilgym.core.testing.repository.FakeBackupRepository
+import com.chdjalil.jalilgym.core.testing.repository.FakeCloudSyncRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeHealthRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeUserPreferencesRepository
 import com.google.common.truth.Truth.assertThat
@@ -31,7 +32,7 @@ class ProfileViewModelTest {
 
     @Test
     fun `emits stored preferences`() = runTest {
-        val viewModel = ProfileViewModel(repository, backup, FakeHealthRepository())
+        val viewModel = ProfileViewModel(repository, backup, FakeHealthRepository(), FakeCloudSyncRepository())
         viewModel.uiState.test {
             val first = awaitItem()
             val ready = if (first is ProfileUiState.Loading) awaitItem() else first
@@ -42,7 +43,7 @@ class ProfileViewModelTest {
     @Test
     fun `events update preferences`() = runTest {
         // Created inside the test so viewModelScope picks up the test Main dispatcher.
-        val viewModel = ProfileViewModel(repository, backup, FakeHealthRepository())
+        val viewModel = ProfileViewModel(repository, backup, FakeHealthRepository(), FakeCloudSyncRepository())
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
 
         viewModel.onEvent(ProfileEvent.ThemeSelected(ThemeMode.LIGHT))
@@ -63,7 +64,7 @@ class ProfileViewModelTest {
 
     @Test
     fun `backups report their outcome`() = runTest {
-        val viewModel = ProfileViewModel(repository, backup, FakeHealthRepository())
+        val viewModel = ProfileViewModel(repository, backup, FakeHealthRepository(), FakeCloudSyncRepository())
         val messages = mutableListOf<BackupMessage>()
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.messages.collect { messages += it } }
 
@@ -85,5 +86,24 @@ class ProfileViewModelTest {
         ).inOrder()
         assertThat(backup.exportedTo).containsExactly("content://out")
         assertThat(viewModel.backupBusy.value).isFalse()
+    }
+
+    @Test
+    fun `cloud sign-in goes from email to code to signed in`() = runTest {
+        val cloud = FakeCloudSyncRepository()
+        val viewModel = ProfileViewModel(repository, backup, FakeHealthRepository(), cloud)
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.cloudStatus.collect {} }
+
+        viewModel.sendCloudCode("a@b.co")
+        assertThat(viewModel.cloudStatus.value.codeSentTo).isEqualTo("a@b.co")
+        viewModel.verifyCloudCode("000000")
+        assertThat(viewModel.cloudStatus.value.signedIn).isFalse()
+        viewModel.verifyCloudCode(cloud.validCode)
+        assertThat(viewModel.cloudStatus.value.email).isEqualTo("a@b.co")
+
+        viewModel.syncCloudNow()
+        assertThat(cloud.syncs).isEqualTo(1)
+        viewModel.deleteCloudAccount()
+        assertThat(viewModel.cloudStatus.value.signedIn).isFalse()
     }
 }

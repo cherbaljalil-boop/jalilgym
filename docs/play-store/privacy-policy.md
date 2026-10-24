@@ -15,8 +15,8 @@ Everything you enter is stored only on your phone, in the app's private storage:
 - the answers you give during setup (goal, experience, sex, birth date, height,
   activity level) and your settings
 
-Jalilgym has no account system and no server of its own. We never receive, see
-or sell this information.
+Unless you turn on cloud sync (below), Jalilgym has no account and no server.
+Nothing you enter is sent anywhere, and we never receive, see or sell it.
 
 ## What leaves your device
 
@@ -30,6 +30,25 @@ device identifier. Open Food Facts handles these requests under its own
 
 Nothing else is sent anywhere. Jalilgym contains no advertising, analytics or
 crash-reporting libraries.
+
+## Cloud sync (optional)
+
+You can create an account in Profile → Cloud sync to keep your data in sync
+between phones. If you do:
+
+- **What is collected:** your email address, used to sign you in with a
+  one-time code, and a copy of the app's data: workouts, programs, body weight
+  and measurements, food diary, foods, recipes, water and grocery list, and
+  achievements. Progress photos and settings are never uploaded.
+- **Where it goes:** a database we run on [Supabase](https://supabase.com),
+  sent over an encrypted connection (HTTPS) and stored encrypted at rest. Each
+  account can only read its own data.
+- **What it's used for:** only to sync your data to your other devices. It is
+  not used for advertising or analytics, and not shared or sold.
+- **Deleting it:** Profile → Cloud sync → Delete account removes your account
+  and everything synced to it from the server straight away. Signing out keeps
+  the account and stops syncing on that phone. Data on your phone is not
+  deleted either way.
 
 ## Health Connect (optional)
 
@@ -71,7 +90,8 @@ backup, which Google encrypts. Progress photos are always left out of backups.
 
 ## Deleting your data
 
-Delete individual entries in the app, or remove everything by clearing the app's
+If you use cloud sync, delete your account in Profile → Cloud sync to remove
+your data from the server. Delete individual entries in the app, or remove everything by clearing the app's
 storage in Android settings or uninstalling the app.
 
 ## Children

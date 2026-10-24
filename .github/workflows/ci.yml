@@ -138,6 +138,9 @@ jobs:
           JALILGYM_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD || 'ci-only-password' }}
           JALILGYM_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS || 'ci' }}
           JALILGYM_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD || 'ci-only-password' }}
+          # Optional cloud sync project (docs/supabase/SETUP.md); without it the section is hidden.
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
         run: ./gradlew :app:assembleRelease :app:bundleRelease
 
       - name: Verify signatures

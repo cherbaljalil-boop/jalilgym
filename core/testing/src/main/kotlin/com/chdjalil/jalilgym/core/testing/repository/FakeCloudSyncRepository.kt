@@ -16,6 +16,8 @@ class FakeCloudSyncRepository(available: Boolean = true) : CloudSyncRepository {
 
     override fun observeStatus(): Flow<CloudSyncStatus> = status
 
+    override suspend fun initialize() = Unit
+
     override suspend fun sendCode(email: String): Boolean {
         if ("@" !in email) {
             status.update { it.copy(error = CloudSyncError.INVALID_EMAIL) }

@@ -15,7 +15,7 @@
     <string name="feature_profile_effort_off">إيقاف</string>
     <string name="feature_profile_about">حول التطبيق</string>
     <string name="feature_profile_version">الإصدار %1$s</string>
-    <string name="feature_profile_privacy">تبقى بياناتك على هذا الجهاز. وحدها عمليات البحث عن الأطعمة والباركود تُرسل إلى Open Food Facts، دون أي شيء يحدّد هويتك. لا حساب ولا إعلانات ولا تتبّع.</string>
+    <string name="feature_profile_privacy">تبقى بياناتك على هذا الجهاز ما لم تفعّل المزامنة السحابية. تُرسل عمليات البحث عن الأطعمة والباركود إلى Open Food Facts دون أي شيء يحدّد هويتك. لا إعلانات ولا تتبّع.</string>
     <string name="feature_profile_attributions">بيانات التمارين وصورها: free-exercise-db (ملكية عامة، Unlicense). بيانات الأطعمة: Open Food Facts (رخصة Open Database License، ODbL؛ الصور CC BY-SA) و USDA FoodData Central (ملكية عامة). الخطوط: Bebas Neue و Inter (SIL Open Font License 1.1). الأيقونات: Material Symbols (Apache License 2.0).</string>
     <string name="feature_profile_back">رجوع</string>
     <string name="feature_profile_achievements">الإنجازات</string>
@@ -54,4 +54,36 @@
     <string name="feature_profile_reminders_time_cancel">إلغاء</string>
     <string name="feature_profile_reminders_summary">ملخّص الأسبوع</string>
     <string name="feature_profile_reminders_summary_desc">التمارين والحجم وتسجيل الطعام واتجاه الوزن، كل مساء أحد</string>
+    <string name="feature_profile_cloud">المزامنة السحابية</string>
+    <string name="feature_profile_cloud_desc">اختيارية. سجّل الدخول ببريدك الإلكتروني لمزامنة بياناتك بين الهواتف. بلا حساب، يبقى كل شيء على هذا الهاتف كما كان.</string>
+    <string name="feature_profile_cloud_email">البريد الإلكتروني</string>
+    <string name="feature_profile_cloud_send_code">أرسل لي رمز الدخول</string>
+    <string name="feature_profile_cloud_code_sent">أرسلنا رمزًا من 6 أرقام إلى %1$s. قد يستغرق وصوله دقيقة.</string>
+    <string name="feature_profile_cloud_code">الرمز المكوّن من 6 أرقام</string>
+    <string name="feature_profile_cloud_sign_in">تسجيل الدخول</string>
+    <string name="feature_profile_cloud_resend">إرسال رمز جديد</string>
+    <string name="feature_profile_cloud_other_email">استخدام بريد آخر</string>
+    <string name="feature_profile_cloud_signed_in">مسجّل الدخول باسم %1$s</string>
+    <string name="feature_profile_cloud_synced">آخر مزامنة %1$s</string>
+    <string name="feature_profile_cloud_not_synced">لم تتم المزامنة بعد</string>
+    <string name="feature_profile_cloud_sync_now">زامن الآن</string>
+    <string name="feature_profile_cloud_sign_out">تسجيل الخروج</string>
+    <string name="feature_profile_cloud_delete">حذف الحساب</string>
+    <string name="feature_profile_cloud_delete_title">حذف حسابك؟</string>
+    <string name="feature_profile_cloud_delete_body">يُحذف حسابك وكل ما زُومن إليه من الخادم. تبقى البيانات على هذا الهاتف. لا يمكن التراجع عن ذلك.</string>
+    <string name="feature_profile_cloud_delete_confirm">حذف الحساب</string>
+    <string name="feature_profile_cloud_error_network">تعذّر الوصول إلى الخادم. تُحفظ التغييرات وتُزامن عند عودة الاتصال.</string>
+    <string name="feature_profile_cloud_error_email">تحقّق من البريد الإلكتروني وأعد المحاولة.</string>
+    <string name="feature_profile_cloud_error_code">الرمز خاطئ أو منتهي الصلاحية. أعد المحاولة أو اطلب رمزًا جديدًا.</string>
+    <string name="feature_profile_cloud_error_rate">محاولات كثيرة. انتظر بضع دقائق ثم أعد المحاولة.</string>
+    <string name="feature_profile_cloud_error_expired">سُجّل خروجك. سجّل الدخول مجددًا لمتابعة المزامنة.</string>
+    <string name="feature_profile_cloud_error_unknown">حدث خطأ في المزامنة. ستُعاد المحاولة لاحقًا.</string>
+    <plurals name="feature_profile_cloud_pending">
+        <item quantity="zero">%1$d تغيير بانتظار الرفع</item>
+        <item quantity="one">تغيير واحد بانتظار الرفع</item>
+        <item quantity="two">تغييران بانتظار الرفع</item>
+        <item quantity="few">%1$d تغييرات بانتظار الرفع</item>
+        <item quantity="many">%1$d تغييرًا بانتظار الرفع</item>
+        <item quantity="other">%1$d تغيير بانتظار الرفع</item>
+    </plurals>
 </resources>

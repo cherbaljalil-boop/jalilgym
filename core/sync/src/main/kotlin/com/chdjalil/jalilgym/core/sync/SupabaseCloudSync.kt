@@ -72,7 +72,7 @@ class SupabaseCloudSync @Inject constructor(
      * a database restored from an Android backup without its session) and adds
      * tracking to tables created by an app update.
      */
-    suspend fun initialize() {
+    override suspend fun initialize() {
         if (!config.isConfigured || store.session == null) {
             engine.disableTracking()
         } else {

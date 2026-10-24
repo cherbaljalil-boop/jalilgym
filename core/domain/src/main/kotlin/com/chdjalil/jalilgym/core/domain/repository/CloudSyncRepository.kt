@@ -29,6 +29,9 @@ data class CloudSyncStatus(
 interface CloudSyncRepository {
     fun observeStatus(): Flow<CloudSyncStatus>
 
+    /** Call once when the app starts, before the first [sync]. */
+    suspend fun initialize()
+
     /** Emails a sign-in code; creates the account the first time. */
     suspend fun sendCode(email: String): Boolean
 
