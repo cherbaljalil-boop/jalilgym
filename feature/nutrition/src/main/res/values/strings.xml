@@ -193,6 +193,21 @@
     <string name="feature_nutrition_per_serving_title">Per serving (%1$s g)</string>
     <string name="feature_nutrition_macros_line">%1$s g protein · %2$s g carbs · %3$s g fat</string>
 
+    <!-- Meal ideas -->
+    <string name="feature_nutrition_meal_ideas">Meal ideas</string>
+    <string name="feature_nutrition_ideas_need_targets">Set your targets first, and you\'ll get a day of meals that fits them.</string>
+    <string name="feature_nutrition_ideas_none">No recipes to suggest yet.</string>
+    <string name="feature_nutrition_ideas_totals">%1$s / %2$d kcal · %3$s / %4$d g protein</string>
+    <string name="feature_nutrition_ideas_fits">Fits your targets.</string>
+    <string name="feature_nutrition_ideas_close">As close as these recipes allow. Swap a meal or try a new day.</string>
+    <string name="feature_nutrition_ideas_meal_line">%1$s × serving · %2$s kcal · %3$s g protein</string>
+    <string name="feature_nutrition_ideas_swap">Swap</string>
+    <string name="feature_nutrition_ideas_log">Log</string>
+    <string name="feature_nutrition_ideas_logged">Logged</string>
+    <string name="feature_nutrition_ideas_log_all">Log the whole day</string>
+    <string name="feature_nutrition_ideas_new_day">Suggest a different day</string>
+    <string name="feature_nutrition_ideas_note">Built-in recipes are written without pork, alcohol or gelatin. Check labels for packaged ingredients.</string>
+
     <!-- Barcode -->
     <string name="feature_nutrition_camera_needed">The camera is used only to read barcodes. Nothing is recorded.</string>
     <string name="feature_nutrition_allow_camera">Allow camera</string>

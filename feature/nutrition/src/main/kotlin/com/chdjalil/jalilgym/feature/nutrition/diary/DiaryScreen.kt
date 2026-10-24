@@ -76,6 +76,7 @@ data class DiaryActions(
     val onOpenSavedMeals: (LocalDate, MealType) -> Unit = { _, _ -> },
     val onOpenSetup: () -> Unit = {},
     val onOpenRecipes: () -> Unit = {},
+    val onOpenMealIdeas: () -> Unit = {},
 )
 
 @Composable
@@ -157,6 +158,7 @@ internal fun DiaryContent(
             SummaryCard(uiState, actions.onOpenSetup)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedButton(onClick = actions.onOpenRecipes) { Text(stringResource(R.string.feature_nutrition_recipes)) }
+                OutlinedButton(onClick = actions.onOpenMealIdeas) { Text(stringResource(R.string.feature_nutrition_meal_ideas)) }
             }
             MealType.entries.forEach { meal ->
                 MealSection(

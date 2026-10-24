@@ -12,6 +12,7 @@ import com.chdjalil.jalilgym.feature.nutrition.diary.DiaryActions
 import com.chdjalil.jalilgym.feature.nutrition.diary.DiaryScreen
 import com.chdjalil.jalilgym.feature.nutrition.food.CustomFoodScreen
 import com.chdjalil.jalilgym.feature.nutrition.food.FoodDetailScreen
+import com.chdjalil.jalilgym.feature.nutrition.ideas.MealIdeasScreen
 import com.chdjalil.jalilgym.feature.nutrition.meals.SavedMealsScreen
 import com.chdjalil.jalilgym.feature.nutrition.recipes.RecipeEditorScreen
 import com.chdjalil.jalilgym.feature.nutrition.recipes.RecipesScreen
@@ -54,6 +55,9 @@ data class BarcodeScanRoute(val date: String? = null, val meal: String? = null)
 @Serializable
 data object RecipesRoute
 
+@Serializable
+data object MealIdeasRoute
+
 /** Null [recipeId] creates a new recipe. */
 @Serializable
 data class RecipeEditorRoute(val recipeId: String? = null)
@@ -91,6 +95,7 @@ fun NavGraphBuilder.nutritionGraph(navController: NavController) {
                     onOpenSavedMeals = { date, meal -> navController.navigate(SavedMealsRoute("$date", meal.name)) },
                     onOpenSetup = { navController.navigate(NutritionSetupRoute) },
                     onOpenRecipes = { navController.navigate(RecipesRoute) },
+                    onOpenMealIdeas = { navController.navigate(MealIdeasRoute) },
                 ),
             )
         }
@@ -124,6 +129,13 @@ fun NavGraphBuilder.nutritionGraph(navController: NavController) {
                         popUpTo<CustomFoodRoute> { inclusive = true }
                     }
                 },
+            )
+        }
+        composable<MealIdeasRoute> {
+            MealIdeasScreen(
+                onBack = navController::popBackStack,
+                onOpenRecipe = { navController.navigate(RecipeEditorRoute(it)) },
+                onOpenSetup = { navController.navigate(NutritionSetupRoute) },
             )
         }
         composable<RecipesRoute> {

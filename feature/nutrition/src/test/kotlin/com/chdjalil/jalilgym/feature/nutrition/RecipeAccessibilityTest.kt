@@ -3,10 +3,16 @@ package com.chdjalil.jalilgym.feature.nutrition
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.chdjalil.jalilgym.core.designsystem.theme.JalilgymTheme
+import com.chdjalil.jalilgym.core.domain.nutrition.DayPlan
+import com.chdjalil.jalilgym.core.domain.nutrition.SuggestedMeal
+import com.chdjalil.jalilgym.core.model.MacroTargets
+import com.chdjalil.jalilgym.core.model.MealType
 import com.chdjalil.jalilgym.core.model.RecipeDraft
 import com.chdjalil.jalilgym.core.testing.repository.FakeFoodRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeRecipeRepository
 import com.chdjalil.jalilgym.core.uitest.assertActionsHaveLabels
+import com.chdjalil.jalilgym.feature.nutrition.ideas.MealIdeasContent
+import com.chdjalil.jalilgym.feature.nutrition.ideas.MealIdeasUiState
 import com.chdjalil.jalilgym.feature.nutrition.recipes.EditableIngredient
 import com.chdjalil.jalilgym.feature.nutrition.recipes.RecipeEditorContent
 import com.chdjalil.jalilgym.feature.nutrition.recipes.RecipeEditorUiState
@@ -55,6 +61,20 @@ class RecipeAccessibilityTest {
                     ),
                     onBack = {},
                 )
+            }
+        }
+        composeRule.assertActionsHaveLabels()
+    }
+
+    @Test
+    fun mealIdeasAreLabeled() {
+        val recipe = runBlocking {
+            recipes.observeRecipe(recipes.saveRecipe(RecipeDraft(name = "Oats", servings = 1, ingredients = listOf("oats" to 100.0)))).first()!!
+        }
+        val plan = DayPlan(MealType.entries.map { SuggestedMeal(it, recipe, 1.0) })
+        composeRule.setContent {
+            JalilgymTheme {
+                MealIdeasContent(MealIdeasUiState(isLoading = false, targets = MacroTargets(2000, 150, 200, 70), plan = plan, logged = setOf(1)), onBack = {})
             }
         }
         composeRule.assertActionsHaveLabels()

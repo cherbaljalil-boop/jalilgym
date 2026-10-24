@@ -47,7 +47,7 @@ class BuiltInRecipesTest {
             assertThat(recipe.perServing.kcal).isGreaterThan(100.0)
         }
         MealType.entries.forEach { meal -> assertThat(recipes.count { meal.name in it.mealTags }).isAtLeast(8) }
-        val recipeFoods = database.foodDao().search("").first().filter { it.food.source == FoodSource.RECIPE }
+        val recipeFoods = database.foodDao().search("", limit = 1_000).first().filter { it.food.source == FoodSource.RECIPE }
         assertThat(recipeFoods.size).isEqualTo(recipes.size)
 
         // Days for small to large targets all land within ±5% kcal and ±10 g protein.
