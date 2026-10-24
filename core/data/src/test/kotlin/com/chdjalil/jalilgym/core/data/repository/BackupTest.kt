@@ -104,7 +104,7 @@ class BackupTest {
         val file = ByteArrayOutputStream().also { BackupSerializer(source, prefs).write(it) }.toString()
         val serializer = BackupSerializer(newDatabase(), newPreferences("t"))
 
-        assertThat(serializer.read(file.replace("\"schemaVersion\":2", "\"schemaVersion\":99").byteInputStream()))
+        assertThat(serializer.read(file.replace(Regex("\"schemaVersion\":\\d+"), "\"schemaVersion\":99").byteInputStream()))
             .isEqualTo(ImportResult.TooNew)
         assertThat(serializer.read(file.replace(BACKUP_FORMAT_FOR_TEST, "something-else").byteInputStream()))
             .isEqualTo(ImportResult.Invalid)

@@ -46,8 +46,8 @@ class ReminderSchedulerTest {
         val workout = pending(ReminderScheduler.WORKOUT_WORK).single()
         assertThat(workout.initialDelayMillis).isEqualTo(TimeUnit.MINUTES.toMillis(9 * 60 + 30))
         val summary = pending(ReminderScheduler.SUMMARY_WORK).single()
-        // Sunday 19:00 is 4 days and 10 hours away.
-        assertThat(summary.initialDelayMillis).isEqualTo(TimeUnit.HOURS.toMillis(4 * 24 + 10))
+        // Sunday 19:00 is 4 days and 10 hours away on the clock, plus the hour the clocks go back on the 25th.
+        assertThat(summary.initialDelayMillis).isEqualTo(TimeUnit.HOURS.toMillis(4 * 24 + 11))
     }
 
     @Test
