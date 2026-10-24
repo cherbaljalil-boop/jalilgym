@@ -1,6 +1,6 @@
 # Jalilgym — Product & Architecture Blueprint
 
-> **Status:** v1.0 — **approved** (all §13 recommendations accepted). Phases 0–5 complete; Phase 6 (hardening & release prep) next.
+> **Status:** v1.0 — **approved** (all §13 recommendations accepted). Phases 0–6 complete: v1.0 is ready for Play submission once the upload key is added (docs/RELEASING.md).
 > **Created by CH.Djalil**
 
 ---
@@ -834,7 +834,7 @@ message UserPreferences {
 | **3. Workout engine** ✅ | Active workout UI, pre-fill, set types, RPE/RIR, supersets, rest timer, foreground service with notification actions, plate / 1RM / warm-up sheets, progression engine, summary, history, crash-safe session restore | Critical UI flow 2 passes; the rest timer fires with the screen locked |
 | **4. Progress & gamification** ✅ | PR detection and history, strength charts, weekly muscle volume heatmap, body weight and measurements, progress photos and compare, streaks, achievements | Badges unlock correctly in tests; charts render real data |
 | **5. Nutrition core** ✅ | Nutrition setup, TDEE and target calculation (goal plus high-protein style), day diary, manual entry, Open Food Facts search with caching, barcode scanner, custom foods, saved meals, basic micronutrients, halal status and filter, logging streak | Critical UI flow 4 passes; offline mode works |
-| **6. Hardening & release prep** | Accessibility pass, Baseline Profiles, R8, migration test baseline, About/licenses (Open Food Facts ODbL, free-exercise-db, fonts), Play listing assets, `specialUse` FGS declaration | Release build signed; all tests green |
+| **6. Hardening & release prep** ✅ | Accessibility pass, Baseline Profiles, R8, migration test baseline, About/licenses (Open Food Facts ODbL, free-exercise-db, fonts), Play listing assets, `specialUse` FGS declaration | Release build signed; all tests green |
 
 **Phase 0 notes.** It shipped with a starter seed of 18 exercises, enough to cover the PPL and Full Body templates; Phase 1 expands this to about 100 with images. The Room schema is committed under `core/database/schemas`, and the `Update Room schema` workflow regenerates it whenever the database module changes. Compose UI tests run on Robolectric. Remaining Phase 0 follow-ups: ktlint/Detekt and Baseline Profiles (moved to Phase 6).
 
@@ -847,6 +847,15 @@ message UserPreferences {
 **Phase 4 notes.** Records are detected when a workout finishes. The first value for each exercise and record type is stored as a baseline and not celebrated; only beating an earlier record shows on the summary and counts toward record badges. Records belong to their set logs, so deleting a workout removes its records. Badges are derived from data, not counted by events: the app syncs unlocks whenever the underlying data changes, so badges earned outside a workout (photos, custom programs, body weight) unlock too. Nutrition badges show progress but can't unlock until Phase 5. The weekly-volume heatmap counts working sets: 1 per primary muscle and 0.5 per secondary muscle. Progress photos come from the system Photo Picker (no camera or storage permission), are downscaled into app-private storage and are left out of backups. In-app camera capture is deferred. Charts are drawn with a small Canvas chart in `:core:ui` instead of a charting library.
 
 **Phase 5 notes.** Open Food Facts is reached through a new `:core:network` module (OkHttp, descriptive User-Agent, no personal data) and is only queried when the user submits a search, to respect its rate limits. Every product seen is cached in Room, and 43 generic foods ship as a seed (approximate USDA values), so search, barcodes already scanned and logging all work offline. Products without an energy value are skipped. Halal status comes from Open Food Facts labels (any `halal` label certifies) and whole-word ingredient matches for pork, gelatin and alcohol, with stated origins ("beef gelatin", "sugar alcohol", "wine vinegar") cleared. Generic seed foods stay unknown unless the user marks them. "Labeled or marked only" counts the user's own marks. Days "on target" for badges mean calories within ±10% and protein at least 90%, judged against the current plan. Fat is never set below 0.6 g/kg on any goal. The barcode scanner uses CameraX with the bundled ML Kit model (retail formats only) and asks for the camera only when it opens. Schema 2 adds saturated fat to diary entries through an auto-migration. Recipes, meal suggestions and the weekly check-in remain v1.1.
+
+**Phase 6 notes.**
+- **Release build and signing.** The release build is minified with R8 and resource shrinking. Signing comes from environment variables, so no key is committed. CI builds and verifies a signed APK and AAB on every push, using the upload key from repository secrets when present and a throwaway key otherwise (docs/RELEASING.md).
+- **Formatting.** ktlint 1.8.0, in Android Studio style and pinned by checksum, runs first in CI. Rules that conflict with the established wrapping are disabled in `.editorconfig`. Detekt was dropped: Android lint plus ktlint cover what we need without another rule set to maintain.
+- **Migrations.** Robolectric tests cover the 1 → 2 migration against the exported schemas, and every future schema version adds one.
+- **Accessibility.** A shared `:core:uitest` check fails a test when any tappable element has nothing for TalkBack to read. It runs on Today, Nutrition, Progress and Profile, alongside the earlier screen tests. Photo tiles announce their selected state.
+- **Licenses.** About links to an open-source licenses screen with full texts (Apache 2.0, OFL for Inter and Bebas Neue, the Unlicense for free-exercise-db). Open Food Facts (ODbL), USDA and ML Kit terms are credited there.
+- **Baseline Profiles.** The `:baselineprofile` module records startup and tab browsing on a Gradle-managed emulator through the Baseline Profile workflow. The same run benchmarks cold start on the minified build, which doubles as an R8 smoke test.
+- **Play materials.** `docs/play-store/` holds the listing text, privacy policy, Data safety answers, the `specialUse` foreground-service declaration text and the graphics. Phone screenshots still need a real device.
 
 ### v1.1
 Recipe builder · curated recipes and meal suggestions · Health Connect (workouts, weight, nutrition, steps) · JSON export/import · weekly nutrition check-in (calorie auto-adjust).
