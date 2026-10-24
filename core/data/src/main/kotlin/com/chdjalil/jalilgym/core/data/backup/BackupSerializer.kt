@@ -37,7 +37,11 @@ internal const val BACKUP_VERSION = 1
  * Tables left out: SQLite and Room internals, and progress photos (the image
  * files aren't in the backup, so their rows would point at nothing).
  */
-private val SKIPPED_TABLES = setOf("android_metadata", "room_master_table", "sqlite_sequence", "progress_photos")
+private val SKIPPED_TABLES = setOf(
+    "android_metadata", "room_master_table", "sqlite_sequence", "progress_photos",
+    // Cloud sync bookkeeping (:core:sync) belongs to this phone and account.
+    "sync_changes", "sync_state",
+)
 
 private const val BLOB_KEY = "base64"
 

@@ -3,4 +3,5 @@
 <full-backup-content>
     <exclude domain="file" path="photos/" />
     <exclude domain="file" path="food_cache/" />
+    <exclude domain="sharedpref" path="jalilgym_cloud.xml" />
 </full-backup-content>
