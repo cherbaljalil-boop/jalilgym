@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_widgets_name">Jalilgym today</string>
+    <string name="feature_widgets_description">Your next workout, calories, protein and water at a glance</string>
+    <string name="feature_widgets_next_workout">Next workout</string>
+    <string name="feature_widgets_today">Today</string>
+    <string name="feature_widgets_in_progress">%1$s · in progress</string>
+    <string name="feature_widgets_trained_today">Trained ✓</string>
+    <string name="feature_widgets_no_program">Choose a program to start</string>
+    <plurals name="feature_widgets_streak">
+        <item quantity="one">%1$d-week streak</item>
+        <item quantity="other">%1$d-week streak</item>
+    </plurals>
+    <string name="feature_widgets_food">%1$d of %2$d kcal · %3$d of %4$d g protein</string>
+    <string name="feature_widgets_food_setup">Set up nutrition to see calories</string>
+    <string name="feature_widgets_water">Water %1$s of %2$s</string>
+    <string name="feature_widgets_add_water">+ %1$s</string>
+</resources>

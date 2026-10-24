@@ -48,6 +48,7 @@ dependencies {
     implementation(projects.feature.nutrition)
     implementation(projects.feature.progress)
     implementation(projects.feature.profile)
+    implementation(projects.feature.widgets)
 
     implementation(projects.core.common)
     implementation(projects.core.data)

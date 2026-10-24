@@ -11,6 +11,7 @@ import com.chdjalil.jalilgym.core.domain.repository.HealthRepository
 import com.chdjalil.jalilgym.core.domain.repository.SeedRepository
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
 import com.chdjalil.jalilgym.core.notifications.ReminderScheduler
+import com.chdjalil.jalilgym.feature.widgets.TodayWidget
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
@@ -80,6 +81,10 @@ class JalilgymApplication : Application() {
                     runCatching { reminderScheduler.apply(settings) }
                         .onFailure { Log.e(TAG, "Couldn't schedule reminders", it) }
                 }
+        }
+        applicationScope.launch {
+            runCatching { TodayWidget.refreshOnChanges(this@JalilgymApplication) }
+                .onFailure { Log.e(TAG, "Widget updates stopped", it) }
         }
         registerActivityLifecycleCallbacks(
             object : ActivityLifecycleCallbacks {
