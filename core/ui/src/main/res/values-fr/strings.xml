@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="core_ui_coming_in_phase">Prévu pour la phase %1$d</string>
     <string name="core_ui_exercise_image">Démonstration : %1$s</string>
     <string name="core_ui_muscle_chest">Pectoraux</string>
@@ -51,7 +51,8 @@
     <string name="core_ui_program_ppl_6">Poussée / Tirage / Jambes · 6 jours</string>
     <string name="core_ui_program_custom">Créer le mien</string>
     <string name="core_ui_streak_title">Série d\'entraînement</string>
-    <plurals name="core_ui_streak_weeks">
+    <!-- The number is shown next to this label; French uses the singular for 0 and 1. -->
+    <plurals name="core_ui_streak_weeks" tools:ignore="ImpliedQuantity">
         <item quantity="one">semaine dans l\'objectif</item>
         <item quantity="many">semaines dans l\'objectif</item>
         <item quantity="other">semaines dans l\'objectif</item>
