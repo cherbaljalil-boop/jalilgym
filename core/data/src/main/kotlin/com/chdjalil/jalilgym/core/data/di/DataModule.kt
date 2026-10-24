@@ -1,5 +1,6 @@
 package com.chdjalil.jalilgym.core.data.di
 
+import com.chdjalil.jalilgym.core.data.backup.ContentUriBackupRepository
 import com.chdjalil.jalilgym.core.data.media.PrivateExerciseImageStore
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstAchievementRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstBodyRepository
@@ -13,6 +14,7 @@ import com.chdjalil.jalilgym.core.data.repository.OfflineFirstUserPreferencesRep
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstWorkoutRepository
 import com.chdjalil.jalilgym.core.data.workout.InMemoryRestTimer
 import com.chdjalil.jalilgym.core.domain.repository.AchievementRepository
+import com.chdjalil.jalilgym.core.domain.repository.BackupRepository
 import com.chdjalil.jalilgym.core.domain.repository.BodyRepository
 import com.chdjalil.jalilgym.core.domain.repository.ExerciseImageStore
 import com.chdjalil.jalilgym.core.domain.repository.ExerciseRepository
@@ -67,6 +69,9 @@ internal abstract class DataModule {
 
     @Binds
     abstract fun bindsNutritionRepository(impl: OfflineFirstNutritionRepository): NutritionRepository
+
+    @Binds
+    abstract fun bindsBackupRepository(impl: ContentUriBackupRepository): BackupRepository
 
     @Binds
     abstract fun bindsSeedRepository(impl: OfflineFirstSeedRepository): SeedRepository

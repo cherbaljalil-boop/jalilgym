@@ -14,11 +14,22 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 
 class JgPreferencesDataSource @Inject constructor(
     private val dataStore: DataStore<UserPreferencesData>,
 ) {
     val userPreferences: Flow<UserPreferences> = dataStore.data.map { it.toModel() }
+
+    /** All settings as JSON, for backups. */
+    suspend fun exportJson(): JsonElement = backupJson.encodeToJsonElement(UserPreferencesData.serializer(), dataStore.data.first())
+
+    /** Replaces all settings with ones from a backup; unknown fields are ignored. */
+    suspend fun restoreJson(element: JsonElement) {
+        val restored = backupJson.decodeFromJsonElement(UserPreferencesData.serializer(), element)
+        dataStore.updateData { restored }
+    }
 
     suspend fun installedSeedVersion(): Int = dataStore.data.first().installedSeedVersion
 
@@ -58,4 +69,10 @@ class JgPreferencesDataSource @Inject constructor(
     private suspend fun update(transform: (UserPreferencesData) -> UserPreferencesData) {
         dataStore.updateData(transform)
     }
+}
+
+private val backupJson = Json {
+    ignoreUnknownKeys = true
+    coerceInputValues = true
+    encodeDefaults = true
 }

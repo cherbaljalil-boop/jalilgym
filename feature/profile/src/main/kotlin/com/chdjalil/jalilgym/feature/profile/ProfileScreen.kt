@@ -1,8 +1,12 @@
 package com.chdjalil.jalilgym.feature.profile
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,20 +14,30 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -41,6 +55,7 @@ import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
 import com.chdjalil.jalilgym.core.ui.EntryCard
+import java.time.LocalDate
 
 @Composable
 internal fun ProfileScreen(
@@ -55,14 +70,46 @@ internal fun ProfileScreen(
             .getOrNull()
             .orEmpty()
     }
-    ProfileContent(
-        uiState = uiState,
-        versionName = versionName,
-        onEvent = viewModel::onEvent,
-        onOpenAchievements = onOpenAchievements,
-        onOpenLicenses = onOpenLicenses,
-    )
+    val backupBusy by viewModel.backupBusy.collectAsStateWithLifecycle()
+    val snackbar = remember { SnackbarHostState() }
+    val resources = LocalResources.current
+    LaunchedEffect(viewModel) {
+        viewModel.messages.collect { message ->
+            snackbar.showSnackbar(
+                when (message) {
+                    is BackupMessage.Exported -> resources.getString(R.string.feature_profile_backup_exported, message.rows)
+                    BackupMessage.ExportFailed -> resources.getString(R.string.feature_profile_backup_export_failed)
+                    is BackupMessage.Imported -> resources.getString(R.string.feature_profile_backup_imported, message.rows)
+                    BackupMessage.ImportTooNew -> resources.getString(R.string.feature_profile_backup_too_new)
+                    BackupMessage.ImportInvalid -> resources.getString(R.string.feature_profile_backup_invalid)
+                },
+            )
+        }
+    }
+    // The system file picker: the user chooses where the backup goes (Drive, Downloads…).
+    val exportLauncher = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(BACKUP_MIME_TYPE)) { uri ->
+        uri?.let { viewModel.exportTo(it.toString()) }
+    }
+    val importLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        uri?.let { viewModel.importFrom(it.toString()) }
+    }
+    Box(Modifier.fillMaxSize()) {
+        ProfileContent(
+            uiState = uiState,
+            versionName = versionName,
+            onEvent = viewModel::onEvent,
+            onOpenAchievements = onOpenAchievements,
+            onOpenLicenses = onOpenLicenses,
+            backupBusy = backupBusy,
+            onExport = { exportLauncher.launch("jalilgym-backup-${LocalDate.now()}.json") },
+            // Some providers label JSON as plain text or binary.
+            onImport = { importLauncher.launch(arrayOf(BACKUP_MIME_TYPE, "text/plain", "application/octet-stream")) },
+        )
+        SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter))
+    }
 }
+
+private const val BACKUP_MIME_TYPE = "application/json"
 
 @Composable
 internal fun ProfileContent(
@@ -72,6 +119,9 @@ internal fun ProfileContent(
     modifier: Modifier = Modifier,
     onOpenAchievements: () -> Unit = {},
     onOpenLicenses: () -> Unit = {},
+    backupBusy: Boolean = false,
+    onExport: () -> Unit = {},
+    onImport: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -92,6 +142,7 @@ internal fun ProfileContent(
             if (uiState is ProfileUiState.Ready) {
                 SettingsSection(uiState.preferences, onEvent)
             }
+            DataSection(backupBusy, onExport, onImport)
             AboutSection(versionName, onOpenLicenses)
         }
     }
@@ -194,6 +245,47 @@ private fun AboutSection(versionName: String, onOpenLicenses: () -> Unit) {
             )
             TextButton(onClick = onOpenLicenses) { Text(stringResource(R.string.feature_profile_licenses)) }
         }
+    }
+}
+
+@Composable
+private fun DataSection(busy: Boolean, onExport: () -> Unit, onImport: () -> Unit) {
+    var confirmImport by rememberSaveable { mutableStateOf(false) }
+    SectionTitle(R.string.feature_profile_data)
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(
+                stringResource(R.string.feature_profile_backup_desc),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(onClick = onExport, enabled = !busy) { Text(stringResource(R.string.feature_profile_backup_export)) }
+                OutlinedButton(onClick = { confirmImport = true }, enabled = !busy) {
+                    Text(stringResource(R.string.feature_profile_backup_import))
+                }
+            }
+            if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
+        }
+    }
+    if (confirmImport) {
+        AlertDialog(
+            onDismissRequest = { confirmImport = false },
+            title = { Text(stringResource(R.string.feature_profile_backup_import_title)) },
+            text = { Text(stringResource(R.string.feature_profile_backup_import_body)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    confirmImport = false
+                    onImport()
+                }) { Text(stringResource(R.string.feature_profile_backup_choose_file)) }
+            },
+            dismissButton = {
+                TextButton(onClick = { confirmImport = false }) { Text(stringResource(R.string.feature_profile_cancel)) }
+            },
+        )
     }
 }
 

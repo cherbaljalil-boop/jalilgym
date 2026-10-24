@@ -23,4 +23,17 @@
     <string name="feature_profile_achievements_count">%1$d of %2$d unlocked</string>
     <string name="feature_profile_achievement_unlocked">Unlocked %1$s</string>
     <string name="feature_profile_licenses">Open-source licenses</string>
+    <string name="feature_profile_cancel">Cancel</string>
+    <string name="feature_profile_data">Your data</string>
+    <string name="feature_profile_backup_desc">Save everything except progress photos to a file you choose (Drive, Downloads…), or restore it on this or another phone.</string>
+    <string name="feature_profile_backup_export">Export backup</string>
+    <string name="feature_profile_backup_import">Import backup</string>
+    <string name="feature_profile_backup_import_title">Replace your data?</string>
+    <string name="feature_profile_backup_import_body">Importing replaces all workouts, programs, body logs, food diary and settings on this phone with the backup\'s. Progress photos stay. Export first if you want to keep the current data.</string>
+    <string name="feature_profile_backup_choose_file">Choose file</string>
+    <string name="feature_profile_backup_exported">Backup saved (%1$d records).</string>
+    <string name="feature_profile_backup_export_failed">Couldn\'t save the backup there. Try another location.</string>
+    <string name="feature_profile_backup_imported">Backup restored (%1$d records).</string>
+    <string name="feature_profile_backup_too_new">This backup is from a newer version of Jalilgym. Update the app, then try again.</string>
+    <string name="feature_profile_backup_invalid">That file isn\'t a Jalilgym backup, or it\'s damaged. Nothing was changed.</string>
 </resources>
