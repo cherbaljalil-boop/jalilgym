@@ -35,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
@@ -65,7 +66,6 @@ import com.chdjalil.jalilgym.feature.nutrition.ui.labelRes
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import java.util.Locale
 
 /** Navigation out of the diary; dates travel as ISO strings. */
 data class DiaryActions(
@@ -266,6 +266,7 @@ private fun SummaryCard(uiState: DiaryUiState, onOpenTargets: () -> Unit) {
 private fun CheckInCard(checkIn: CheckIn, onApply: () -> Unit, onDismiss: () -> Unit) {
     val change = checkIn.weeklyChangeKg ?: return
     val percent = checkIn.weeklyChangePercent ?: return
+    val locale = LocalConfiguration.current.locales[0]
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
@@ -279,8 +280,8 @@ private fun CheckInCard(checkIn: CheckIn, onApply: () -> Unit, onDismiss: () -> 
             Text(
                 stringResource(
                     R.string.feature_nutrition_check_in_change,
-                    "%+.1f".format(Locale.getDefault(), change),
-                    "%+.1f".format(Locale.getDefault(), percent),
+                    "%+.1f".format(locale, change),
+                    "%+.1f".format(locale, percent),
                 ),
                 style = MaterialTheme.typography.bodyMedium,
             )

@@ -9,6 +9,7 @@ import com.chdjalil.jalilgym.core.data.repository.OfflineFirstFoodRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstNutritionRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstProgramRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstProgressRepository
+import com.chdjalil.jalilgym.core.data.repository.OfflineFirstRecipeRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstSeedRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstUserPreferencesRepository
 import com.chdjalil.jalilgym.core.data.repository.OfflineFirstWorkoutRepository
@@ -22,6 +23,7 @@ import com.chdjalil.jalilgym.core.domain.repository.FoodRepository
 import com.chdjalil.jalilgym.core.domain.repository.NutritionRepository
 import com.chdjalil.jalilgym.core.domain.repository.ProgramRepository
 import com.chdjalil.jalilgym.core.domain.repository.ProgressRepository
+import com.chdjalil.jalilgym.core.domain.repository.RecipeRepository
 import com.chdjalil.jalilgym.core.domain.repository.RestTimer
 import com.chdjalil.jalilgym.core.domain.repository.SeedRepository
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
@@ -69,6 +71,9 @@ internal abstract class DataModule {
 
     @Binds
     abstract fun bindsNutritionRepository(impl: OfflineFirstNutritionRepository): NutritionRepository
+
+    @Binds
+    abstract fun bindsRecipeRepository(impl: OfflineFirstRecipeRepository): RecipeRepository
 
     @Binds
     abstract fun bindsBackupRepository(impl: ContentUriBackupRepository): BackupRepository

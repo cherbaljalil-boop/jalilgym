@@ -11,6 +11,7 @@ import com.chdjalil.jalilgym.core.database.dao.FoodDao
 import com.chdjalil.jalilgym.core.database.dao.FoodLogDao
 import com.chdjalil.jalilgym.core.database.dao.ProgramDao
 import com.chdjalil.jalilgym.core.database.dao.ProgressDao
+import com.chdjalil.jalilgym.core.database.dao.RecipeDao
 import com.chdjalil.jalilgym.core.database.dao.SavedMealDao
 import com.chdjalil.jalilgym.core.database.dao.WorkoutDao
 import com.chdjalil.jalilgym.core.database.entity.AchievementUnlockEntity
@@ -100,6 +101,8 @@ abstract class JalilgymDatabase : RoomDatabase() {
     abstract fun savedMealDao(): SavedMealDao
 
     abstract fun dietPlanDao(): DietPlanDao
+
+    abstract fun recipeDao(): RecipeDao
 
     companion object {
         const val NAME = "jalilgym.db"

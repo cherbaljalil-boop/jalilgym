@@ -7,7 +7,8 @@ enum class DietGoal { CUT, LEAN_BULK, MAINTAIN }
 /** High-protein is a modifier on any goal (docs/BLUEPRINT.md §3.7). */
 enum class DietStyle { BALANCED, HIGH_PROTEIN }
 
-enum class FoodSource { SEED, OPEN_FOOD_FACTS, CUSTOM }
+/** RECIPE foods are generated from a recipe and kept in sync with it. */
+enum class FoodSource { SEED, OPEN_FOOD_FACTS, CUSTOM, RECIPE }
 
 /** Never inferred as certified without a label. */
 enum class HalalStatus { CERTIFIED, FLAGGED, USER_MARKED, UNKNOWN }
@@ -138,3 +139,39 @@ data class SavedMealItem(val food: Food, val quantityG: Double)
 data class SavedMeal(val id: String, val name: String, val defaultMeal: MealType?, val items: List<SavedMealItem>) {
     val nutrients: Nutrients get() = items.fold(Nutrients.ZERO) { sum, item -> sum + item.food.nutrientsFor(item.quantityG) }
 }
+
+data class RecipeIngredient(val food: Food, val grams: Double) {
+    val nutrients: Nutrients get() = food.nutrientsFor(grams)
+}
+
+data class Recipe(
+    val id: String,
+    val name: String,
+    val servings: Int,
+    val ingredients: List<RecipeIngredient>,
+    val instructions: List<String> = emptyList(),
+    /** Meal types this suits (MealType names), for suggestions. */
+    val mealTags: List<String> = emptyList(),
+    /** HIGH_PROTEIN, CUT or BULK, for suggestions. */
+    val dietTags: List<String> = emptyList(),
+    /** Built-in recipes are written without pork, alcohol or gelatin. */
+    val isHalalFriendly: Boolean = false,
+    val isBuiltIn: Boolean = false,
+) {
+    val totalGrams: Double get() = ingredients.sumOf { it.grams }
+
+    val total: Nutrients get() = ingredients.fold(Nutrients.ZERO) { sum, i -> sum + i.nutrients }
+
+    val perServing: Nutrients get() = total * (1.0 / servings.coerceAtLeast(1))
+
+    val servingGrams: Double get() = totalGrams / servings.coerceAtLeast(1)
+}
+
+/** A recipe being edited: ingredients as food id and grams. */
+data class RecipeDraft(
+    val id: String? = null,
+    val name: String,
+    val servings: Int,
+    val ingredients: List<Pair<String, Double>>,
+    val instructions: List<String> = emptyList(),
+)
