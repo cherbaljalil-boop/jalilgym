@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_widgets_name">Jalilgym اليوم</string>
+    <string name="feature_widgets_description">تمرينك التالي والسعرات والبروتين والماء في لمحة</string>
+    <string name="feature_widgets_next_workout">التمرين التالي</string>
+    <string name="feature_widgets_today">اليوم</string>
+    <string name="feature_widgets_in_progress">%1$s · جارٍ الآن</string>
+    <string name="feature_widgets_trained_today">تمرّنت اليوم ✓</string>
+    <string name="feature_widgets_no_program">اختر برنامجًا للبدء</string>
+    <plurals name="feature_widgets_streak">
+        <item quantity="zero">سلسلة %1$d أسبوع</item>
+        <item quantity="one">سلسلة أسبوع واحد</item>
+        <item quantity="two">سلسلة أسبوعين</item>
+        <item quantity="few">سلسلة %1$d أسابيع</item>
+        <item quantity="many">سلسلة %1$d أسبوعًا</item>
+        <item quantity="other">سلسلة %1$d أسبوع</item>
+    </plurals>
+    <string name="feature_widgets_food">%1$d من %2$d سعرة · %3$d من %4$d غ بروتين</string>
+    <string name="feature_widgets_food_setup">اضبط التغذية لعرض السعرات</string>
+    <string name="feature_widgets_water">الماء %1$s من %2$s</string>
+    <string name="feature_widgets_add_water">+ %1$s</string>
+</resources>
