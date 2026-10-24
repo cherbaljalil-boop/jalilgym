@@ -6,6 +6,7 @@ import com.chdjalil.jalilgym.core.model.EffortScale
 import com.chdjalil.jalilgym.core.model.ExperienceLevel
 import com.chdjalil.jalilgym.core.model.Goal
 import com.chdjalil.jalilgym.core.model.HalalFilter
+import com.chdjalil.jalilgym.core.model.ReminderSettings
 import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
@@ -40,6 +41,8 @@ class FakeUserPreferencesRepository(
     override suspend fun setHealthConnectEnabled(enabled: Boolean) = state.update { it.copy(healthConnectEnabled = enabled) }
 
     override suspend fun setWaterGoal(ml: Int?) = state.update { it.copy(waterGoalMl = ml) }
+
+    override suspend fun setReminders(settings: ReminderSettings) = state.update { it.copy(reminders = settings) }
 
     override suspend fun markStarterProgramApplied() = state.update { it.copy(starterProgramApplied = true) }
 

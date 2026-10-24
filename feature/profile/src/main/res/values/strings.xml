@@ -46,4 +46,12 @@
     <string name="feature_profile_health_synced">Last synced %1$s</string>
     <string name="feature_profile_health_not_synced">Not synced yet</string>
     <string name="feature_profile_health_sync_now">Sync now</string>
+    <string name="feature_profile_reminders">Reminders</string>
+    <string name="feature_profile_reminders_workout">Workout reminder</string>
+    <string name="feature_profile_reminders_workout_desc">Pick the days you plan to train. There\'s no reminder on days you\'ve already trained.</string>
+    <string name="feature_profile_reminders_time">Remind me at</string>
+    <string name="feature_profile_reminders_time_ok">OK</string>
+    <string name="feature_profile_reminders_time_cancel">Cancel</string>
+    <string name="feature_profile_reminders_summary">Weekly summary</string>
+    <string name="feature_profile_reminders_summary_desc">Workouts, volume, food logging and weight trend, every Sunday evening</string>
 </resources>

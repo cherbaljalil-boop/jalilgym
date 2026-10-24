@@ -1,7 +1,10 @@
 package com.chdjalil.jalilgym.feature.profile
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
@@ -109,11 +112,23 @@ internal fun ProfileScreen(
     val importLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         uri?.let { viewModel.importFrom(it.toString()) }
     }
+    // Reminders need notification access on Android 13+; ask when one is first turned on.
+    val notificationPermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
+    val onEvent: (ProfileEvent) -> Unit = { event ->
+        viewModel.onEvent(event)
+        if (event is ProfileEvent.RemindersChanged &&
+            (event.settings.workoutDays.isNotEmpty() || event.settings.weeklySummary) &&
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+        ) {
+            notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
     Box(Modifier.fillMaxSize()) {
         ProfileContent(
             uiState = uiState,
             versionName = versionName,
-            onEvent = viewModel::onEvent,
+            onEvent = onEvent,
             onOpenAchievements = onOpenAchievements,
             onOpenLicenses = onOpenLicenses,
             backupBusy = backupBusy,
@@ -174,6 +189,7 @@ internal fun ProfileContent(
             )
             if (uiState is ProfileUiState.Ready) {
                 SettingsSection(uiState.preferences, onEvent)
+                RemindersSection(uiState.preferences.reminders) { onEvent(ProfileEvent.RemindersChanged(it)) }
             }
             HealthSection(healthStatus, onHealthEnabled, onGrantHealth, onInstallHealth, onSyncHealth)
             DataSection(backupBusy, onExport, onImport)
@@ -393,7 +409,7 @@ private fun DataSection(busy: Boolean, onExport: () -> Unit, onImport: () -> Uni
 }
 
 @Composable
-private fun SectionTitle(@StringRes text: Int) {
+internal fun SectionTitle(@StringRes text: Int) {
     Text(
         text = stringResource(text),
         style = MaterialTheme.typography.labelLarge,

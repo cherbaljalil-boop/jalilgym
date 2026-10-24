@@ -59,8 +59,10 @@ are copied into the app's private storage and never uploaded.
 
 ## Notifications
 
-During a workout the app shows a notification with the rest timer. It is created
-on the device and contains no data from outside the app.
+During a workout the app shows a notification with the rest timer. If you turn
+them on in Profile, the app also shows workout reminders and a weekly summary.
+All notifications are created on the device from your own data, and nothing is
+sent anywhere to produce them.
 
 ## Backups
 

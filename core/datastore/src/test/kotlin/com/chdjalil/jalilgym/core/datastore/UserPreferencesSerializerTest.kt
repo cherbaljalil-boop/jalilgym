@@ -30,6 +30,8 @@ class UserPreferencesSerializerTest {
             units = UnitSystem.IMPERIAL,
             starterProgram = StarterProgram.PPL_3,
             installedSeedVersion = 3,
+            waterGoalMl = 3_000,
+            reminders = ReminderData(workoutDays = listOf(1, 4), workoutMinuteOfDay = 7 * 60 + 15, weeklySummary = true),
         )
         val out = ByteArrayOutputStream()
         UserPreferencesSerializer.writeTo(prefs, out)
@@ -55,5 +57,14 @@ class UserPreferencesSerializerTest {
                 UserPreferencesSerializer.readFrom(ByteArrayInputStream("not json".toByteArray()))
             }
         }
+    }
+
+    @Test
+    fun `reminders map to the model and back`() {
+        val data = ReminderData(workoutDays = listOf(1, 4, 9), workoutMinuteOfDay = 7 * 60 + 15, weeklySummary = true)
+        val model = data.toModel()
+        assertThat(model.workoutDays).containsExactly(java.time.DayOfWeek.MONDAY, java.time.DayOfWeek.THURSDAY)
+        assertThat(model.workoutTime).isEqualTo(java.time.LocalTime.of(7, 15))
+        assertThat(model.toData()).isEqualTo(data.copy(workoutDays = listOf(1, 4)))
     }
 }

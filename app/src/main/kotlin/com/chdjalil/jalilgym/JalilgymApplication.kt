@@ -10,6 +10,7 @@ import com.chdjalil.jalilgym.core.domain.repository.AchievementRepository
 import com.chdjalil.jalilgym.core.domain.repository.HealthRepository
 import com.chdjalil.jalilgym.core.domain.repository.SeedRepository
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
+import com.chdjalil.jalilgym.core.notifications.ReminderScheduler
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
@@ -42,6 +43,9 @@ class JalilgymApplication : Application() {
     lateinit var healthRepository: HealthRepository
 
     @Inject
+    lateinit var reminderScheduler: ReminderScheduler
+
+    @Inject
     @ApplicationScope
     lateinit var applicationScope: CoroutineScope
 
@@ -65,6 +69,16 @@ class JalilgymApplication : Application() {
                 .collect {
                     runCatching { healthRepository.sync() }
                         .onFailure { Log.e(TAG, "Health Connect sync failed", it) }
+                }
+        }
+        applicationScope.launch {
+            // Rebook on every start too, so a time zone change moves reminders to local time.
+            preferencesRepository.userPreferences
+                .map { it.reminders }
+                .distinctUntilChanged()
+                .collect { settings ->
+                    runCatching { reminderScheduler.apply(settings) }
+                        .onFailure { Log.e(TAG, "Couldn't schedule reminders", it) }
                 }
         }
         registerActivityLifecycleCallbacks(

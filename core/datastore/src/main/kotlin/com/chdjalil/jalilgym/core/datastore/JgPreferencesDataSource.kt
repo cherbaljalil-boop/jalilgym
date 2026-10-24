@@ -6,6 +6,7 @@ import com.chdjalil.jalilgym.core.model.EffortScale
 import com.chdjalil.jalilgym.core.model.ExperienceLevel
 import com.chdjalil.jalilgym.core.model.Goal
 import com.chdjalil.jalilgym.core.model.HalalFilter
+import com.chdjalil.jalilgym.core.model.ReminderSettings
 import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
@@ -58,6 +59,8 @@ class JgPreferencesDataSource @Inject constructor(
     suspend fun setHealthConnectEnabled(enabled: Boolean) = update { it.copy(healthConnectEnabled = enabled) }
 
     suspend fun setWaterGoal(ml: Int?) = update { it.copy(waterGoalMl = ml) }
+
+    suspend fun setReminders(settings: ReminderSettings) = update { it.copy(reminders = settings.toData()) }
 
     suspend fun markStarterProgramApplied() = update { it.copy(starterProgramApplied = true) }
 

@@ -3,6 +3,7 @@ package com.chdjalil.jalilgym.feature.profile
 import app.cash.turbine.test
 import com.chdjalil.jalilgym.core.domain.repository.ImportResult
 import com.chdjalil.jalilgym.core.model.EffortScale
+import com.chdjalil.jalilgym.core.model.ReminderSettings
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
@@ -12,6 +13,8 @@ import com.chdjalil.jalilgym.core.testing.repository.FakeHealthRepository
 import com.chdjalil.jalilgym.core.testing.repository.FakeUserPreferencesRepository
 import com.google.common.truth.Truth.assertThat
 import java.io.IOException
+import java.time.DayOfWeek
+import java.time.LocalTime
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -45,11 +48,14 @@ class ProfileViewModelTest {
         viewModel.onEvent(ProfileEvent.ThemeSelected(ThemeMode.LIGHT))
         viewModel.onEvent(ProfileEvent.UnitsSelected(UnitSystem.IMPERIAL))
         viewModel.onEvent(ProfileEvent.EffortScaleSelected(EffortScale.RIR))
+        val reminders = ReminderSettings(setOf(DayOfWeek.MONDAY, DayOfWeek.THURSDAY), LocalTime.of(7, 15), weeklySummary = true)
+        viewModel.onEvent(ProfileEvent.RemindersChanged(reminders))
 
         val expected = UserPreferences(
             themeMode = ThemeMode.LIGHT,
             units = UnitSystem.IMPERIAL,
             effortScale = EffortScale.RIR,
+            reminders = reminders,
         )
         assertThat(repository.current).isEqualTo(expected)
         assertThat(viewModel.uiState.value).isEqualTo(ProfileUiState.Ready(expected))

@@ -6,12 +6,15 @@ import com.chdjalil.jalilgym.core.model.EffortScale
 import com.chdjalil.jalilgym.core.model.ExperienceLevel
 import com.chdjalil.jalilgym.core.model.Goal
 import com.chdjalil.jalilgym.core.model.HalalFilter
+import com.chdjalil.jalilgym.core.model.ReminderSettings
 import com.chdjalil.jalilgym.core.model.Sex
 import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
+import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.LocalTime
 import kotlinx.serialization.Serializable
 
 /**
@@ -45,6 +48,27 @@ data class UserPreferencesData(
     val lastCheckIn: String? = null,
     val healthConnectEnabled: Boolean = false,
     val waterGoalMl: Int? = null,
+    val reminders: ReminderData = ReminderData(),
+)
+
+/** Days are ISO numbers (Monday = 1); the time is minutes after midnight. */
+@Serializable
+data class ReminderData(
+    val workoutDays: List<Int> = emptyList(),
+    val workoutMinuteOfDay: Int = 18 * 60,
+    val weeklySummary: Boolean = false,
+)
+
+internal fun ReminderData.toModel() = ReminderSettings(
+    workoutDays = workoutDays.mapNotNull { runCatching { DayOfWeek.of(it) }.getOrNull() }.toSet(),
+    workoutTime = LocalTime.of((workoutMinuteOfDay / 60).coerceIn(0, 23), (workoutMinuteOfDay % 60).coerceIn(0, 59)),
+    weeklySummary = weeklySummary,
+)
+
+internal fun ReminderSettings.toData() = ReminderData(
+    workoutDays = workoutDays.map { it.value }.sorted(),
+    workoutMinuteOfDay = workoutTime.hour * 60 + workoutTime.minute,
+    weeklySummary = weeklySummary,
 )
 
 /** [birthDate] is ISO-8601 (yyyy-MM-dd). */
@@ -79,4 +103,5 @@ internal fun UserPreferencesData.toModel() = UserPreferences(
     lastCheckIn = lastCheckIn?.let { runCatching { LocalDate.parse(it) }.getOrNull() },
     healthConnectEnabled = healthConnectEnabled,
     waterGoalMl = waterGoalMl,
+    reminders = reminders.toModel(),
 )

@@ -5,6 +5,7 @@ import com.chdjalil.jalilgym.core.model.EffortScale
 import com.chdjalil.jalilgym.core.model.ExperienceLevel
 import com.chdjalil.jalilgym.core.model.Goal
 import com.chdjalil.jalilgym.core.model.HalalFilter
+import com.chdjalil.jalilgym.core.model.ReminderSettings
 import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
@@ -31,6 +32,8 @@ interface UserPreferencesRepository {
 
     /** Null goes back to the automatic goal. */
     suspend fun setWaterGoal(ml: Int?)
+
+    suspend fun setReminders(settings: ReminderSettings)
 
     /** Any answer may be null when the user skipped it. */
     suspend fun markStarterProgramApplied()

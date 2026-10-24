@@ -8,6 +8,7 @@ import com.chdjalil.jalilgym.core.domain.repository.HealthStatus
 import com.chdjalil.jalilgym.core.domain.repository.ImportResult
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
 import com.chdjalil.jalilgym.core.model.EffortScale
+import com.chdjalil.jalilgym.core.model.ReminderSettings
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
@@ -37,6 +38,8 @@ sealed interface ProfileEvent {
     data class UnitsSelected(val units: UnitSystem) : ProfileEvent
 
     data class EffortScaleSelected(val effortScale: EffortScale) : ProfileEvent
+
+    data class RemindersChanged(val settings: ReminderSettings) : ProfileEvent
 }
 
 /** Outcomes of export and import, shown once. */
@@ -145,6 +148,7 @@ class ProfileViewModel @Inject constructor(
                 is ProfileEvent.ThemeSelected -> preferencesRepository.setThemeMode(event.themeMode)
                 is ProfileEvent.UnitsSelected -> preferencesRepository.setUnitSystem(event.units)
                 is ProfileEvent.EffortScaleSelected -> preferencesRepository.setEffortScale(event.effortScale)
+                is ProfileEvent.RemindersChanged -> preferencesRepository.setReminders(event.settings)
             }
         }
     }
