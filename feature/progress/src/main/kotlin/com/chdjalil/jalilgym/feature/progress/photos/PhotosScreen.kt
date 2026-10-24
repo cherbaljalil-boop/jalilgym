@@ -49,6 +49,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -92,15 +94,19 @@ internal fun PhotosScreen(
         },
         floatingActionButton = {
             if (uiState.selected.size == 2) {
+                val label = stringResource(R.string.feature_progress_compare)
                 ExtendedFloatingActionButton(
                     onClick = { viewModel.comparePair()?.let { (before, after) -> onCompare(before, after) } },
-                    text = { Text(stringResource(R.string.feature_progress_compare)) },
+                    modifier = Modifier.semantics { contentDescription = label },
+                    text = { Text(label) },
                     icon = { Icon(painterResource(JgIcons.Check), null) },
                 )
             } else {
+                val label = stringResource(R.string.feature_progress_add_photo)
                 ExtendedFloatingActionButton(
                     onClick = { picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) },
-                    text = { Text(stringResource(R.string.feature_progress_add_photo)) },
+                    modifier = Modifier.semantics { contentDescription = label },
+                    text = { Text(label) },
                     icon = { Icon(painterResource(JgIcons.AddPhoto), null) },
                 )
             }

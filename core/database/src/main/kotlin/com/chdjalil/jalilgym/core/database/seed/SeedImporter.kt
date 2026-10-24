@@ -70,7 +70,13 @@ class SeedImporter @Inject constructor(
         }
     }
 
+    fun readRecipeSeed(): RecipeSeedFile =
+        context.assets.open(RECIPES_ASSET).bufferedReader().use { reader ->
+            json.decodeFromString(RecipeSeedFile.serializer(), reader.readText())
+        }
+
     companion object {
+        const val RECIPES_ASSET = "seed/recipes.json"
         const val FOODS_ASSET = "seed/foods.json"
         const val EXERCISES_ASSET = "seed/exercises.json"
         const val PROGRAMS_ASSET = "seed/programs.json"

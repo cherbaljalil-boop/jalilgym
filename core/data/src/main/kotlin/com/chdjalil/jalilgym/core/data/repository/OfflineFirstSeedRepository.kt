@@ -16,6 +16,7 @@ import kotlinx.coroutines.withContext
 internal class OfflineFirstSeedRepository @Inject constructor(
     private val importer: SeedImporter,
     private val preferences: JgPreferencesDataSource,
+    private val recipeImporter: BuiltInRecipeImporter,
     @Dispatcher(JgDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
 ) : SeedRepository {
 
@@ -38,6 +39,12 @@ internal class OfflineFirstSeedRepository @Inject constructor(
             if (foods.version > preferences.installedFoodSeedVersion()) {
                 importer.importFoods(foods)
                 preferences.setInstalledFoodSeedVersion(foods.version)
+            }
+            // Recipes are made of seed foods, so they come last.
+            val recipes = importer.readRecipeSeed()
+            if (recipes.version > preferences.installedRecipeSeedVersion()) {
+                recipeImporter.import(recipes)
+                preferences.setInstalledRecipeSeedVersion(recipes.version)
             }
         }
     }

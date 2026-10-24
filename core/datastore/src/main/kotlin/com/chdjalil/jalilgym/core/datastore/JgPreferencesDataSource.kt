@@ -45,6 +45,10 @@ class JgPreferencesDataSource @Inject constructor(
 
     suspend fun setInstalledFoodSeedVersion(version: Int) = update { it.copy(installedFoodSeedVersion = version) }
 
+    suspend fun installedRecipeSeedVersion(): Int = dataStore.data.first().installedRecipeSeedVersion
+
+    suspend fun setInstalledRecipeSeedVersion(version: Int) = update { it.copy(installedRecipeSeedVersion = version) }
+
     suspend fun setBodyProfile(profile: BodyProfile) = update { it.copy(bodyProfile = profile.toData()) }
 
     suspend fun setHalalFilter(filter: HalalFilter) = update { it.copy(halalFilter = filter) }

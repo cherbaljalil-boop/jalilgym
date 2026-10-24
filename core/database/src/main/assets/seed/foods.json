@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "source": "Approximate values from USDA FoodData Central (public domain)",
  "foods": [
   {
@@ -763,6 +763,428 @@
     {
      "label": "1 cup",
      "grams": 240.0
+    }
+   ]
+  },
+  {
+   "id": "seed-onion",
+   "name": "Onion",
+   "kcal": 40.0,
+   "protein": 1.1,
+   "carbs": 9.3,
+   "fat": 0.1,
+   "fiber": 1.7,
+   "sugar": 4.2,
+   "satFat": 0.0,
+   "sodiumMg": 4.0,
+   "servings": [
+    {
+     "label": "1 medium",
+     "grams": 110.0
+    }
+   ]
+  },
+  {
+   "id": "seed-garlic",
+   "name": "Garlic",
+   "kcal": 149.0,
+   "protein": 6.4,
+   "carbs": 33.0,
+   "fat": 0.5,
+   "fiber": 2.1,
+   "sugar": 1.0,
+   "satFat": 0.1,
+   "sodiumMg": 17.0,
+   "servings": [
+    {
+     "label": "1 clove",
+     "grams": 3.0
+    }
+   ]
+  },
+  {
+   "id": "seed-bell-pepper",
+   "name": "Bell pepper",
+   "kcal": 31.0,
+   "protein": 1.0,
+   "carbs": 6.0,
+   "fat": 0.3,
+   "fiber": 2.1,
+   "sugar": 4.2,
+   "satFat": 0.0,
+   "sodiumMg": 4.0,
+   "servings": [
+    {
+     "label": "1 medium",
+     "grams": 120.0
+    }
+   ]
+  },
+  {
+   "id": "seed-cucumber",
+   "name": "Cucumber",
+   "kcal": 15.0,
+   "protein": 0.7,
+   "carbs": 3.6,
+   "fat": 0.1,
+   "fiber": 0.5,
+   "sugar": 1.7,
+   "satFat": 0.0,
+   "sodiumMg": 2.0,
+   "servings": [
+    {
+     "label": "1 medium",
+     "grams": 200.0
+    }
+   ]
+  },
+  {
+   "id": "seed-carrot",
+   "name": "Carrot",
+   "kcal": 41.0,
+   "protein": 0.9,
+   "carbs": 9.6,
+   "fat": 0.2,
+   "fiber": 2.8,
+   "sugar": 4.7,
+   "satFat": 0.0,
+   "sodiumMg": 69.0,
+   "servings": [
+    {
+     "label": "1 medium",
+     "grams": 61.0
+    }
+   ]
+  },
+  {
+   "id": "seed-frozen-mixed-veg",
+   "name": "Mixed vegetables, frozen",
+   "kcal": 65.0,
+   "protein": 3.3,
+   "carbs": 13.5,
+   "fat": 0.5,
+   "fiber": 4.0,
+   "sugar": 3.1,
+   "satFat": 0.1,
+   "sodiumMg": 47.0,
+   "servings": [
+    {
+     "label": "1 cup",
+     "grams": 136.0
+    }
+   ]
+  },
+  {
+   "id": "seed-canned-tomatoes",
+   "name": "Tomatoes, canned",
+   "kcal": 32.0,
+   "protein": 1.6,
+   "carbs": 7.3,
+   "fat": 0.3,
+   "fiber": 1.9,
+   "sugar": 4.4,
+   "satFat": 0.0,
+   "sodiumMg": 143.0,
+   "servings": [
+    {
+     "label": "1 can",
+     "grams": 400.0
+    }
+   ]
+  },
+  {
+   "id": "seed-lemon-juice",
+   "name": "Lemon juice",
+   "kcal": 22.0,
+   "protein": 0.4,
+   "carbs": 6.9,
+   "fat": 0.2,
+   "fiber": 0.3,
+   "sugar": 2.5,
+   "satFat": 0.0,
+   "sodiumMg": 1.0,
+   "servings": [
+    {
+     "label": "1 tbsp",
+     "grams": 15.0
+    }
+   ]
+  },
+  {
+   "id": "seed-whole-wheat-tortilla",
+   "name": "Whole-wheat tortilla",
+   "kcal": 310.0,
+   "protein": 9.7,
+   "carbs": 51.0,
+   "fat": 7.6,
+   "fiber": 6.3,
+   "sugar": 2.5,
+   "satFat": 2.0,
+   "sodiumMg": 560.0,
+   "servings": [
+    {
+     "label": "1 tortilla",
+     "grams": 45.0
+    }
+   ]
+  },
+  {
+   "id": "seed-pita-bread",
+   "name": "Pita bread, whole-wheat",
+   "kcal": 266.0,
+   "protein": 9.8,
+   "carbs": 55.0,
+   "fat": 2.6,
+   "fiber": 7.4,
+   "sugar": 0.8,
+   "satFat": 0.4,
+   "sodiumMg": 340.0,
+   "servings": [
+    {
+     "label": "1 pita",
+     "grams": 64.0
+    }
+   ]
+  },
+  {
+   "id": "seed-couscous-cooked",
+   "name": "Couscous, cooked",
+   "kcal": 112.0,
+   "protein": 3.8,
+   "carbs": 23.2,
+   "fat": 0.2,
+   "fiber": 1.4,
+   "sugar": 0.1,
+   "satFat": 0.0,
+   "sodiumMg": 5.0,
+   "servings": [
+    {
+     "label": "1 cup",
+     "grams": 157.0
+    }
+   ]
+  },
+  {
+   "id": "seed-bulgur-cooked",
+   "name": "Bulgur, cooked",
+   "kcal": 83.0,
+   "protein": 3.1,
+   "carbs": 18.6,
+   "fat": 0.2,
+   "fiber": 4.5,
+   "sugar": 0.1,
+   "satFat": 0.0,
+   "sodiumMg": 5.0,
+   "servings": [
+    {
+     "label": "1 cup",
+     "grams": 182.0
+    }
+   ]
+  },
+  {
+   "id": "seed-cod-cooked",
+   "name": "Cod, cooked",
+   "kcal": 105.0,
+   "protein": 22.8,
+   "carbs": 0.0,
+   "fat": 0.9,
+   "fiber": 0.0,
+   "sugar": 0.0,
+   "satFat": 0.2,
+   "sodiumMg": 78.0,
+   "servings": [
+    {
+     "label": "1 fillet",
+     "grams": 180.0
+    }
+   ]
+  },
+  {
+   "id": "seed-shrimp-cooked",
+   "name": "Shrimp, cooked",
+   "kcal": 99.0,
+   "protein": 24.0,
+   "carbs": 0.2,
+   "fat": 0.3,
+   "fiber": 0.0,
+   "sugar": 0.0,
+   "satFat": 0.1,
+   "sodiumMg": 111.0,
+   "servings": []
+  },
+  {
+   "id": "seed-turkey-mince-cooked",
+   "name": "Turkey mince, cooked",
+   "kcal": 203.0,
+   "protein": 27.4,
+   "carbs": 0.0,
+   "fat": 9.6,
+   "fiber": 0.0,
+   "sugar": 0.0,
+   "satFat": 2.5,
+   "sodiumMg": 78.0,
+   "servings": []
+  },
+  {
+   "id": "seed-mushrooms",
+   "name": "Mushrooms",
+   "kcal": 22.0,
+   "protein": 3.1,
+   "carbs": 3.3,
+   "fat": 0.3,
+   "fiber": 1.0,
+   "sugar": 2.0,
+   "satFat": 0.0,
+   "sodiumMg": 5.0,
+   "servings": [
+    {
+     "label": "1 cup",
+     "grams": 70.0
+    }
+   ]
+  },
+  {
+   "id": "seed-zucchini",
+   "name": "Zucchini",
+   "kcal": 17.0,
+   "protein": 1.2,
+   "carbs": 3.1,
+   "fat": 0.3,
+   "fiber": 1.0,
+   "sugar": 2.5,
+   "satFat": 0.0,
+   "sodiumMg": 8.0,
+   "servings": [
+    {
+     "label": "1 medium",
+     "grams": 196.0
+    }
+   ]
+  },
+  {
+   "id": "seed-frozen-berries",
+   "name": "Mixed berries, frozen",
+   "kcal": 48.0,
+   "protein": 0.7,
+   "carbs": 11.9,
+   "fat": 0.4,
+   "fiber": 2.9,
+   "sugar": 7.5,
+   "satFat": 0.0,
+   "sodiumMg": 1.0,
+   "servings": [
+    {
+     "label": "1 cup",
+     "grams": 140.0
+    }
+   ]
+  },
+  {
+   "id": "seed-chia-seeds",
+   "name": "Chia seeds",
+   "kcal": 486.0,
+   "protein": 16.5,
+   "carbs": 42.1,
+   "fat": 30.7,
+   "fiber": 34.4,
+   "sugar": 0.0,
+   "satFat": 3.3,
+   "sodiumMg": 16.0,
+   "servings": [
+    {
+     "label": "1 tbsp",
+     "grams": 12.0
+    }
+   ]
+  },
+  {
+   "id": "seed-walnuts",
+   "name": "Walnuts",
+   "kcal": 654.0,
+   "protein": 15.2,
+   "carbs": 13.7,
+   "fat": 65.2,
+   "fiber": 6.7,
+   "sugar": 2.6,
+   "satFat": 6.1,
+   "sodiumMg": 2.0,
+   "servings": [
+    {
+     "label": "1 handful",
+     "grams": 28.0
+    }
+   ]
+  },
+  {
+   "id": "seed-tahini",
+   "name": "Tahini",
+   "kcal": 595.0,
+   "protein": 17.0,
+   "carbs": 21.2,
+   "fat": 53.8,
+   "fiber": 9.3,
+   "sugar": 0.5,
+   "satFat": 7.5,
+   "sodiumMg": 115.0,
+   "servings": [
+    {
+     "label": "1 tbsp",
+     "grams": 15.0
+    }
+   ]
+  },
+  {
+   "id": "seed-red-lentils-dry",
+   "name": "Red lentils, dry",
+   "kcal": 358.0,
+   "protein": 24.0,
+   "carbs": 60.0,
+   "fat": 2.2,
+   "fiber": 11.0,
+   "sugar": 2.0,
+   "satFat": 0.3,
+   "sodiumMg": 7.0,
+   "servings": [
+    {
+     "label": "1/4 cup",
+     "grams": 48.0
+    }
+   ]
+  },
+  {
+   "id": "seed-granola",
+   "name": "Granola",
+   "kcal": 471.0,
+   "protein": 10.0,
+   "carbs": 64.0,
+   "fat": 20.0,
+   "fiber": 5.0,
+   "sugar": 25.0,
+   "satFat": 4.0,
+   "sodiumMg": 26.0,
+   "servings": [
+    {
+     "label": "1/2 cup",
+     "grams": 60.0
+    }
+   ]
+  },
+  {
+   "id": "seed-skyr",
+   "name": "Skyr, plain",
+   "kcal": 63.0,
+   "protein": 11.0,
+   "carbs": 4.0,
+   "fat": 0.2,
+   "fiber": 0.0,
+   "sugar": 4.0,
+   "satFat": 0.1,
+   "sodiumMg": 40.0,
+   "servings": [
+    {
+     "label": "1 pot",
+     "grams": 150.0
     }
    ]
   }

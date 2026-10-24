@@ -44,6 +44,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -97,10 +99,13 @@ internal fun ExerciseLibraryContent(
             )
         },
         floatingActionButton = {
+            val label = stringResource(R.string.feature_exercises_new_exercise)
             ExtendedFloatingActionButton(
                 onClick = onCreateExercise,
                 icon = { Icon(painterResource(JgIcons.Add), contentDescription = null) },
-                text = { Text(stringResource(R.string.feature_exercises_new_exercise)) },
+                text = { Text(label) },
+                // The text alone isn't exposed to TalkBack; label the button itself.
+                modifier = Modifier.semantics { contentDescription = label },
             )
         },
         containerColor = MaterialTheme.colorScheme.background,

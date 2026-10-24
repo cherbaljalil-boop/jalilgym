@@ -43,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
@@ -73,9 +74,12 @@ internal fun RecipesContent(uiState: RecipesUiState, onBack: () -> Unit, onOpenR
     Scaffold(
         topBar = { BackBar(stringResource(R.string.feature_nutrition_recipes), onBack) },
         floatingActionButton = {
+            val label = stringResource(R.string.feature_nutrition_new_recipe)
             ExtendedFloatingActionButton(
                 onClick = { onOpenRecipe(null) },
-                text = { Text(stringResource(R.string.feature_nutrition_new_recipe)) },
+                // The text alone isn't exposed to TalkBack here; label the button itself.
+                modifier = Modifier.semantics { contentDescription = label },
+                text = { Text(label) },
                 icon = { Icon(painterResource(JgIcons.Add), null) },
             )
         },

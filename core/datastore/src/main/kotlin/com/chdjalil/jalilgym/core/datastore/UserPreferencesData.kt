@@ -37,6 +37,8 @@ data class UserPreferencesData(
     val installedProgramSeedVersion: Int = 0,
     /** Version of the bundled generic foods last imported into Room. */
     val installedFoodSeedVersion: Int = 0,
+    /** Version of the built-in recipes last imported into Room. */
+    val installedRecipeSeedVersion: Int = 0,
     val bodyProfile: BodyProfileData? = null,
     val halalFilter: HalalFilter = HalalFilter.ALL,
     /** ISO-8601 date. */
