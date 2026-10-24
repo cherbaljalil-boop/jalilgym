@@ -57,9 +57,10 @@ internal fun CloudSyncSection(status: CloudSyncStatus, actions: CloudSyncActions
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
     ) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            val codeSentTo = status.codeSentTo
             when {
                 status.signedIn -> SignedIn(status, actions, onDelete = { confirmDelete = true })
-                status.codeSentTo != null -> EnterCode(status.codeSentTo, actions)
+                codeSentTo != null -> EnterCode(codeSentTo, actions)
                 else -> EnterEmail(actions)
             }
             status.error?.let { error ->

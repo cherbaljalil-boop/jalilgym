@@ -184,7 +184,7 @@ class SyncEngine @Inject constructor(private val database: JalilgymDatabase) {
             database.withTransaction {
                 // A row changed again while uploading keeps its newer entry.
                 pending.forEach { (name, key, changedAt) ->
-                    db.execSQL("DELETE FROM $CHANGES_TABLE WHERE table_name = ? AND row_key = ? AND changed_at = ?", arrayOf(name, key, changedAt))
+                    db.execSQL("DELETE FROM $CHANGES_TABLE WHERE table_name = ? AND row_key = ? AND changed_at = ?", arrayOf<Any>(name, key, changedAt))
                 }
             }
             pushed += rows.size
