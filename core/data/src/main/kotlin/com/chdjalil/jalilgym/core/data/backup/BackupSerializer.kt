@@ -41,6 +41,9 @@ private val SKIPPED_TABLES = setOf("android_metadata", "room_master_table", "sql
 
 private const val BLOB_KEY = "base64"
 
+/** Rows in the backup reference rows that aren't there. */
+private class BrokenBackupException : RuntimeException("Backup has dangling references")
+
 /**
  * Writes and reads the backup file: `{format, backupVersion, schemaVersion,
  * exportedAt, preferences, tables: {name: [{column: value}]}}`. Rows are copied
@@ -140,7 +143,7 @@ class BackupSerializer @Inject constructor(
         val rows = try {
             database.withTransaction {
                 val db = database.openHelper.writableDatabase
-                // Rows reference each other; check foreign keys once everything is in.
+                // Rows reference each other; foreign keys are checked once everything is in.
                 db.execSQL("PRAGMA defer_foreign_keys = ON")
                 val current = db.tables()
                 current.forEach { db.execSQL("DELETE FROM `$it`") }
@@ -155,6 +158,8 @@ class BackupSerializer @Inject constructor(
                         count++
                     }
                 }
+                // Check here rather than at COMMIT: a failed COMMIT leaves SQLite's transaction open.
+                db.query("PRAGMA foreign_key_check").use { if (it.moveToFirst()) throw BrokenBackupException() }
                 count
             }
         } catch (e: RuntimeException) {

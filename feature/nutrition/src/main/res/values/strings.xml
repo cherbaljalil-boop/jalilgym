@@ -69,6 +69,16 @@
     <string name="feature_nutrition_meal_saved">Meal saved. Find it under Saved meals.</string>
     <string name="feature_nutrition_nothing_to_save">Only foods can be saved; quick-add entries can\'t.</string>
 
+    <string name="feature_nutrition_check_in_title">Weekly check-in</string>
+    <string name="feature_nutrition_check_in_change">Average weight this week vs last: %1$s kg (%2$s%% of body weight).</string>
+    <string name="feature_nutrition_check_in_too_slow">That\'s slower than your goal\'s healthy pace.</string>
+    <string name="feature_nutrition_check_in_too_fast">That\'s faster than your goal\'s healthy pace.</string>
+    <string name="feature_nutrition_check_in_on_track">You\'re right on pace. Keep going.</string>
+    <string name="feature_nutrition_check_in_add">Add %1$d kcal a day</string>
+    <string name="feature_nutrition_check_in_remove">Cut %1$d kcal a day</string>
+    <string name="feature_nutrition_check_in_keep">Keep my targets</string>
+    <string name="feature_nutrition_check_in_ok">Got it</string>
+
     <!-- Setup and targets -->
     <string name="feature_nutrition_setup_title">Set up nutrition</string>
     <string name="feature_nutrition_targets_title">Targets &amp; plan</string>

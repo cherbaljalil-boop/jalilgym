@@ -46,9 +46,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.chdjalil.jalilgym.core.designsystem.component.JgPrimaryButton
 import com.chdjalil.jalilgym.core.designsystem.component.JgScreenHeader
 import com.chdjalil.jalilgym.core.designsystem.icon.JgIcons
 import com.chdjalil.jalilgym.core.designsystem.theme.JgTheme
+import com.chdjalil.jalilgym.core.domain.nutrition.CheckIn
+import com.chdjalil.jalilgym.core.domain.nutrition.CheckInVerdict
 import com.chdjalil.jalilgym.core.model.FoodLogEntry
 import com.chdjalil.jalilgym.core.model.MealType
 import com.chdjalil.jalilgym.core.model.Nutrients
@@ -62,6 +65,7 @@ import com.chdjalil.jalilgym.feature.nutrition.ui.labelRes
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import java.util.Locale
 
 /** Navigation out of the diary; dates travel as ISO strings. */
 data class DiaryActions(
@@ -100,6 +104,8 @@ internal fun DiaryScreen(actions: DiaryActions, viewModel: DiaryViewModel = hilt
             onDeleteEntry = viewModel::deleteEntry,
             onCopyFromPreviousDay = viewModel::copyFromPreviousDay,
             onSaveMeal = viewModel::saveMeal,
+            onApplyCheckIn = viewModel::applyCheckIn,
+            onDismissCheckIn = viewModel::dismissCheckIn,
         )
         SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter))
     }
@@ -118,6 +124,8 @@ internal fun DiaryContent(
     onDeleteEntry: (String) -> Unit = {},
     onCopyFromPreviousDay: (MealType) -> Unit = {},
     onSaveMeal: (MealType, String) -> Unit = { _, _ -> },
+    onApplyCheckIn: () -> Unit = {},
+    onDismissCheckIn: () -> Unit = {},
 ) {
     var quickAddMeal by rememberSaveable { mutableStateOf<MealType?>(null) }
     var saveMealFor by rememberSaveable { mutableStateOf<MealType?>(null) }
@@ -143,6 +151,7 @@ internal fun DiaryContent(
                     onClick = actions.onOpenSetup,
                 )
             }
+            uiState.checkIn?.takeIf { uiState.isToday }?.let { CheckInCard(it, onApplyCheckIn, onDismissCheckIn) }
             SummaryCard(uiState, actions.onOpenSetup)
             MealType.entries.forEach { meal ->
                 MealSection(
@@ -248,6 +257,61 @@ private fun SummaryCard(uiState: DiaryUiState, onOpenTargets: () -> Unit) {
             }
             if (targets != null) {
                 TextButton(onClick = onOpenTargets) { Text(stringResource(R.string.feature_nutrition_edit_targets)) }
+            }
+        }
+    }
+}
+
+@Composable
+private fun CheckInCard(checkIn: CheckIn, onApply: () -> Unit, onDismiss: () -> Unit) {
+    val change = checkIn.weeklyChangeKg ?: return
+    val percent = checkIn.weeklyChangePercent ?: return
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(
+                stringResource(R.string.feature_nutrition_check_in_title),
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.semantics { heading() },
+            )
+            Text(
+                stringResource(
+                    R.string.feature_nutrition_check_in_change,
+                    "%+.1f".format(Locale.getDefault(), change),
+                    "%+.1f".format(Locale.getDefault(), percent),
+                ),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Text(
+                stringResource(
+                    when (checkIn.verdict) {
+                        CheckInVerdict.TOO_SLOW -> R.string.feature_nutrition_check_in_too_slow
+                        CheckInVerdict.TOO_FAST -> R.string.feature_nutrition_check_in_too_fast
+                        else -> R.string.feature_nutrition_check_in_on_track
+                    },
+                ),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                if (checkIn.adjustmentKcal != 0) {
+                    JgPrimaryButton(onClick = onApply) {
+                        Text(
+                            stringResource(
+                                if (checkIn.adjustmentKcal > 0) {
+                                    R.string.feature_nutrition_check_in_add
+                                } else {
+                                    R.string.feature_nutrition_check_in_remove
+                                },
+                                kotlin.math.abs(checkIn.adjustmentKcal),
+                            ),
+                        )
+                    }
+                    TextButton(onClick = onDismiss) { Text(stringResource(R.string.feature_nutrition_check_in_keep)) }
+                } else {
+                    TextButton(onClick = onDismiss) { Text(stringResource(R.string.feature_nutrition_check_in_ok)) }
+                }
             }
         }
     }

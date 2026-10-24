@@ -1,10 +1,12 @@
 package com.chdjalil.jalilgym.feature.nutrition
 
 import androidx.lifecycle.SavedStateHandle
+import com.chdjalil.jalilgym.core.domain.nutrition.CheckInVerdict
 import com.chdjalil.jalilgym.core.model.ActivityLevel
 import com.chdjalil.jalilgym.core.model.DietGoal
 import com.chdjalil.jalilgym.core.model.DietStyle
 import com.chdjalil.jalilgym.core.model.HalalFilter
+import com.chdjalil.jalilgym.core.model.MacroTargets
 import com.chdjalil.jalilgym.core.model.MealType
 import com.chdjalil.jalilgym.core.model.Nutrients
 import com.chdjalil.jalilgym.core.model.Sex
@@ -163,7 +165,7 @@ class NutritionViewModelsTest {
     @Test
     fun `diary copies the previous day's meal and reports what happened`() = runTest {
         nutrition.logFood(today.minusDays(1), MealType.BREAKFAST, "oats", 50.0)
-        val viewModel = DiaryViewModel(nutrition)
+        val viewModel = DiaryViewModel(nutrition, FakeBodyRepository(), prefs)
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
         val messages = mutableListOf<DiaryMessage>()
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.messages.collect { messages += it } }
@@ -204,5 +206,35 @@ class NutritionViewModelsTest {
         assertThat(mealForNow(LocalTime.of(13, 0))).isEqualTo(MealType.LUNCH)
         assertThat(mealForNow(LocalTime.of(19, 0))).isEqualTo(MealType.DINNER)
         assertThat(mealForNow(LocalTime.of(23, 0))).isEqualTo(MealType.SNACK)
+    }
+
+    @Test
+    fun `weekly check-in suggests and applies a calorie change once a week`() = runTest {
+        nutrition.savePlan(DietGoal.CUT, DietStyle.BALANCED, false, MacroTargets(2200, 176, 240, 61), isManualOverride = false)
+        val body = FakeBodyRepository()
+        // Losing only 0.05 kg a week on a cut: stalled.
+        listOf(12L to 80.0, 9L to 80.0, 4L to 79.95, 0L to 79.95).forEach { (daysAgo, kg) -> body.logWeight(today.minusDays(daysAgo), kg) }
+        val viewModel = DiaryViewModel(nutrition, body, prefs)
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
+
+        val checkIn = viewModel.uiState.value.checkIn!!
+        assertThat(checkIn.verdict).isEqualTo(CheckInVerdict.TOO_SLOW)
+        assertThat(checkIn.adjustmentKcal).isEqualTo(-100)
+
+        viewModel.applyCheckIn()
+        assertThat(nutrition.plan.value!!.targets).isEqualTo(MacroTargets(2100, 176, 215, 61))
+        assertThat(prefs.current.lastCheckIn).isEqualTo(today)
+        // Done for this week.
+        assertThat(viewModel.uiState.value.checkIn).isNull()
+    }
+
+    @Test
+    fun `no check-in without a plan or enough weigh-ins`() = runTest {
+        val body = FakeBodyRepository().apply { logWeight(today, 80.0) }
+        val viewModel = DiaryViewModel(nutrition, body, prefs)
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { viewModel.uiState.collect {} }
+        assertThat(viewModel.uiState.value.checkIn).isNull()
+        nutrition.savePlan(DietGoal.CUT, DietStyle.BALANCED, false, MacroTargets(2200, 176, 240, 61), isManualOverride = false)
+        assertThat(viewModel.uiState.value.checkIn).isNull()
     }
 }

@@ -39,6 +39,8 @@ data class UserPreferencesData(
     val installedFoodSeedVersion: Int = 0,
     val bodyProfile: BodyProfileData? = null,
     val halalFilter: HalalFilter = HalalFilter.ALL,
+    /** ISO-8601 date. */
+    val lastCheckIn: String? = null,
 )
 
 /** [birthDate] is ISO-8601 (yyyy-MM-dd). */
@@ -70,4 +72,5 @@ internal fun UserPreferencesData.toModel() = UserPreferences(
     starterProgramApplied = starterProgramApplied,
     bodyProfile = bodyProfile?.toModel(),
     halalFilter = halalFilter,
+    lastCheckIn = lastCheckIn?.let { runCatching { LocalDate.parse(it) }.getOrNull() },
 )

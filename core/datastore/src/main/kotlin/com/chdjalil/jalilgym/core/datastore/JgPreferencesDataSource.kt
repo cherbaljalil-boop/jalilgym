@@ -10,6 +10,7 @@ import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
+import java.time.LocalDate
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -47,6 +48,8 @@ class JgPreferencesDataSource @Inject constructor(
     suspend fun setBodyProfile(profile: BodyProfile) = update { it.copy(bodyProfile = profile.toData()) }
 
     suspend fun setHalalFilter(filter: HalalFilter) = update { it.copy(halalFilter = filter) }
+
+    suspend fun setLastCheckIn(date: LocalDate) = update { it.copy(lastCheckIn = date.toString()) }
 
     suspend fun markStarterProgramApplied() = update { it.copy(starterProgramApplied = true) }
 

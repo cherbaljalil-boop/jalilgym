@@ -9,6 +9,7 @@ import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
+import java.time.LocalDate
 import kotlinx.coroutines.flow.Flow
 
 interface UserPreferencesRepository {
@@ -23,6 +24,8 @@ interface UserPreferencesRepository {
     suspend fun setBodyProfile(profile: BodyProfile)
 
     suspend fun setHalalFilter(filter: HalalFilter)
+
+    suspend fun setLastCheckIn(date: LocalDate)
 
     /** Any answer may be null when the user skipped it. */
     suspend fun markStarterProgramApplied()

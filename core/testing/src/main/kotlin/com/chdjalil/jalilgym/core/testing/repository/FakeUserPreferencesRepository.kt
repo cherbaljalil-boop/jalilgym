@@ -10,6 +10,7 @@ import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
+import java.time.LocalDate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -33,6 +34,8 @@ class FakeUserPreferencesRepository(
     override suspend fun setBodyProfile(profile: BodyProfile) = state.update { it.copy(bodyProfile = profile) }
 
     override suspend fun setHalalFilter(filter: HalalFilter) = state.update { it.copy(halalFilter = filter) }
+
+    override suspend fun setLastCheckIn(date: LocalDate) = state.update { it.copy(lastCheckIn = date) }
 
     override suspend fun markStarterProgramApplied() = state.update { it.copy(starterProgramApplied = true) }
 

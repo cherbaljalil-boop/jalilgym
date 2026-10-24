@@ -1,5 +1,7 @@
 package com.chdjalil.jalilgym.core.model
 
+import java.time.LocalDate
+
 /** App-wide user settings. Stored in DataStore; never contains secrets. */
 data class UserPreferences(
     val onboardingComplete: Boolean = false,
@@ -18,6 +20,8 @@ data class UserPreferences(
     /** Answers from nutrition setup; null until it's done. */
     val bodyProfile: BodyProfile? = null,
     val halalFilter: HalalFilter = HalalFilter.ALL,
+    /** When the weekly nutrition check-in was last applied or dismissed. */
+    val lastCheckIn: LocalDate? = null,
 )
 
 enum class Goal { BUILD_MUSCLE, LOSE_FAT, GET_STRONGER, GENERAL_FITNESS, ENDURANCE }

@@ -11,6 +11,7 @@ import com.chdjalil.jalilgym.core.model.StarterProgram
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
+import java.time.LocalDate
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
@@ -29,6 +30,8 @@ internal class OfflineFirstUserPreferencesRepository @Inject constructor(
     override suspend fun setBodyProfile(profile: BodyProfile) = dataSource.setBodyProfile(profile)
 
     override suspend fun setHalalFilter(filter: HalalFilter) = dataSource.setHalalFilter(filter)
+
+    override suspend fun setLastCheckIn(date: LocalDate) = dataSource.setLastCheckIn(date)
 
     override suspend fun markStarterProgramApplied() = dataSource.markStarterProgramApplied()
 
