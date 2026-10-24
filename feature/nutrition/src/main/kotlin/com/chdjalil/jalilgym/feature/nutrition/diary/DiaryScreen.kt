@@ -20,6 +20,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -74,6 +75,7 @@ data class DiaryActions(
     val onEditEntry: (FoodLogEntry) -> Unit = {},
     val onOpenSavedMeals: (LocalDate, MealType) -> Unit = { _, _ -> },
     val onOpenSetup: () -> Unit = {},
+    val onOpenRecipes: () -> Unit = {},
 )
 
 @Composable
@@ -153,6 +155,9 @@ internal fun DiaryContent(
             }
             uiState.checkIn?.takeIf { uiState.isToday }?.let { CheckInCard(it, onApplyCheckIn, onDismissCheckIn) }
             SummaryCard(uiState, actions.onOpenSetup)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(onClick = actions.onOpenRecipes) { Text(stringResource(R.string.feature_nutrition_recipes)) }
+            }
             MealType.entries.forEach { meal ->
                 MealSection(
                     meal = meal,

@@ -169,6 +169,30 @@
     <string name="feature_nutrition_delete_saved">Delete %1$s</string>
     <string name="feature_nutrition_log_to">Log to %1$s</string>
 
+    <!-- Recipes -->
+    <string name="feature_nutrition_recipes">Recipes</string>
+    <string name="feature_nutrition_new_recipe">New recipe</string>
+    <string name="feature_nutrition_my_recipes">My recipes</string>
+    <string name="feature_nutrition_built_in_recipes">Halal-friendly ideas</string>
+    <string name="feature_nutrition_recipes_empty">Build a recipe once and log it in one tap. Its macros are worked out from the ingredients.</string>
+    <string name="feature_nutrition_recipe_summary">%1$s kcal · %2$s g protein per serving · serves %3$d</string>
+    <string name="feature_nutrition_built_in_note">Built-in recipe, written without pork, alcohol or gelatin. Saving makes your own copy.</string>
+    <string name="feature_nutrition_recipe_name">Recipe name</string>
+    <string name="feature_nutrition_servings">Servings</string>
+    <string name="feature_nutrition_fewer_servings">Fewer servings</string>
+    <string name="feature_nutrition_more_servings">More servings</string>
+    <string name="feature_nutrition_ingredients">Ingredients</string>
+    <string name="feature_nutrition_add_ingredient">Add an ingredient</string>
+    <string name="feature_nutrition_instructions">Steps (one per line)</string>
+    <string name="feature_nutrition_save_recipe">Save recipe</string>
+    <string name="feature_nutrition_save_copy">Save as my recipe</string>
+    <string name="feature_nutrition_log_serving">Log a serving</string>
+    <string name="feature_nutrition_delete_recipe">Delete recipe</string>
+    <string name="feature_nutrition_delete_recipe_body">The recipe is removed. Anything you already logged stays in your diary.</string>
+    <string name="feature_nutrition_delete">Delete</string>
+    <string name="feature_nutrition_per_serving_title">Per serving (%1$s g)</string>
+    <string name="feature_nutrition_macros_line">%1$s g protein · %2$s g carbs · %3$s g fat</string>
+
     <!-- Barcode -->
     <string name="feature_nutrition_camera_needed">The camera is used only to read barcodes. Nothing is recorded.</string>
     <string name="feature_nutrition_allow_camera">Allow camera</string>

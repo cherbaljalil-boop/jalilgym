@@ -13,6 +13,8 @@ import com.chdjalil.jalilgym.feature.nutrition.diary.DiaryScreen
 import com.chdjalil.jalilgym.feature.nutrition.food.CustomFoodScreen
 import com.chdjalil.jalilgym.feature.nutrition.food.FoodDetailScreen
 import com.chdjalil.jalilgym.feature.nutrition.meals.SavedMealsScreen
+import com.chdjalil.jalilgym.feature.nutrition.recipes.RecipeEditorScreen
+import com.chdjalil.jalilgym.feature.nutrition.recipes.RecipesScreen
 import com.chdjalil.jalilgym.feature.nutrition.scan.BarcodeScanScreen
 import com.chdjalil.jalilgym.feature.nutrition.search.FoodSearchActions
 import com.chdjalil.jalilgym.feature.nutrition.search.FoodSearchScreen
@@ -49,12 +51,20 @@ data class SavedMealsRoute(val date: String, val meal: String)
 @Serializable
 data class BarcodeScanRoute(val date: String? = null, val meal: String? = null)
 
+@Serializable
+data object RecipesRoute
+
+/** Null [recipeId] creates a new recipe. */
+@Serializable
+data class RecipeEditorRoute(val recipeId: String? = null)
+
 /** Argument keys match the route property names. */
 internal const val DATE_ARG = "date"
 internal const val MEAL_ARG = "meal"
 internal const val FOOD_ID_ARG = "foodId"
 internal const val ENTRY_ID_ARG = "entryId"
 internal const val BARCODE_ARG = "barcode"
+internal const val RECIPE_ID_ARG = "recipeId"
 
 const val NUTRITION_SCAN_DEEP_LINK = "jalilgym://nutrition/scan"
 
@@ -80,6 +90,7 @@ fun NavGraphBuilder.nutritionGraph(navController: NavController) {
                     },
                     onOpenSavedMeals = { date, meal -> navController.navigate(SavedMealsRoute("$date", meal.name)) },
                     onOpenSetup = { navController.navigate(NutritionSetupRoute) },
+                    onOpenRecipes = { navController.navigate(RecipesRoute) },
                 ),
             )
         }
@@ -113,6 +124,15 @@ fun NavGraphBuilder.nutritionGraph(navController: NavController) {
                         popUpTo<CustomFoodRoute> { inclusive = true }
                     }
                 },
+            )
+        }
+        composable<RecipesRoute> {
+            RecipesScreen(onBack = navController::popBackStack, onOpenRecipe = { navController.navigate(RecipeEditorRoute(it)) })
+        }
+        composable<RecipeEditorRoute> {
+            RecipeEditorScreen(
+                onBack = navController::popBackStack,
+                onLogServing = { foodId -> navController.navigate(FoodDetailRoute(foodId, "${LocalDate.now()}", mealForNow().name)) },
             )
         }
         composable<SavedMealsRoute> { SavedMealsScreen(onBack = navController::popBackStack) }
