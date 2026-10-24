@@ -27,7 +27,8 @@ internal class OfflineFirstGroceryRepository @Inject constructor(
             // Created one millisecond apart so the list keeps the order lines were given in.
             val now = System.currentTimeMillis()
             merged.forEachIndexed { index, line ->
-                val existing = if (line.foodId != null) groceryDao.openItemFor(line.foodId) else groceryDao.openItemNamed(line.key)
+                val foodId = line.foodId
+                val existing = if (foodId != null) groceryDao.openItemFor(foodId) else groceryDao.openItemNamed(line.key)
                 if (existing != null) {
                     val grams = if (existing.grams == null && line.grams == null) null else (existing.grams ?: 0.0) + (line.grams ?: 0.0)
                     groceryDao.upsert(existing.copy(grams = grams, updatedAt = now))
