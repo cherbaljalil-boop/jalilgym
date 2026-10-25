@@ -61,10 +61,10 @@ class WearWorkoutViewModel(application: Application) : AndroidViewModel(applicat
             }
     }
 
-    private fun parse(item: DataItem): WearWorkoutState? = runCatching {
+    private fun parse(item: DataItem): WearWorkoutState? {
         val json = DataMapItem.fromDataItem(item).dataMap.getString(WearPaths.STATE_KEY) ?: return null
-        WearJson.decodeFromString(WearWorkoutState.serializer(), json)
-    }.getOrNull()
+        return runCatching { WearJson.decodeFromString(WearWorkoutState.serializer(), json) }.getOrNull()
+    }
 
     private fun show(workout: WearWorkoutState) = _uiState.update { current ->
         val next = workout.next

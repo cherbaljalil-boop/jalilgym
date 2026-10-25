@@ -5,7 +5,8 @@ plugins {
 
 dependencies {
     api(projects.core.domain)
-    implementation(libs.kotlinx.serialization.json)
+    // WearJson is part of the protocol, so users of this module get the library too.
+    api(libs.kotlinx.serialization.json)
 
     testImplementation(projects.core.testing)
 }
