@@ -15,7 +15,8 @@
     <string name="feature_profile_effort_off">إيقاف</string>
     <string name="feature_profile_about">حول التطبيق</string>
     <string name="feature_profile_version">الإصدار %1$s</string>
-    <string name="feature_profile_privacy">تبقى بياناتك على هذا الجهاز ما لم تفعّل المزامنة السحابية. تُرسل عمليات البحث عن الأطعمة والباركود إلى Open Food Facts دون أي شيء يحدّد هويتك. لا إعلانات ولا تتبّع.</string>
+    <string name="feature_profile_privacy">تبقى بياناتك على هذا الجهاز. وحدها عمليات البحث عن الأطعمة والباركود تُرسل إلى Open Food Facts، دون أي شيء يحدّد هويتك. لا حساب ولا إعلانات ولا تتبّع.</string>
+    <string name="feature_profile_privacy_cloud">تبقى بياناتك على هذا الجهاز ما لم تفعّل المزامنة السحابية. تُرسل عمليات البحث عن الأطعمة والباركود إلى Open Food Facts دون أي شيء يحدّد هويتك. لا إعلانات ولا تتبّع.</string>
     <string name="feature_profile_attributions">بيانات التمارين وصورها: free-exercise-db (ملكية عامة، Unlicense). بيانات الأطعمة: Open Food Facts (رخصة Open Database License، ODbL؛ الصور CC BY-SA) و USDA FoodData Central (ملكية عامة). الخطوط: Bebas Neue و Inter (SIL Open Font License 1.1). الأيقونات: Material Symbols (Apache License 2.0).</string>
     <string name="feature_profile_back">رجوع</string>
     <string name="feature_profile_achievements">الإنجازات</string>

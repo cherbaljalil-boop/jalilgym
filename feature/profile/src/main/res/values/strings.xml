@@ -15,7 +15,8 @@
     <string name="feature_profile_effort_off">Off</string>
     <string name="feature_profile_about">About</string>
     <string name="feature_profile_version">Version %1$s</string>
-    <string name="feature_profile_privacy">Your data stays on this device unless you turn on cloud sync. Food searches and barcode lookups go to Open Food Facts with nothing that identifies you. No ads, no tracking.</string>
+    <string name="feature_profile_privacy">Your data stays on this device. Only food searches and barcode lookups go to Open Food Facts, with nothing that identifies you. No account, no ads, no tracking.</string>
+    <string name="feature_profile_privacy_cloud">Your data stays on this device unless you turn on cloud sync. Food searches and barcode lookups go to Open Food Facts with nothing that identifies you. No ads, no tracking.</string>
     <string name="feature_profile_attributions">Exercise data and photos: free-exercise-db (public domain, Unlicense). Food data: Open Food Facts (Open Database License, ODbL; images CC BY-SA) and USDA FoodData Central (public domain). Fonts: Bebas Neue and Inter (SIL Open Font License 1.1). Icons: Material Symbols (Apache License 2.0).</string>
     <string name="feature_profile_back">Back</string>
     <string name="feature_profile_achievements">Achievements</string>

@@ -207,7 +207,7 @@ internal fun ProfileContent(
             HealthSection(healthStatus, onHealthEnabled, onGrantHealth, onInstallHealth, onSyncHealth)
             CloudSyncSection(cloudStatus, cloudActions)
             DataSection(backupBusy, onExport, onImport)
-            AboutSection(versionName, onOpenLicenses)
+            AboutSection(versionName, onOpenLicenses, cloudSyncAvailable = cloudStatus.available)
         }
     }
 }
@@ -274,7 +274,7 @@ private fun <T> ChoiceSetting(
 }
 
 @Composable
-private fun AboutSection(versionName: String, onOpenLicenses: () -> Unit) {
+private fun AboutSection(versionName: String, onOpenLicenses: () -> Unit, cloudSyncAvailable: Boolean) {
     SectionTitle(R.string.feature_profile_about)
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -297,7 +297,7 @@ private fun AboutSection(versionName: String, onOpenLicenses: () -> Unit) {
             }
             Spacer(Modifier.height(12.dp))
             Text(
-                text = stringResource(R.string.feature_profile_privacy),
+                text = stringResource(if (cloudSyncAvailable) R.string.feature_profile_privacy_cloud else R.string.feature_profile_privacy),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
