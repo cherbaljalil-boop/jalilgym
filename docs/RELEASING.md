@@ -53,6 +53,29 @@ export JALILGYM_KEYSTORE_PASSWORD=… JALILGYM_KEY_ALIAS=upload JALILGYM_KEY_PAS
    onboarding, a full workout with the screen locked, barcode scanning, offline
    food search (airplane mode).
 
+## First release: Health Connect and cloud sync off
+
+`gradle.properties` decides what release builds ship:
+
+```properties
+jalilgym.healthConnectInRelease=false
+jalilgym.cloudSyncInRelease=false
+```
+
+With both off, the release APK/AAB has no health permissions, no Health Connect
+screens and no Cloud sync section. CI fails the release job if a health
+permission slips in. Debug builds keep both features for testing. For the Play
+forms this means:
+
+- **Health apps declaration:** none needed; there are no health permissions.
+- **Data safety:** declare only the Open Food Facts row (see
+  `docs/play-store/data-safety.md`, "First release").
+- **Accounts:** the app has none, so there's no account-deletion requirement.
+
+To ship either feature in a later update, set its property to `true`. For cloud
+sync, also set up Supabase (`docs/supabase/SETUP.md`) and the repository
+secrets. Then fill in the matching Play declarations.
+
 ## 4. Upload
 
 Upload the `.aab` to the internal testing track first, then promote. Keep the

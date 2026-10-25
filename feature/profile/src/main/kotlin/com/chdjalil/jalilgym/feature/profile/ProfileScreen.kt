@@ -322,6 +322,7 @@ private fun HealthSection(
     onInstall: () -> Unit,
     onSync: () -> Unit,
 ) {
+    if (status.availability == HealthAvailability.OFF_IN_THIS_BUILD) return
     SectionTitle(R.string.feature_profile_health)
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -334,6 +335,7 @@ private fun HealthSection(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             when (status.availability) {
+                HealthAvailability.OFF_IN_THIS_BUILD -> Unit
                 HealthAvailability.NOT_SUPPORTED -> Text(
                     stringResource(R.string.feature_profile_health_unsupported),
                     style = MaterialTheme.typography.bodyMedium,

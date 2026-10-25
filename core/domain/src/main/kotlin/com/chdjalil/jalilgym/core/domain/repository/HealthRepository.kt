@@ -9,6 +9,9 @@ enum class HealthAvailability {
     /** Health Connect needs installing or updating from Play. */
     NEEDS_INSTALL_OR_UPDATE,
     AVAILABLE,
+
+    /** Left out of this build (see core/health/build.gradle.kts); nothing about it is shown. */
+    OFF_IN_THIS_BUILD,
 }
 
 data class HealthStatus(

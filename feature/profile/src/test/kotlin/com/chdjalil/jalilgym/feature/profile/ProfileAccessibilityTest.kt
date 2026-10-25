@@ -10,6 +10,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.chdjalil.jalilgym.core.designsystem.theme.JalilgymTheme
 import com.chdjalil.jalilgym.core.domain.repository.CloudSyncError
 import com.chdjalil.jalilgym.core.domain.repository.CloudSyncStatus
+import com.chdjalil.jalilgym.core.domain.repository.HealthAvailability
+import com.chdjalil.jalilgym.core.domain.repository.HealthStatus
 import com.chdjalil.jalilgym.core.model.UserPreferences
 import com.chdjalil.jalilgym.core.uitest.assertActionsHaveLabels
 import com.chdjalil.jalilgym.feature.profile.licenses.LicensesScreen
@@ -54,5 +56,21 @@ class ProfileAccessibilityTest {
         status = CloudSyncStatus(available = true, codeSentTo = "a@b.co", error = CloudSyncError.INVALID_CODE)
         composeRule.onNodeWithText("That code is wrong or has expired. Try again or send a new one.").performScrollTo()
         composeRule.assertActionsHaveLabels()
+    }
+
+    @Test
+    fun healthConnectIsHiddenWhenLeftOutOfTheBuild() {
+        composeRule.setContent {
+            JalilgymTheme {
+                ProfileContent(
+                    ProfileUiState.Ready(UserPreferences()),
+                    versionName = "1.1.0",
+                    onEvent = {},
+                    healthStatus = HealthStatus(availability = HealthAvailability.OFF_IN_THIS_BUILD),
+                )
+            }
+        }
+        composeRule.onNodeWithText("Health Connect").assertDoesNotExist()
+        composeRule.onNodeWithText("Cloud sync").assertDoesNotExist()
     }
 }

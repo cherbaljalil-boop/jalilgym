@@ -13,12 +13,23 @@ val supabaseKey = providers.gradleProperty("jalilgym.supabaseKey")
     .orElse(providers.environmentVariable("SUPABASE_PUBLISHABLE_KEY"))
     .getOrElse("")
 
+// Release builds include cloud sync only when gradle.properties says so (off for the first Play release).
+val cloudSyncInRelease = providers.gradleProperty("jalilgym.cloudSyncInRelease").map(String::toBoolean).getOrElse(false)
+
 android {
     namespace = "com.chdjalil.jalilgym.core.sync"
     buildFeatures.buildConfig = true
-    defaultConfig {
-        buildConfigField("String", "SUPABASE_URL", "\"${supabaseUrl.trimEnd('/')}\"")
-        buildConfigField("String", "SUPABASE_KEY", "\"$supabaseKey\"")
+    buildTypes {
+        getByName("debug") {
+            buildConfigField("String", "SUPABASE_URL", "\"${supabaseUrl.trimEnd('/')}\"")
+            buildConfigField("String", "SUPABASE_KEY", "\"$supabaseKey\"")
+        }
+        getByName("release") {
+            val url = if (cloudSyncInRelease) supabaseUrl.trimEnd('/') else ""
+            val key = if (cloudSyncInRelease) supabaseKey else ""
+            buildConfigField("String", "SUPABASE_URL", "\"$url\"")
+            buildConfigField("String", "SUPABASE_KEY", "\"$key\"")
+        }
     }
 }
 

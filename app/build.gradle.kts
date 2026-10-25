@@ -14,6 +14,13 @@ android {
         versionName = "1.1.0"
     }
 
+    // Without Health Connect in release builds (gradle.properties), this manifest removes its
+    // permissions and permission screens, so Play has no health permissions to review.
+    val healthConnectInRelease = providers.gradleProperty("jalilgym.healthConnectInRelease").map(String::toBoolean).getOrElse(false)
+    if (!healthConnectInRelease) {
+        sourceSets.getByName("release").manifest.srcFile("src/releaseWithoutHealth/AndroidManifest.xml")
+    }
+
     // Lists English, French and Arabic for the per-app language setting (Android 13+).
     androidResources {
         generateLocaleConfig = true

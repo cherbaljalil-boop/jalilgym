@@ -149,6 +149,17 @@ jobs:
           "$apksigner" verify --verbose --print-certs app/build/outputs/apk/release/app-release.apk
           jarsigner -verify app/build/outputs/bundle/release/app-release.aab
 
+      # gradle.properties decides what the release ships; fail if Health Connect leaks in while it's off.
+      - name: Verify release features
+        run: |
+          aapt2="$(ls -d "$ANDROID_HOME"/build-tools/*/ | sort -V | tail -1)aapt2"
+          permissions="$("$aapt2" dump permissions app/build/outputs/apk/release/app-release.apk)"
+          echo "$permissions"
+          if grep -q '^jalilgym.healthConnectInRelease=false' gradle.properties && echo "$permissions" | grep -q 'permission.health'; then
+            echo "::error::Health Connect permissions are in a release that should leave them out"
+            exit 1
+          fi
+
       - name: Upload release builds
         uses: actions/upload-artifact@v5
         with:

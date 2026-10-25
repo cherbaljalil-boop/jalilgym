@@ -4,6 +4,14 @@ How to answer Play Console → Policy → App content → Data safety, based on 
 the code does (checked for version 1.1.0). Review before submitting: Play's
 definitions change, and the developer account owner is responsible for them.
 
+## First release (Health Connect and cloud sync off)
+
+While `gradle.properties` has `jalilgym.healthConnectInRelease=false` and
+`jalilgym.cloudSyncInRelease=false`, the app has no account and no health
+permissions. Declare only the Open Food Facts row below, answer "No" to account
+creation, and skip the Health Connect declaration. The rest of this page
+describes the full app with both features on.
+
 ## Data collection and security
 
 | Question | Answer | Why |
