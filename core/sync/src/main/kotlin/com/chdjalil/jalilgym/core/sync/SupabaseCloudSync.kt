@@ -5,12 +5,14 @@ import android.util.Log
 import com.chdjalil.jalilgym.core.domain.repository.CloudSyncError
 import com.chdjalil.jalilgym.core.domain.repository.CloudSyncRepository
 import com.chdjalil.jalilgym.core.domain.repository.CloudSyncStatus
+import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -21,6 +23,10 @@ interface SessionStore {
     var session: SupabaseSession?
     var codeSentTo: String?
     var lastSyncedAt: Long?
+
+    /** The settings as last synced (JSON), and when; for working out who changed them. */
+    var settingsJson: String?
+    var settingsSyncedAt: Long?
 }
 
 internal class SharedPreferencesSessionStore @Inject constructor(@ApplicationContext context: Context) : SessionStore {
@@ -39,11 +45,21 @@ internal class SharedPreferencesSessionStore @Inject constructor(@ApplicationCon
         get() = prefs.getLong(LAST_SYNC, 0).takeIf { it > 0 }
         set(value) = prefs.edit().putLong(LAST_SYNC, value ?: 0).apply()
 
+    override var settingsJson: String?
+        get() = prefs.getString(SETTINGS, null)
+        set(value) = prefs.edit().putString(SETTINGS, value).apply()
+
+    override var settingsSyncedAt: Long?
+        get() = prefs.getLong(SETTINGS_AT, 0).takeIf { it > 0 }
+        set(value) = prefs.edit().putLong(SETTINGS_AT, value ?: 0).apply()
+
     private companion object {
         const val FILE = "jalilgym_cloud"
         const val SESSION = "session"
         const val CODE_SENT_TO = "code_sent_to"
         const val LAST_SYNC = "last_synced_at"
+        const val SETTINGS = "settings_json"
+        const val SETTINGS_AT = "settings_synced_at"
     }
 }
 
@@ -53,6 +69,7 @@ class SupabaseCloudSync @Inject constructor(
     private val client: SupabaseClient,
     private val engine: SyncEngine,
     private val store: SessionStore,
+    private val preferences: UserPreferencesRepository,
 ) : CloudSyncRepository {
 
     private val mutex = Mutex()
@@ -113,19 +130,46 @@ class SupabaseCloudSync @Inject constructor(
         val ok = attempt {
             val session = validSession()
             engine.enableTracking(markEverything = false)
+            var remoteSettings: SyncRow? = null
             engine.sync(
                 object : SyncRemote {
                     override suspend fun push(rows: List<SyncRow>) = client.push(session, rows)
 
-                    override suspend fun pull(afterSeq: Long, limit: Int) = client.pull(session, afterSeq, limit)
+                    // Settings ride along as a pseudo-row the engine ignores; they're merged below.
+                    override suspend fun pull(afterSeq: Long, limit: Int) = client.pull(session, afterSeq, limit).also { page ->
+                        page.filter { it.table == SETTINGS_TABLE }.maxByOrNull { it.seq }?.let { remoteSettings = it }
+                    }
                 },
             )
+            syncSettings(session, remoteSettings)
             val now = System.currentTimeMillis()
             store.lastSyncedAt = now
             status.update { it.copy(lastSyncedAt = now) }
         }
         status.update { it.copy(syncing = false, pendingChanges = runCatching { engine.pendingChanges() }.getOrDefault(it.pendingChanges)) }
         ok
+    }
+
+    private suspend fun syncSettings(session: SupabaseSession, remote: SyncRow?) {
+        val local = SyncedSettings.from(preferences.userPreferences.first())
+        val last = store.settingsJson?.let { runCatching { settingsJson.decodeFromString(SyncedSettings.serializer(), it) }.getOrNull() }
+        when (val decision = decideSettings(local, last, store.settingsSyncedAt, remote)) {
+            is SettingsDecision.TakeRemote -> {
+                preferences.applySyncedSettings(decision.settings.toPreferences())
+                remember(decision.settings, decision.updatedAt)
+            }
+            SettingsDecision.PushLocal -> {
+                val now = System.currentTimeMillis()
+                client.push(session, listOf(SyncRow(SETTINGS_TABLE, SETTINGS_KEY, local.toJson(), now)))
+                remember(local, now)
+            }
+            SettingsDecision.Keep -> Unit
+        }
+    }
+
+    private fun remember(settings: SyncedSettings, at: Long) {
+        store.settingsJson = settingsJson.encodeToString(SyncedSettings.serializer(), settings)
+        store.settingsSyncedAt = at
     }
 
     override suspend fun signOut() {
@@ -144,6 +188,8 @@ class SupabaseCloudSync @Inject constructor(
         store.session = null
         store.codeSentTo = null
         store.lastSyncedAt = null
+        store.settingsJson = null
+        store.settingsSyncedAt = null
         status.value = CloudSyncStatus(available = config.isConfigured)
     }
 

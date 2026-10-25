@@ -35,8 +35,32 @@ interface UserPreferencesRepository {
 
     suspend fun setReminders(settings: ReminderSettings)
 
+    /** Takes the account-wide part of [settings] (see [syncedPart]) from another phone; device settings stay. */
+    suspend fun applySyncedSettings(settings: UserPreferences)
+
     /** Any answer may be null when the user skipped it. */
     suspend fun markStarterProgramApplied()
 
     suspend fun completeOnboarding(goal: Goal?, experience: ExperienceLevel?, starterProgram: StarterProgram?)
 }
+
+/**
+ * The settings that follow an account between phones with cloud sync. Health
+ * Connect access and seed bookkeeping belong to each phone and are left at
+ * their defaults here.
+ */
+fun UserPreferences.syncedPart(): UserPreferences = UserPreferences(
+    onboardingComplete = onboardingComplete,
+    goal = goal,
+    experience = experience,
+    units = units,
+    themeMode = themeMode,
+    effortScale = effortScale,
+    starterProgram = starterProgram,
+    starterProgramApplied = starterProgramApplied,
+    bodyProfile = bodyProfile,
+    halalFilter = halalFilter,
+    lastCheckIn = lastCheckIn,
+    waterGoalMl = waterGoalMl,
+    reminders = reminders,
+)

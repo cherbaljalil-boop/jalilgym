@@ -39,7 +39,9 @@ between phones. If you do:
 - **What is collected:** your email address, used to sign you in with a
   one-time code, and a copy of the app's data: workouts, programs, body weight
   and measurements, food diary, foods, recipes, water and grocery list, and
-  achievements. Progress photos and settings are never uploaded.
+  achievements, plus your setup answers and settings (goal, units, sex, birth
+  date, height, activity level, water goal and reminder times) so a new phone
+  is set up for you. Progress photos are never uploaded.
 - **Where it goes:** a database we run on [Supabase](https://supabase.com),
   sent over an encrypted connection (HTTPS) and stored encrypted at rest. Each
   account can only read its own data.

@@ -1,6 +1,7 @@
 package com.chdjalil.jalilgym.core.testing.repository
 
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
+import com.chdjalil.jalilgym.core.domain.repository.syncedPart
 import com.chdjalil.jalilgym.core.model.BodyProfile
 import com.chdjalil.jalilgym.core.model.EffortScale
 import com.chdjalil.jalilgym.core.model.ExperienceLevel
@@ -43,6 +44,10 @@ class FakeUserPreferencesRepository(
     override suspend fun setWaterGoal(ml: Int?) = state.update { it.copy(waterGoalMl = ml) }
 
     override suspend fun setReminders(settings: ReminderSettings) = state.update { it.copy(reminders = settings) }
+
+    override suspend fun applySyncedSettings(settings: UserPreferences) = state.update {
+        settings.syncedPart().copy(healthConnectEnabled = it.healthConnectEnabled)
+    }
 
     override suspend fun markStarterProgramApplied() = state.update { it.copy(starterProgramApplied = true) }
 

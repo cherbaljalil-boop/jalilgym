@@ -48,5 +48,7 @@ apps: Row Level Security limits each person to their own rows.
 
 One table, `sync_rows`: for each row of the app's database that changed, its
 table name, primary key, the row as JSON, a deleted flag and when it changed.
-Progress photos and settings are not synced. Deleting the account in the app
+Account-wide settings (onboarding answers, units, body profile, water goal,
+reminders) are one more row, with table name `_settings`. Progress photos and
+per-phone settings (Health Connect access) are not synced. Deleting the account in the app
 (Profile → Cloud sync → Delete account) removes the user and all their rows.

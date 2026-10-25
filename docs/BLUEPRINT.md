@@ -878,7 +878,8 @@ Recipe builder · curated recipes and meal suggestions · Health Connect (workou
   - **What's tracked:** SQLite triggers record every insert, update and delete in a local `sync_changes` table. On the first sign-in every existing row is queued.
   - **How a sync runs:** it pulls rows changed elsewhere (by server sequence number) and applies them with the triggers muted, so nothing echoes back. Parents are written before children and children deleted before parents, and orphans are dropped so foreign keys hold. Then it pushes local changes through the `push_rows` RPC.
   - **Conflicts:** the newest change to a row wins on both sides, judged by the device clock.
-  - **What's left out:** progress photos and settings aren't synced. The sign-in and sync bookkeeping stay out of Android backups and JSON exports.
+  - **Settings:** the account-wide part (onboarding answers, units, theme, effort scale, body profile, halal filter, water goal, reminders, last check-in) travels as one `_settings` pseudo-row. The newest change wins, and a phone signing in for the first time takes the account's settings. Health Connect access stays per phone.
+  - **What's left out:** progress photos aren't synced. The sign-in and sync bookkeeping stay out of Android backups and JSON exports.
   - **When it runs:** on app start, when the app goes to the background, and from "Sync now".
   - **Signing out and deleting:** signing out stops tracking. Delete account calls `delete_my_account`, which cascades to the user's rows, as Play requires for apps that let people create an account.
   - **Known limits:** device clocks decide conflicts, and two devices editing the same row offline keep the later edit.

@@ -62,6 +62,25 @@ class JgPreferencesDataSource @Inject constructor(
 
     suspend fun setReminders(settings: ReminderSettings) = update { it.copy(reminders = settings.toData()) }
 
+    /** Copies the account-wide settings from another phone (cloud sync), keeping this phone's own. */
+    suspend fun applySyncedSettings(settings: UserPreferences) = update {
+        it.copy(
+            onboardingComplete = settings.onboardingComplete,
+            goal = settings.goal,
+            experience = settings.experience,
+            units = settings.units,
+            themeMode = settings.themeMode,
+            effortScale = settings.effortScale,
+            starterProgram = settings.starterProgram,
+            starterProgramApplied = settings.starterProgramApplied,
+            bodyProfile = settings.bodyProfile?.toData(),
+            halalFilter = settings.halalFilter,
+            lastCheckIn = settings.lastCheckIn?.toString(),
+            waterGoalMl = settings.waterGoalMl,
+            reminders = settings.reminders.toData(),
+        )
+    }
+
     suspend fun markStarterProgramApplied() = update { it.copy(starterProgramApplied = true) }
 
     suspend fun setThemeMode(themeMode: ThemeMode) = update { it.copy(themeMode = themeMode) }

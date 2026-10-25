@@ -40,6 +40,8 @@ internal class OfflineFirstUserPreferencesRepository @Inject constructor(
 
     override suspend fun setReminders(settings: ReminderSettings) = dataSource.setReminders(settings)
 
+    override suspend fun applySyncedSettings(settings: UserPreferences) = dataSource.applySyncedSettings(settings)
+
     override suspend fun markStarterProgramApplied() = dataSource.markStarterProgramApplied()
 
     override suspend fun completeOnboarding(

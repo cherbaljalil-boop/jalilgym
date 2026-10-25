@@ -21,6 +21,7 @@ Declare these:
 |---|---|---|---|---|---|
 | App activity → **Other user-generated content** (food search terms and barcode numbers) | Yes | Yes (Open Food Facts) | Yes: searching online and scanning are optional; the built-in foods work without them | App functionality | Not linked to the user; no identifiers are sent; not used for tracking or ads |
 | Personal info → **Email address** | Yes | No | Yes (cloud sync only) | App functionality, Account management | Used only to sign in; Supabase is a service provider, not sharing |
+| Personal info → **Other info** (sex, birth date, height from nutrition setup) | Yes | No | Yes (cloud sync only) | App functionality | Synced settings, so a new phone is set up |
 | Health and fitness → **Fitness info** (workouts, body weight, measurements) | Yes | No | Yes (cloud sync only) | App functionality | Linked to the account; encrypted in transit and at rest |
 | Health and fitness → **Health info** (food diary, nutrition targets, water) | Yes | No | Yes (cloud sync only) | App functionality | Linked to the account; encrypted in transit and at rest |
 | App activity → **Other user-generated content** (custom exercises, recipes, grocery list) | Yes | No | Yes (cloud sync only) | App functionality | Linked to the account |
