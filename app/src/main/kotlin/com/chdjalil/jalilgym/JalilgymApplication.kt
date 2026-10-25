@@ -2,6 +2,7 @@ package com.chdjalil.jalilgym
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import com.chdjalil.jalilgym.core.common.ApplicationScope
@@ -12,6 +13,7 @@ import com.chdjalil.jalilgym.core.domain.repository.HealthRepository
 import com.chdjalil.jalilgym.core.domain.repository.SeedRepository
 import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
 import com.chdjalil.jalilgym.core.notifications.ReminderScheduler
+import com.chdjalil.jalilgym.core.ui.AppLanguage
 import com.chdjalil.jalilgym.feature.widgets.TodayWidget
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -56,6 +58,8 @@ class JalilgymApplication : Application() {
 
     /** Asks for Health Connect and cloud syncs; extra requests while one is pending are merged. */
     private val backgroundSyncRequests = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+
+    override fun attachBaseContext(base: Context) = super.attachBaseContext(AppLanguage.wrap(base))
 
     @OptIn(FlowPreview::class)
     override fun onCreate() {

@@ -1,5 +1,6 @@
 package com.chdjalil.jalilgym
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -20,6 +21,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.chdjalil.jalilgym.core.designsystem.theme.JalilgymTheme
 import com.chdjalil.jalilgym.core.model.ThemeMode
+import com.chdjalil.jalilgym.core.ui.AppLanguage
 import com.chdjalil.jalilgym.ui.JalilgymApp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -28,6 +30,8 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainActivityViewModel by viewModels()
+
+    override fun attachBaseContext(newBase: Context) = super.attachBaseContext(AppLanguage.wrap(newBase))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()

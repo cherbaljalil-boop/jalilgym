@@ -87,4 +87,6 @@
         <item quantity="many">%1$d تغييرًا بانتظار الرفع</item>
         <item quantity="other">%1$d تغيير بانتظار الرفع</item>
     </plurals>
+    <string name="feature_profile_language">اللغة</string>
+    <string name="feature_profile_language_system">حسب النظام</string>
 </resources>

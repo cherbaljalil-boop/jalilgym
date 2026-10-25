@@ -67,6 +67,7 @@ import com.chdjalil.jalilgym.core.model.EffortScale
 import com.chdjalil.jalilgym.core.model.ThemeMode
 import com.chdjalil.jalilgym.core.model.UnitSystem
 import com.chdjalil.jalilgym.core.model.UserPreferences
+import com.chdjalil.jalilgym.core.ui.AppLanguage
 import com.chdjalil.jalilgym.core.ui.EntryCard
 import java.time.Instant
 import java.time.LocalDate
@@ -243,6 +244,25 @@ private fun SettingsSection(preferences: UserPreferences, onEvent: (ProfileEvent
         ),
         selected = preferences.effortScale,
         onSelect = { onEvent(ProfileEvent.EffortScaleSelected(it)) },
+    )
+    LanguageSetting()
+}
+
+/** Language names are shown in their own language so anyone can find theirs. */
+@Composable
+private fun LanguageSetting() {
+    val context = LocalContext.current
+    val current = remember(context) { AppLanguage.current(context) }
+    ChoiceSetting(
+        label = R.string.feature_profile_language,
+        options = listOf(
+            "" to R.string.feature_profile_language_system,
+            "en" to R.string.feature_profile_language_en,
+            "fr" to R.string.feature_profile_language_fr,
+            "ar" to R.string.feature_profile_language_ar,
+        ),
+        selected = current,
+        onSelect = { tag -> if (tag != current) AppLanguage.set(context, tag) },
     )
 }
 

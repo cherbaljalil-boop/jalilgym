@@ -83,4 +83,9 @@
         <item quantity="one">%1$d change waiting to upload</item>
         <item quantity="other">%1$d changes waiting to upload</item>
     </plurals>
+    <string name="feature_profile_language">Language</string>
+    <string name="feature_profile_language_system">System</string>
+    <string name="feature_profile_language_en" translatable="false">English</string>
+    <string name="feature_profile_language_fr" translatable="false">Français</string>
+    <string name="feature_profile_language_ar" translatable="false">العربية</string>
 </resources>

@@ -84,4 +84,6 @@
         <item quantity="many">%1$d modifications en attente d\'envoi</item>
         <item quantity="other">%1$d modifications en attente d\'envoi</item>
     </plurals>
+    <string name="feature_profile_language">Langue</string>
+    <string name="feature_profile_language_system">Système</string>
 </resources>
