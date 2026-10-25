@@ -51,7 +51,7 @@ class DayPreviewViewModel @Inject constructor(
             DayPreviewUiState.NotFound
         } else {
             val inActive = active?.program?.id == day.programId
-            val isNext = inActive && active?.nextDay?.id == day.id
+            val isNext = inActive && active.nextDay?.id == day.id
             DayPreviewUiState.Ready(
                 day = day,
                 programName = active?.program?.name?.takeIf { inActive },

@@ -48,6 +48,10 @@ internal data class SyncedSettings(
     val weeklySummary: Boolean = false,
 ) {
     fun toPreferences(): UserPreferences {
+        val sex = sex
+        val birthDate = birthDate
+        val heightCm = heightCm
+        val activityLevel = activityLevel
         val profile = if (sex != null && birthDate != null && heightCm != null && activityLevel != null) {
             runCatching { BodyProfile(sex, LocalDate.parse(birthDate), heightCm, activityLevel) }.getOrNull()
         } else {
