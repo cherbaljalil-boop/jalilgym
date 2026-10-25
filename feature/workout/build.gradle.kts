@@ -9,4 +9,6 @@ android {
 dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core)
+    implementation(projects.core.wear)
+    implementation(libs.play.services.wearable)
 }

@@ -44,7 +44,7 @@ jobs:
       - name: Unit tests
         run: >
           ./gradlew testDebugUnitTest
-          :core:common:test :core:model:test :core:domain:test :core:testing:test
+          :core:common:test :core:model:test :core:domain:test :core:testing:test :core:wear:test
 
       - name: Android lint
         run: ./gradlew lintDebug
@@ -141,13 +141,15 @@ jobs:
           # Optional cloud sync project (docs/supabase/SETUP.md); without it the section is hidden.
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
-        run: ./gradlew :app:assembleRelease :app:bundleRelease
+        run: ./gradlew :app:assembleRelease :app:bundleRelease :wear:assembleRelease :wear:bundleRelease
 
       - name: Verify signatures
         run: |
           apksigner="$(ls -d "$ANDROID_HOME"/build-tools/*/ | sort -V | tail -1)apksigner"
           "$apksigner" verify --verbose --print-certs app/build/outputs/apk/release/app-release.apk
           jarsigner -verify app/build/outputs/bundle/release/app-release.aab
+          "$apksigner" verify wear/build/outputs/apk/release/wear-release.apk
+          jarsigner -verify wear/build/outputs/bundle/release/wear-release.aab
 
       - name: Upload release builds
         uses: actions/upload-artifact@v5
@@ -157,5 +159,7 @@ jobs:
             app/build/outputs/apk/release/*.apk
             app/build/outputs/bundle/release/*.aab
             app/build/outputs/mapping/release/mapping.txt
+            wear/build/outputs/apk/release/*.apk
+            wear/build/outputs/bundle/release/*.aab
           retention-days: 14
 
