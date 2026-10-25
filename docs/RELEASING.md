@@ -76,6 +76,16 @@ To ship either feature in a later update, set its property to `true`. For cloud
 sync, also set up Supabase (`docs/supabase/SETUP.md`) and the repository
 secrets. Then fill in the matching Play declarations.
 
+## Test builds on a phone
+
+Every push publishes the branch's newest release APK as a pre-release named
+"Test build (branch)" on the repository's Releases page, replacing the previous
+one. Open it on the phone, tap the `.apk` and allow the install. The repository
+is public, so anyone can download these builds. Builds signed with the
+throwaway CI key can be installed but never uploaded to Play, and installing a
+Play build later means uninstalling the test build first. Export a backup
+before you do.
+
 ## 4. Upload
 
 Upload the `.aab` to the internal testing track first, then promote. Keep the

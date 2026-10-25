@@ -170,3 +170,21 @@ jobs:
             app/build/outputs/mapping/release/mapping.txt
           retention-days: 14
 
+      # One tap to install on a phone: the newest build of this branch as a pre-release on
+      # the repository's Releases page, replaced on every push. For testing only; Play gets
+      # the upload-key AAB from the artifact above (docs/RELEASING.md).
+      - name: Publish test APK
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SIGNED_WITH: ${{ secrets.RELEASE_KEYSTORE_BASE64 != '' && 'the upload key' || 'a throwaway test key (fine to install, not for Play)' }}
+        run: |
+          tag="test-build-${GITHUB_REF_NAME//\//-}"
+          apk="$RUNNER_TEMP/jalilgym-${GITHUB_SHA::7}.apk"
+          cp app/build/outputs/apk/release/app-release.apk "$apk"
+          gh release delete "$tag" --yes --cleanup-tag 2>/dev/null || true
+          gh release create "$tag" "$apk" --prerelease --target "$GITHUB_SHA" \
+            --title "Test build (${GITHUB_REF_NAME})" \
+            --notes "Latest release build of ${GITHUB_REF_NAME} (${GITHUB_SHA::7}), signed with ${SIGNED_WITH}. On your phone: tap the .apk below, then allow installing from your browser if Android asks."
+
+
