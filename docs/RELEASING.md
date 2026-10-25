@@ -40,9 +40,7 @@ export JALILGYM_KEYSTORE_PASSWORD=… JALILGYM_KEY_ALIAS=upload JALILGYM_KEY_PAS
 
 ## 3. Before each release
 
-1. Bump `versionCode` (always) and `versionName` in `app/build.gradle.kts`, and
-   the same in `wear/build.gradle.kts`. The watch's code stays 1,000,000 above the
-   phone's so the two never collide on Play.
+1. Bump `versionCode` (always) and `versionName` in `app/build.gradle.kts`.
 2. Run the **Baseline Profile** workflow (Actions → Baseline Profile → Run
    workflow). It regenerates `app/src/release/generated/baselineProfiles/` on
    an emulator, commits it, and reports cold-start times with and without it.
@@ -53,16 +51,11 @@ export JALILGYM_KEYSTORE_PASSWORD=… JALILGYM_KEY_ALIAS=upload JALILGYM_KEY_PAS
    never enabled.
 5. Install the release APK from the CI artifact on a real phone and smoke-test:
    onboarding, a full workout with the screen locked, barcode scanning, offline
-   food search (airplane mode). With a paired watch, start a workout on the
-   phone and log a few sets from the watch, including during a rest timer.
+   food search (airplane mode).
 
 ## 4. Upload
 
-Upload the `.aab` to the internal testing track first, then promote. The watch
-app (`wear-release.aab`) goes into the same Play app: Release → Form factors →
-add Wear OS, then upload it to that form factor's track. It is signed with the
-same key, which the Data Layer requires. Play also needs Wear OS screenshots and
-a Wear OS review opt-in. Keep the
+Upload the `.aab` to the internal testing track first, then promote. Keep the
 `mapping.txt` from the same CI run (it's in the artifact) so Play can
 de-obfuscate crash reports.
 

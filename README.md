@@ -24,11 +24,9 @@ core/network          Open Food Facts client
 core/health           Optional Health Connect sync (workouts, weight, meals, steps)
 core/notifications    Workout reminders and weekly summary (WorkManager)
 core/sync             Optional Supabase cloud sync (docs/supabase/SETUP.md)
-core/wear             Phone ↔ watch protocol (Wearable Data Layer)
 core/designsystem     Theme, fonts, icons, Jg* components
 core/ui               Shared composables
 core/testing          Fakes and test rules
-wear/                 Wear OS companion: log sets from the watch
 feature/*             onboarding · today · programs (Train tab) · exercises · workout · nutrition · progress · profile · widgets
 ```
 

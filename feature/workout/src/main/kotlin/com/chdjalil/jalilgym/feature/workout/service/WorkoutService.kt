@@ -21,16 +21,12 @@ import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import com.chdjalil.jalilgym.core.domain.repository.RestTimer
 import com.chdjalil.jalilgym.core.domain.repository.RestTimerState
-import com.chdjalil.jalilgym.core.domain.repository.UserPreferencesRepository
 import com.chdjalil.jalilgym.core.domain.repository.WorkoutRepository
 import com.chdjalil.jalilgym.core.domain.workout.CompleteSetUseCase
 import com.chdjalil.jalilgym.core.domain.workout.nextIncompleteSet
 import com.chdjalil.jalilgym.core.model.WorkoutSession
-import com.chdjalil.jalilgym.core.wear.WearWorkoutState
-import com.chdjalil.jalilgym.core.wear.wearWorkoutState
 import com.chdjalil.jalilgym.feature.workout.R
 import com.chdjalil.jalilgym.feature.workout.navigation.WORKOUT_DEEP_LINK
-import com.chdjalil.jalilgym.feature.workout.wear.WearPublisher
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
@@ -55,10 +51,6 @@ class WorkoutService : Service() {
     @Inject lateinit var restTimer: RestTimer
 
     @Inject lateinit var completeSet: CompleteSetUseCase
-
-    @Inject lateinit var preferencesRepository: UserPreferencesRepository
-
-    @Inject lateinit var wearPublisher: WearPublisher
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private var started = false
@@ -94,16 +86,9 @@ class WorkoutService : Service() {
 
     private fun observeWorkout() {
         scope.launch {
-            // The watch app shows the next set and the rest countdown.
-            combine(workoutRepository.observeActiveSession(), restTimer.state, preferencesRepository.userPreferences) { session, rest, prefs ->
-                wearWorkoutState(session, rest, prefs.units)
-            }.collect(wearPublisher::publish)
-        }
-        scope.launch {
             combine(workoutRepository.observeActiveSession(), restTimer.state) { session, rest -> session to rest }
                 .collectLatest { (session, rest) ->
                     if (session == null) {
-                        wearPublisher.publish(WearWorkoutState())
                         ServiceCompat.stopForeground(this@WorkoutService, ServiceCompat.STOP_FOREGROUND_REMOVE)
                         stopSelf()
                         return@collectLatest

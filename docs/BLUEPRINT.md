@@ -882,16 +882,10 @@ Recipe builder · curated recipes and meal suggestions · Health Connect (workou
   - **When it runs:** on app start, when the app goes to the background, and from "Sync now".
   - **Signing out and deleting:** signing out stops tracking. Delete account calls `delete_my_account`, which cascades to the user's rows, as Play requires for apps that let people create an account.
   - **Known limits:** device clocks decide conflicts, and two devices editing the same row offline keep the later edit.
-- **Wear OS set logging.** A companion watch app (`:wear`, Wear OS 3+, Compose for Wear OS Material 3) for logging sets. The phone owns the workout. While one is running, `WorkoutService` publishes a `WearWorkoutState` data item (next set, suggested weight and reps, progress, rest end time) through the Wearable Data Layer.
-  - **On the watch:** the next set appears with weight (2.5 kg or 5 lb steps) and rep (1, 5 s or 10 m steps) adjusters, a Done button and the rest countdown with Skip.
-  - **Logging a set:** Done sends a message to `WorkoutWearListenerService`, which saves the values and runs the same complete-set use case as the phone, so rest timers, supersets and the notification behave identically.
-  - **Suggested values:** whatever is already entered, otherwise the set just done, otherwise last session's matching set, otherwise the program target.
-  - **Shared code:** the protocol lives in the JVM module `:core:wear` and is unit-tested. The watch app shares the phone's package name and signing key, as the Data Layer requires, and carries a version code 1,000,000 higher.
-  - **Not yet:** starting or finishing a workout from the watch, a standalone mode, tiles and complications.
 - **Reminders and weekly summary.** These are set in Profile → Reminders and are off by default. Workout reminders go out on the chosen days at a chosen time and are skipped on a day the user has already trained or has a workout open. The text names the next day of the active program. The weekly summary goes out on Sunday at 19:00 with the week's workouts against the target, the volume lifted, days with food logged and the change in average weight, and isn't sent for an empty week. Scheduling lives in `:core:notifications` and uses WorkManager one-shot jobs, each due at its next time. A job that fires books the next one, and the app rebooks on start, which also follows time zone changes. Notification access is requested on Android 13+ when a reminder is first turned on. No exact-alarm permission is needed, so a reminder can be a few minutes late in Doze.
 
 
-Hydration tracker · grocery list · workout reminders and weekly summary notifications · Glance home widgets · animated or video exercise media · more program types (Upper/Lower, powerlifting, HIIT, calisthenics, home) · cloud sync (Supabase or Firebase) with optional account · Wear OS · more languages (FR/AR with RTL).
+Hydration tracker · grocery list · workout reminders and weekly summary notifications · Glance home widgets · animated or video exercise media · more program types (Upper/Lower, powerlifting, HIIT, calisthenics, home) · cloud sync (Supabase or Firebase) with optional account · Wear OS (dropped: the phone app is the focus) · more languages (FR/AR with RTL).
 
 ---
 
