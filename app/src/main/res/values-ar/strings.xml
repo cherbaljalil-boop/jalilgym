@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tab_today">اليوم</string>
+    <string name="tab_train">التمرين</string>
+    <string name="tab_nutrition">التغذية</string>
+    <string name="tab_progress">التقدّم</string>
+    <string name="tab_profile">الملف الشخصي</string>
+    <string name="default_custom_program_name">برنامجي</string>
+    <string name="health_rationale_title">Jalilgym و Health Connect</string>
+    <string name="health_rationale_intro">Health Connect اختياري. عند تفعيله من الملف الشخصي، يستخدمه Jalilgym لإبقاء تطبيقات الصحة الأخرى محدّثة.</string>
+    <string name="health_rationale_write">يسجّل Jalilgym تمارينك المكتملة (كجلسات تمارين قوة)، والأوزان التي تسجّلها، والسعرات والعناصر الغذائية لكل وجبة في يومياتك خلال آخر 30 يومًا. إذا حذفت شيئًا في Jalilgym، يُحذف من Health Connect أيضًا.</string>
+    <string name="health_rationale_read">يقرأ Jalilgym قياسات الوزن من التطبيقات الأخرى (مثل الميزان الذكي) لإضافتها إلى منحنى وزنك، وعدد خطوات اليوم لعرضه في شاشة اليوم.</string>
+    <string name="health_rationale_private">تبقى هذه البيانات على جهازك. لا يملك Jalilgym حسابًا أو خادمًا ولا يرسل بيانات صحية إلى أي مكان. يمكنك إيقاف الوصول في أي وقت من Health Connect أو من الملف الشخصي.</string>
+    <string name="health_rationale_close">إغلاق</string>
+</resources>

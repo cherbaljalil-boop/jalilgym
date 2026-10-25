@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_designsystem_wordmark_jalil" translatable="false">JALIL</string>
+    <string name="core_designsystem_wordmark_gym" translatable="false">GYM</string>
+    <string name="core_designsystem_app_name" translatable="false">Jalilgym</string>
+    <string name="core_designsystem_created_by">Created by CH.Djalil</string>
+</resources>

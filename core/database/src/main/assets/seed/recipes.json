@@ -1,0 +1,1528 @@
+{
+ "version": 1,
+ "recipes": [
+  {
+   "id": "builtin-overnight-oats",
+   "name": "Overnight oats with berries",
+   "servings": 1,
+   "meals": [
+    "BREAKFAST"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-oats",
+     "grams": 50
+    },
+    {
+     "food": "seed-milk-semi-skimmed",
+     "grams": 200
+    },
+    {
+     "food": "seed-frozen-berries",
+     "grams": 80
+    },
+    {
+     "food": "seed-chia-seeds",
+     "grams": 10
+    }
+   ],
+   "steps": [
+    "Stir everything together in a jar.",
+    "Refrigerate overnight; eat cold or warmed."
+   ]
+  },
+  {
+   "id": "builtin-protein-oats",
+   "name": "Protein porridge",
+   "servings": 1,
+   "meals": [
+    "BREAKFAST"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-oats",
+     "grams": 60
+    },
+    {
+     "food": "seed-milk-semi-skimmed",
+     "grams": 250
+    },
+    {
+     "food": "seed-whey-protein",
+     "grams": 30
+    },
+    {
+     "food": "seed-banana",
+     "grams": 60
+    }
+   ],
+   "steps": [
+    "Simmer oats in milk for 4–5 minutes.",
+    "Off the heat, stir in the whey; top with sliced banana."
+   ]
+  },
+  {
+   "id": "builtin-skyr-bowl",
+   "name": "Skyr bowl with granola",
+   "servings": 1,
+   "meals": [
+    "BREAKFAST",
+    "SNACK"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-skyr",
+     "grams": 200
+    },
+    {
+     "food": "seed-granola",
+     "grams": 40
+    },
+    {
+     "food": "seed-frozen-berries",
+     "grams": 80
+    },
+    {
+     "food": "seed-honey",
+     "grams": 10
+    }
+   ],
+   "steps": [
+    "Spoon skyr into a bowl.",
+    "Top with berries, granola and a drizzle of honey."
+   ]
+  },
+  {
+   "id": "builtin-greek-yogurt-parfait",
+   "name": "Greek yogurt parfait",
+   "servings": 1,
+   "meals": [
+    "BREAKFAST",
+    "SNACK"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-greek-yogurt-nonfat",
+     "grams": 250
+    },
+    {
+     "food": "seed-blueberries",
+     "grams": 100
+    },
+    {
+     "food": "seed-walnuts",
+     "grams": 15
+    },
+    {
+     "food": "seed-honey",
+     "grams": 10
+    }
+   ],
+   "steps": [
+    "Layer yogurt and blueberries in a glass.",
+    "Finish with chopped walnuts and honey."
+   ]
+  },
+  {
+   "id": "builtin-veggie-omelette",
+   "name": "Vegetable omelette",
+   "servings": 1,
+   "meals": [
+    "BREAKFAST"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-egg-whole",
+     "grams": 150
+    },
+    {
+     "food": "seed-bell-pepper",
+     "grams": 60
+    },
+    {
+     "food": "seed-spinach",
+     "grams": 30
+    },
+    {
+     "food": "seed-onion",
+     "grams": 40
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 5
+    }
+   ],
+   "steps": [
+    "Soften onion and pepper in the oil.",
+    "Add spinach, then the beaten eggs; cook until just set and fold."
+   ]
+  },
+  {
+   "id": "builtin-egg-white-scramble",
+   "name": "Egg-white scramble on toast",
+   "servings": 1,
+   "meals": [
+    "BREAKFAST"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-egg-white",
+     "grams": 200
+    },
+    {
+     "food": "seed-egg-whole",
+     "grams": 50
+    },
+    {
+     "food": "seed-whole-wheat-bread",
+     "grams": 64
+    },
+    {
+     "food": "seed-tomato",
+     "grams": 100
+    }
+   ],
+   "steps": [
+    "Scramble the eggs and whites over low heat.",
+    "Serve on toast with sliced tomato."
+   ]
+  },
+  {
+   "id": "builtin-shakshuka",
+   "name": "Shakshuka",
+   "servings": 2,
+   "meals": [
+    "BREAKFAST",
+    "LUNCH"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-canned-tomatoes",
+     "grams": 400
+    },
+    {
+     "food": "seed-onion",
+     "grams": 110
+    },
+    {
+     "food": "seed-bell-pepper",
+     "grams": 120
+    },
+    {
+     "food": "seed-garlic",
+     "grams": 6
+    },
+    {
+     "food": "seed-egg-whole",
+     "grams": 200
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 10
+    },
+    {
+     "food": "seed-whole-wheat-bread",
+     "grams": 64
+    }
+   ],
+   "steps": [
+    "Soften onion, pepper and garlic in the oil.",
+    "Add tomatoes and simmer 10 minutes.",
+    "Make wells, crack in the eggs, cover until set. Serve with bread."
+   ]
+  },
+  {
+   "id": "builtin-banana-pb-toast",
+   "name": "Peanut butter banana toast",
+   "servings": 1,
+   "meals": [
+    "BREAKFAST",
+    "SNACK"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-whole-wheat-bread",
+     "grams": 64
+    },
+    {
+     "food": "seed-peanut-butter",
+     "grams": 20
+    },
+    {
+     "food": "seed-banana",
+     "grams": 100
+    }
+   ],
+   "steps": [
+    "Toast the bread.",
+    "Spread peanut butter and top with banana slices."
+   ]
+  },
+  {
+   "id": "builtin-cottage-cheese-toast",
+   "name": "Cottage cheese and tomato toast",
+   "servings": 1,
+   "meals": [
+    "BREAKFAST",
+    "SNACK"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-whole-wheat-bread",
+     "grams": 64
+    },
+    {
+     "food": "seed-cottage-cheese",
+     "grams": 150
+    },
+    {
+     "food": "seed-tomato",
+     "grams": 100
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 5
+    }
+   ],
+   "steps": [
+    "Toast the bread and spread with cottage cheese.",
+    "Top with tomato and a little olive oil."
+   ]
+  },
+  {
+   "id": "builtin-breakfast-wrap",
+   "name": "Egg and spinach breakfast wrap",
+   "servings": 1,
+   "meals": [
+    "BREAKFAST"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-whole-wheat-tortilla",
+     "grams": 45
+    },
+    {
+     "food": "seed-egg-whole",
+     "grams": 100
+    },
+    {
+     "food": "seed-egg-white",
+     "grams": 66
+    },
+    {
+     "food": "seed-spinach",
+     "grams": 30
+    },
+    {
+     "food": "seed-avocado",
+     "grams": 50
+    }
+   ],
+   "steps": [
+    "Scramble the eggs and whites with the spinach.",
+    "Fill the tortilla with eggs and sliced avocado; roll."
+   ]
+  },
+  {
+   "id": "builtin-berry-smoothie",
+   "name": "Berry protein smoothie",
+   "servings": 1,
+   "meals": [
+    "BREAKFAST",
+    "SNACK"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-frozen-berries",
+     "grams": 150
+    },
+    {
+     "food": "seed-banana",
+     "grams": 100
+    },
+    {
+     "food": "seed-milk-semi-skimmed",
+     "grams": 250
+    },
+    {
+     "food": "seed-whey-protein",
+     "grams": 30
+    }
+   ],
+   "steps": [
+    "Blend until smooth."
+   ]
+  },
+  {
+   "id": "builtin-dates-oats",
+   "name": "Date and walnut oatmeal",
+   "servings": 1,
+   "meals": [
+    "BREAKFAST"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-oats",
+     "grams": 60
+    },
+    {
+     "food": "seed-milk-semi-skimmed",
+     "grams": 250
+    },
+    {
+     "food": "seed-dates",
+     "grams": 24
+    },
+    {
+     "food": "seed-walnuts",
+     "grams": 15
+    }
+   ],
+   "steps": [
+    "Simmer oats in milk.",
+    "Top with chopped date and walnuts."
+   ]
+  },
+  {
+   "id": "builtin-chicken-rice-bowl",
+   "name": "Chicken, rice and broccoli bowl",
+   "servings": 1,
+   "meals": [
+    "LUNCH",
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-chicken-breast-cooked",
+     "grams": 150
+    },
+    {
+     "food": "seed-white-rice-cooked",
+     "grams": 200
+    },
+    {
+     "food": "seed-broccoli-cooked",
+     "grams": 150
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 5
+    }
+   ],
+   "steps": [
+    "Slice the chicken.",
+    "Serve over rice with steamed broccoli and a drizzle of oil."
+   ]
+  },
+  {
+   "id": "builtin-chicken-wrap",
+   "name": "Chicken and hummus wrap",
+   "servings": 1,
+   "meals": [
+    "LUNCH"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-whole-wheat-tortilla",
+     "grams": 45
+    },
+    {
+     "food": "seed-chicken-breast-cooked",
+     "grams": 120
+    },
+    {
+     "food": "seed-hummus",
+     "grams": 30
+    },
+    {
+     "food": "seed-lettuce",
+     "grams": 40
+    },
+    {
+     "food": "seed-tomato",
+     "grams": 60
+    }
+   ],
+   "steps": [
+    "Spread hummus on the tortilla.",
+    "Add chicken, lettuce and tomato; roll tightly."
+   ]
+  },
+  {
+   "id": "builtin-tuna-salad",
+   "name": "Tuna and chickpea salad",
+   "servings": 1,
+   "meals": [
+    "LUNCH"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-tuna-canned-water",
+     "grams": 112
+    },
+    {
+     "food": "seed-chickpeas-cooked",
+     "grams": 120
+    },
+    {
+     "food": "seed-cucumber",
+     "grams": 100
+    },
+    {
+     "food": "seed-tomato",
+     "grams": 100
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 10
+    },
+    {
+     "food": "seed-lemon-juice",
+     "grams": 15
+    }
+   ],
+   "steps": [
+    "Toss everything together.",
+    "Season with salt and pepper."
+   ]
+  },
+  {
+   "id": "builtin-lentil-soup",
+   "name": "Red lentil soup",
+   "servings": 4,
+   "meals": [
+    "LUNCH",
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-red-lentils-dry",
+     "grams": 250
+    },
+    {
+     "food": "seed-onion",
+     "grams": 220
+    },
+    {
+     "food": "seed-carrot",
+     "grams": 120
+    },
+    {
+     "food": "seed-garlic",
+     "grams": 9
+    },
+    {
+     "food": "seed-canned-tomatoes",
+     "grams": 400
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 20
+    }
+   ],
+   "steps": [
+    "Soften onion, carrot and garlic in the oil.",
+    "Add lentils, tomatoes and 1.2 L water; simmer 20 minutes.",
+    "Blend until smooth and season."
+   ]
+  },
+  {
+   "id": "builtin-salmon-potatoes",
+   "name": "Salmon with potatoes and greens",
+   "servings": 1,
+   "meals": [
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-salmon-cooked",
+     "grams": 150
+    },
+    {
+     "food": "seed-potato-boiled",
+     "grams": 250
+    },
+    {
+     "food": "seed-broccoli-cooked",
+     "grams": 120
+    },
+    {
+     "food": "seed-lemon-juice",
+     "grams": 15
+    }
+   ],
+   "steps": [
+    "Bake the salmon at 200 °C for 12–15 minutes.",
+    "Serve with boiled potatoes, broccoli and lemon."
+   ]
+  },
+  {
+   "id": "builtin-beef-chili",
+   "name": "Lean beef and bean chili",
+   "servings": 4,
+   "meals": [
+    "LUNCH",
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-lean-beef-mince-cooked",
+     "grams": 500
+    },
+    {
+     "food": "seed-black-beans-cooked",
+     "grams": 400
+    },
+    {
+     "food": "seed-canned-tomatoes",
+     "grams": 800
+    },
+    {
+     "food": "seed-onion",
+     "grams": 220
+    },
+    {
+     "food": "seed-bell-pepper",
+     "grams": 240
+    },
+    {
+     "food": "seed-garlic",
+     "grams": 9
+    },
+    {
+     "food": "seed-white-rice-cooked",
+     "grams": 600
+    }
+   ],
+   "steps": [
+    "Brown the mince with onion, pepper and garlic.",
+    "Add tomatoes and beans; simmer 25 minutes with chili spices.",
+    "Serve over rice."
+   ]
+  },
+  {
+   "id": "builtin-turkey-bolognese",
+   "name": "Turkey bolognese",
+   "servings": 4,
+   "meals": [
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-turkey-mince-cooked",
+     "grams": 500
+    },
+    {
+     "food": "seed-canned-tomatoes",
+     "grams": 800
+    },
+    {
+     "food": "seed-onion",
+     "grams": 220
+    },
+    {
+     "food": "seed-carrot",
+     "grams": 120
+    },
+    {
+     "food": "seed-garlic",
+     "grams": 9
+    },
+    {
+     "food": "seed-pasta-cooked",
+     "grams": 800
+    }
+   ],
+   "steps": [
+    "Brown the turkey with onion, carrot and garlic.",
+    "Add tomatoes and simmer 20 minutes.",
+    "Serve over pasta."
+   ]
+  },
+  {
+   "id": "builtin-chicken-stir-fry",
+   "name": "Chicken vegetable stir-fry",
+   "servings": 2,
+   "meals": [
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-chicken-breast-cooked",
+     "grams": 300
+    },
+    {
+     "food": "seed-frozen-mixed-veg",
+     "grams": 300
+    },
+    {
+     "food": "seed-bell-pepper",
+     "grams": 120
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 15
+    },
+    {
+     "food": "seed-brown-rice-cooked",
+     "grams": 390
+    }
+   ],
+   "steps": [
+    "Stir-fry the vegetables in the oil.",
+    "Add the chicken and toss with soy sauce and ginger.",
+    "Serve over brown rice."
+   ]
+  },
+  {
+   "id": "builtin-shrimp-couscous",
+   "name": "Lemon garlic shrimp couscous",
+   "servings": 2,
+   "meals": [
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-shrimp-cooked",
+     "grams": 250
+    },
+    {
+     "food": "seed-couscous-cooked",
+     "grams": 320
+    },
+    {
+     "food": "seed-zucchini",
+     "grams": 200
+    },
+    {
+     "food": "seed-garlic",
+     "grams": 6
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 15
+    },
+    {
+     "food": "seed-lemon-juice",
+     "grams": 30
+    }
+   ],
+   "steps": [
+    "Sauté zucchini and garlic in the oil.",
+    "Add shrimp to warm through; finish with lemon.",
+    "Serve over couscous."
+   ]
+  },
+  {
+   "id": "builtin-cod-tray-bake",
+   "name": "Cod and vegetable tray bake",
+   "servings": 2,
+   "meals": [
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-cod-cooked",
+     "grams": 360
+    },
+    {
+     "food": "seed-potato-boiled",
+     "grams": 400
+    },
+    {
+     "food": "seed-bell-pepper",
+     "grams": 240
+    },
+    {
+     "food": "seed-zucchini",
+     "grams": 200
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 15
+    }
+   ],
+   "steps": [
+    "Roast potatoes and vegetables at 210 °C for 25 minutes.",
+    "Add the cod and roast 10 minutes more."
+   ]
+  },
+  {
+   "id": "builtin-chickpea-curry",
+   "name": "Chickpea and spinach curry",
+   "servings": 3,
+   "meals": [
+    "LUNCH",
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-chickpeas-cooked",
+     "grams": 480
+    },
+    {
+     "food": "seed-canned-tomatoes",
+     "grams": 400
+    },
+    {
+     "food": "seed-spinach",
+     "grams": 120
+    },
+    {
+     "food": "seed-onion",
+     "grams": 220
+    },
+    {
+     "food": "seed-garlic",
+     "grams": 9
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 15
+    },
+    {
+     "food": "seed-white-rice-cooked",
+     "grams": 480
+    }
+   ],
+   "steps": [
+    "Soften onion and garlic; add curry spices.",
+    "Add tomatoes and chickpeas; simmer 15 minutes; wilt in the spinach.",
+    "Serve over rice."
+   ]
+  },
+  {
+   "id": "builtin-tofu-stir-fry",
+   "name": "Tofu and mushroom stir-fry",
+   "servings": 2,
+   "meals": [
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-tofu-firm",
+     "grams": 300
+    },
+    {
+     "food": "seed-mushrooms",
+     "grams": 200
+    },
+    {
+     "food": "seed-frozen-mixed-veg",
+     "grams": 250
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 15
+    },
+    {
+     "food": "seed-brown-rice-cooked",
+     "grams": 390
+    }
+   ],
+   "steps": [
+    "Pan-fry cubed tofu until golden.",
+    "Add vegetables and stir-fry; season with soy sauce.",
+    "Serve with rice."
+   ]
+  },
+  {
+   "id": "builtin-steak-sweet-potato",
+   "name": "Steak with sweet potato",
+   "servings": 1,
+   "meals": [
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-beef-sirloin-cooked",
+     "grams": 170
+    },
+    {
+     "food": "seed-sweet-potato-baked",
+     "grams": 200
+    },
+    {
+     "food": "seed-spinach",
+     "grams": 60
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 5
+    }
+   ],
+   "steps": [
+    "Sear the steak to your liking; rest 5 minutes.",
+    "Serve with baked sweet potato and wilted spinach."
+   ]
+  },
+  {
+   "id": "builtin-chicken-shawarma-bowl",
+   "name": "Chicken shawarma bowl",
+   "servings": 1,
+   "meals": [
+    "LUNCH",
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-chicken-thigh-cooked",
+     "grams": 150
+    },
+    {
+     "food": "seed-bulgur-cooked",
+     "grams": 180
+    },
+    {
+     "food": "seed-cucumber",
+     "grams": 100
+    },
+    {
+     "food": "seed-tomato",
+     "grams": 100
+    },
+    {
+     "food": "seed-tahini",
+     "grams": 15
+    },
+    {
+     "food": "seed-lemon-juice",
+     "grams": 15
+    }
+   ],
+   "steps": [
+    "Season chicken with shawarma spices and grill.",
+    "Serve over bulgur with cucumber, tomato and lemon-tahini sauce."
+   ]
+  },
+  {
+   "id": "builtin-tuna-pasta",
+   "name": "Tuna tomato pasta",
+   "servings": 2,
+   "meals": [
+    "LUNCH",
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-tuna-canned-water",
+     "grams": 224
+    },
+    {
+     "food": "seed-pasta-cooked",
+     "grams": 400
+    },
+    {
+     "food": "seed-canned-tomatoes",
+     "grams": 400
+    },
+    {
+     "food": "seed-garlic",
+     "grams": 6
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 10
+    }
+   ],
+   "steps": [
+    "Simmer tomatoes with garlic and oil for 10 minutes.",
+    "Stir in tuna and the cooked pasta."
+   ]
+  },
+  {
+   "id": "builtin-beef-pita",
+   "name": "Beef kofta pita",
+   "servings": 2,
+   "meals": [
+    "LUNCH",
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-lean-beef-mince-cooked",
+     "grams": 250
+    },
+    {
+     "food": "seed-pita-bread",
+     "grams": 128
+    },
+    {
+     "food": "seed-cucumber",
+     "grams": 100
+    },
+    {
+     "food": "seed-greek-yogurt-nonfat",
+     "grams": 100
+    },
+    {
+     "food": "seed-onion",
+     "grams": 55
+    }
+   ],
+   "steps": [
+    "Mix mince with grated onion and spices; shape and grill.",
+    "Serve in warm pita with cucumber and yogurt sauce."
+   ]
+  },
+  {
+   "id": "builtin-salmon-quinoa",
+   "name": "Salmon quinoa salad",
+   "servings": 1,
+   "meals": [
+    "LUNCH"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-salmon-cooked",
+     "grams": 120
+    },
+    {
+     "food": "seed-quinoa-cooked",
+     "grams": 185
+    },
+    {
+     "food": "seed-cucumber",
+     "grams": 80
+    },
+    {
+     "food": "seed-spinach",
+     "grams": 30
+    },
+    {
+     "food": "seed-lemon-juice",
+     "grams": 15
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 5
+    }
+   ],
+   "steps": [
+    "Flake the salmon over quinoa and greens.",
+    "Dress with lemon and oil."
+   ]
+  },
+  {
+   "id": "builtin-egg-fried-rice",
+   "name": "Egg fried rice with vegetables",
+   "servings": 2,
+   "meals": [
+    "LUNCH",
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-egg-whole",
+     "grams": 150
+    },
+    {
+     "food": "seed-brown-rice-cooked",
+     "grams": 390
+    },
+    {
+     "food": "seed-frozen-mixed-veg",
+     "grams": 250
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 15
+    }
+   ],
+   "steps": [
+    "Stir-fry vegetables in the oil.",
+    "Add rice, then push aside and scramble the eggs; toss together with soy sauce."
+   ]
+  },
+  {
+   "id": "builtin-lentil-bolognese",
+   "name": "Lentil bolognese",
+   "servings": 3,
+   "meals": [
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-lentils-cooked",
+     "grams": 400
+    },
+    {
+     "food": "seed-canned-tomatoes",
+     "grams": 400
+    },
+    {
+     "food": "seed-onion",
+     "grams": 110
+    },
+    {
+     "food": "seed-carrot",
+     "grams": 120
+    },
+    {
+     "food": "seed-mushrooms",
+     "grams": 150
+    },
+    {
+     "food": "seed-pasta-cooked",
+     "grams": 600
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 15
+    }
+   ],
+   "steps": [
+    "Soften onion, carrot and mushrooms.",
+    "Add tomatoes and lentils; simmer 15 minutes.",
+    "Serve over pasta."
+   ]
+  },
+  {
+   "id": "builtin-chicken-sweet-potato",
+   "name": "Chicken and sweet potato traybake",
+   "servings": 2,
+   "meals": [
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-chicken-breast-cooked",
+     "grams": 300
+    },
+    {
+     "food": "seed-sweet-potato-baked",
+     "grams": 400
+    },
+    {
+     "food": "seed-bell-pepper",
+     "grams": 240
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 15
+    }
+   ],
+   "steps": [
+    "Roast sweet potato and peppers at 200 °C for 25 minutes.",
+    "Add sliced chicken for the last 10 minutes."
+   ]
+  },
+  {
+   "id": "builtin-turkey-wrap",
+   "name": "Turkey and avocado wrap",
+   "servings": 1,
+   "meals": [
+    "LUNCH"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-whole-wheat-tortilla",
+     "grams": 45
+    },
+    {
+     "food": "seed-turkey-mince-cooked",
+     "grams": 120
+    },
+    {
+     "food": "seed-avocado",
+     "grams": 50
+    },
+    {
+     "food": "seed-lettuce",
+     "grams": 40
+    },
+    {
+     "food": "seed-tomato",
+     "grams": 60
+    }
+   ],
+   "steps": [
+    "Warm the turkey with taco spices.",
+    "Fill the tortilla with turkey, avocado, lettuce and tomato."
+   ]
+  },
+  {
+   "id": "builtin-bean-quinoa-bowl",
+   "name": "Black bean quinoa bowl",
+   "servings": 1,
+   "meals": [
+    "LUNCH"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-black-beans-cooked",
+     "grams": 150
+    },
+    {
+     "food": "seed-quinoa-cooked",
+     "grams": 185
+    },
+    {
+     "food": "seed-bell-pepper",
+     "grams": 80
+    },
+    {
+     "food": "seed-avocado",
+     "grams": 50
+    },
+    {
+     "food": "seed-lemon-juice",
+     "grams": 15
+    }
+   ],
+   "steps": [
+    "Combine beans, quinoa and pepper.",
+    "Top with avocado and lemon juice."
+   ]
+  },
+  {
+   "id": "builtin-fish-tacos",
+   "name": "Cod tacos",
+   "servings": 2,
+   "meals": [
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-cod-cooked",
+     "grams": 300
+    },
+    {
+     "food": "seed-whole-wheat-tortilla",
+     "grams": 180
+    },
+    {
+     "food": "seed-lettuce",
+     "grams": 80
+    },
+    {
+     "food": "seed-greek-yogurt-nonfat",
+     "grams": 100
+    },
+    {
+     "food": "seed-lemon-juice",
+     "grams": 15
+    }
+   ],
+   "steps": [
+    "Pan-cook the cod with paprika and flake it.",
+    "Serve in tortillas with lettuce and lemon yogurt."
+   ]
+  },
+  {
+   "id": "builtin-big-chicken-salad",
+   "name": "Big chicken salad",
+   "servings": 1,
+   "meals": [
+    "LUNCH"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-chicken-breast-cooked",
+     "grams": 150
+    },
+    {
+     "food": "seed-lettuce",
+     "grams": 100
+    },
+    {
+     "food": "seed-cucumber",
+     "grams": 100
+    },
+    {
+     "food": "seed-tomato",
+     "grams": 100
+    },
+    {
+     "food": "seed-chickpeas-cooked",
+     "grams": 80
+    },
+    {
+     "food": "seed-olive-oil",
+     "grams": 10
+    }
+   ],
+   "steps": [
+    "Slice the chicken.",
+    "Toss with the vegetables and chickpeas; dress with oil and lemon."
+   ]
+  },
+  {
+   "id": "builtin-mass-gainer-bowl",
+   "name": "Beef, rice and egg power bowl",
+   "servings": 1,
+   "meals": [
+    "LUNCH",
+    "DINNER"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-lean-beef-mince-cooked",
+     "grams": 200
+    },
+    {
+     "food": "seed-white-rice-cooked",
+     "grams": 300
+    },
+    {
+     "food": "seed-egg-whole",
+     "grams": 50
+    },
+    {
+     "food": "seed-avocado",
+     "grams": 70
+    },
+    {
+     "food": "seed-frozen-mixed-veg",
+     "grams": 150
+    }
+   ],
+   "steps": [
+    "Warm the mince and vegetables.",
+    "Serve over rice with a fried egg and avocado."
+   ]
+  },
+  {
+   "id": "builtin-hummus-veg",
+   "name": "Hummus with vegetable sticks",
+   "servings": 1,
+   "meals": [
+    "SNACK"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-hummus",
+     "grams": 60
+    },
+    {
+     "food": "seed-carrot",
+     "grams": 100
+    },
+    {
+     "food": "seed-cucumber",
+     "grams": 100
+    },
+    {
+     "food": "seed-bell-pepper",
+     "grams": 60
+    }
+   ],
+   "steps": [
+    "Cut vegetables into sticks and dip."
+   ]
+  },
+  {
+   "id": "builtin-apple-pb",
+   "name": "Apple with peanut butter",
+   "servings": 1,
+   "meals": [
+    "SNACK"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-apple",
+     "grams": 180
+    },
+    {
+     "food": "seed-peanut-butter",
+     "grams": 20
+    }
+   ],
+   "steps": [
+    "Slice the apple and serve with peanut butter."
+   ]
+  },
+  {
+   "id": "builtin-cottage-berries",
+   "name": "Cottage cheese with berries",
+   "servings": 1,
+   "meals": [
+    "SNACK"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-cottage-cheese",
+     "grams": 200
+    },
+    {
+     "food": "seed-frozen-berries",
+     "grams": 100
+    }
+   ],
+   "steps": [
+    "Top cottage cheese with thawed berries."
+   ]
+  },
+  {
+   "id": "builtin-protein-shake",
+   "name": "Protein shake with milk",
+   "servings": 1,
+   "meals": [
+    "SNACK"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-whey-protein",
+     "grams": 30
+    },
+    {
+     "food": "seed-milk-semi-skimmed",
+     "grams": 300
+    }
+   ],
+   "steps": [
+    "Shake together."
+   ]
+  },
+  {
+   "id": "builtin-trail-mix",
+   "name": "Dates and almonds",
+   "servings": 1,
+   "meals": [
+    "SNACK"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-dates",
+     "grams": 48
+    },
+    {
+     "food": "seed-almonds",
+     "grams": 28
+    }
+   ],
+   "steps": [
+    "Pack together for a quick snack."
+   ]
+  },
+  {
+   "id": "builtin-yogurt-honey",
+   "name": "Greek yogurt with honey and walnuts",
+   "servings": 1,
+   "meals": [
+    "SNACK"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-greek-yogurt-nonfat",
+     "grams": 170
+    },
+    {
+     "food": "seed-honey",
+     "grams": 10
+    },
+    {
+     "food": "seed-walnuts",
+     "grams": 15
+    }
+   ],
+   "steps": [
+    "Top yogurt with honey and walnuts."
+   ]
+  },
+  {
+   "id": "builtin-egg-snack",
+   "name": "Boiled eggs and cucumber",
+   "servings": 1,
+   "meals": [
+    "SNACK"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-egg-whole",
+     "grams": 100
+    },
+    {
+     "food": "seed-cucumber",
+     "grams": 150
+    }
+   ],
+   "steps": [
+    "Boil the eggs 9 minutes; serve with cucumber slices."
+   ]
+  },
+  {
+   "id": "builtin-chia-pudding",
+   "name": "Chia pudding",
+   "servings": 1,
+   "meals": [
+    "SNACK",
+    "BREAKFAST"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-chia-seeds",
+     "grams": 30
+    },
+    {
+     "food": "seed-milk-semi-skimmed",
+     "grams": 200
+    },
+    {
+     "food": "seed-frozen-berries",
+     "grams": 60
+    }
+   ],
+   "steps": [
+    "Stir chia into milk; rest at least 2 hours.",
+    "Top with berries."
+   ]
+  },
+  {
+   "id": "builtin-tuna-toast",
+   "name": "Tuna on toast",
+   "servings": 1,
+   "meals": [
+    "SNACK"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-tuna-canned-water",
+     "grams": 112
+    },
+    {
+     "food": "seed-greek-yogurt-nonfat",
+     "grams": 30
+    },
+    {
+     "food": "seed-whole-wheat-bread",
+     "grams": 32
+    }
+   ],
+   "steps": [
+    "Mix tuna with yogurt and pepper.",
+    "Spread on toast."
+   ]
+  },
+  {
+   "id": "builtin-banana-shake",
+   "name": "Banana peanut shake",
+   "servings": 1,
+   "meals": [
+    "SNACK",
+    "BREAKFAST"
+   ],
+   "ingredients": [
+    {
+     "food": "seed-banana",
+     "grams": 120
+    },
+    {
+     "food": "seed-milk-semi-skimmed",
+     "grams": 250
+    },
+    {
+     "food": "seed-peanut-butter",
+     "grams": 16
+    },
+    {
+     "food": "seed-oats",
+     "grams": 30
+    }
+   ],
+   "steps": [
+    "Blend until smooth."
+   ]
+  }
+ ]
+}

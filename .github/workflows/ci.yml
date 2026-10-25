@@ -1,0 +1,190 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "claude/**"]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build, lint & unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: gradle/actions/setup-gradle@v5
+
+      # Style rules live in .editorconfig. Fix locally with: java -jar ktlint.jar --format
+      - name: ktlint
+        run: |
+          curl -sSLo "$RUNNER_TEMP/ktlint.jar" https://repo1.maven.org/maven2/com/pinterest/ktlint/ktlint-cli/1.8.0/ktlint-cli-1.8.0-all.jar
+          echo "369ad2b789f95a011f807e1fcb690ccef80bd7cd014fd139e73ae82dcc0baeab  $RUNNER_TEMP/ktlint.jar" | sha256sum -c -
+          java -jar "$RUNNER_TEMP/ktlint.jar" "**/src/**/*.kt" "**/*.kts" "!**/build/**" --relative
+
+      # Every French and Arabic string must match the English keys and placeholders.
+      - name: Translations
+        run: python3 tools/i18n/check.py
+
+      - name: Assemble debug
+        run: ./gradlew assembleDebug
+
+      - name: Unit tests
+        run: >
+          ./gradlew testDebugUnitTest
+          :core:common:test :core:model:test :core:domain:test :core:testing:test
+
+      - name: Android lint
+        run: ./gradlew lintDebug
+
+      # Room regenerates the schema during the build. On branch pushes the
+      # updated schema is committed back (CI already validated the code); on
+      # pull requests a stale schema fails the build.
+      - name: Room schema is committed
+        run: |
+          if [ -z "$(git status --porcelain core/database/schemas)" ]; then
+            echo "Schema is up to date."
+            exit 0
+          fi
+          if [ "${{ github.event_name }}" != "push" ]; then
+            echo "::error::Room schema changed. Commit the files under core/database/schemas."
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add core/database/schemas
+          git commit -m "Update Room schema"
+          git push
+
+      - name: Report test failures
+        if: failure()
+        run: |
+          python3 - <<'PY'
+          import glob, xml.etree.ElementTree as ET
+          for path in glob.glob("**/build/test-results/**/*.xml", recursive=True):
+              for case in ET.parse(path).getroot().iter("testcase"):
+                  for failure in case.findall("failure") + case.findall("error"):
+                      message = " ".join((failure.get("message") or failure.text or "").split())[:900]
+                      print(f"::error title={case.get('classname')}.{case.get('name')}::{message}")
+          for path in glob.glob("**/build/reports/lint-results-debug.xml", recursive=True):
+              for issue in ET.parse(path).getroot().iter("issue"):
+                  if issue.get("severity") in ("Error", "Fatal"):
+                      location = issue.find("location")
+                      where = f"{location.get('file')}:{location.get('line')}" if location is not None else path
+                      print(f"::error title=Lint {issue.get('id')}::{where} {issue.get('message')}")
+          PY
+
+      - name: Upload reports
+        if: failure()
+        uses: actions/upload-artifact@v5
+        with:
+          name: reports
+          path: |
+            **/build/reports/
+            **/build/test-results/
+          retention-days: 7
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v5
+        with:
+          name: jalilgym-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
+          retention-days: 14
+
+  release:
+    name: Signed release build (R8)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: gradle/actions/setup-gradle@v5
+
+      # Uses the upload key from repository secrets when they're set (see
+      # docs/RELEASING.md); otherwise a throwaway key proves the signed, minified
+      # build works. Builds signed with the throwaway key can't go to Play.
+      - name: Prepare signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/release.jks"
+          else
+            keytool -genkeypair -keystore "$RUNNER_TEMP/release.jks" -alias ci \
+              -storepass ci-only-password -keypass ci-only-password \
+              -keyalg RSA -keysize 2048 -validity 1 -dname "CN=Jalilgym CI test key" -noprompt
+          fi
+
+      - name: Assemble and bundle release
+        env:
+          JALILGYM_KEYSTORE_FILE: ${{ runner.temp }}/release.jks
+          JALILGYM_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD || 'ci-only-password' }}
+          JALILGYM_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS || 'ci' }}
+          JALILGYM_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD || 'ci-only-password' }}
+          # Optional cloud sync project (docs/supabase/SETUP.md); without it the section is hidden.
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
+        run: ./gradlew :app:assembleRelease :app:bundleRelease
+
+      - name: Verify signatures
+        run: |
+          apksigner="$(ls -d "$ANDROID_HOME"/build-tools/*/ | sort -V | tail -1)apksigner"
+          "$apksigner" verify --verbose --print-certs app/build/outputs/apk/release/app-release.apk
+          jarsigner -verify app/build/outputs/bundle/release/app-release.aab
+
+      # gradle.properties decides what the release ships; fail if Health Connect leaks in while it's off.
+      - name: Verify release features
+        run: |
+          aapt2="$(ls -d "$ANDROID_HOME"/build-tools/*/ | sort -V | tail -1)aapt2"
+          permissions="$("$aapt2" dump permissions app/build/outputs/apk/release/app-release.apk)"
+          echo "$permissions"
+          if grep -q '^jalilgym.healthConnectInRelease=false' gradle.properties && echo "$permissions" | grep -q 'permission.health'; then
+            echo "::error::Health Connect permissions are in a release that should leave them out"
+            exit 1
+          fi
+
+      - name: Upload release builds
+        uses: actions/upload-artifact@v5
+        with:
+          name: jalilgym-release-${{ secrets.RELEASE_KEYSTORE_BASE64 != '' && 'upload-key' || 'ci-test-key' }}
+          path: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/bundle/release/*.aab
+            app/build/outputs/mapping/release/mapping.txt
+          retention-days: 14
+
+      # One tap to install on a phone: the newest build of this branch as a pre-release on
+      # the repository's Releases page, replaced on every push. For testing only; Play gets
+      # the upload-key AAB from the artifact above (docs/RELEASING.md).
+      - name: Publish test APK
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SIGNED_WITH: ${{ secrets.RELEASE_KEYSTORE_BASE64 != '' && 'the upload key' || 'a throwaway test key (fine to install, not for Play)' }}
+        run: |
+          tag="test-build-${GITHUB_REF_NAME//\//-}"
+          apk="$RUNNER_TEMP/jalilgym-${GITHUB_SHA::7}.apk"
+          cp app/build/outputs/apk/release/app-release.apk "$apk"
+          gh release delete "$tag" --yes --cleanup-tag 2>/dev/null || true
+          gh release create "$tag" "$apk" --prerelease --target "$GITHUB_SHA" \
+            --title "Test build (${GITHUB_REF_NAME})" \
+            --notes "Latest release build of ${GITHUB_REF_NAME} (${GITHUB_SHA::7}), signed with ${SIGNED_WITH}. On your phone: tap the .apk below, then allow installing from your browser if Android asks."
+
+

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_progress_title">Progress</string>
+    <string name="feature_progress_subtitle">See how far you have come</string>
+    <string name="feature_progress_back">Back</string>
+    <string name="feature_progress_save">Save</string>
+    <string name="feature_progress_cancel">Cancel</string>
+    <string name="feature_progress_delete">Delete</string>
+    <string name="feature_progress_ok">OK</string>
+    <string name="feature_progress_log">Log</string>
+
+    <string name="feature_progress_strength_title">Strength</string>
+    <string name="feature_progress_strength_desc">Estimated 1RM, top weight and volume charts for every exercise.</string>
+    <string name="feature_progress_strength_empty">Finish a workout and your exercises will show up here with their charts.</string>
+    <string name="feature_progress_e1rm_short">best e1RM</string>
+    <plurals name="feature_progress_sessions_last">
+        <item quantity="one">%1$d session · last %2$s</item>
+        <item quantity="other">%1$d sessions · last %2$s</item>
+    </plurals>
+    <plurals name="feature_progress_sessions">
+        <item quantity="one">%1$d session logged</item>
+        <item quantity="other">%1$d sessions logged</item>
+    </plurals>
+    <string name="feature_progress_metric_e1rm">Estimated 1RM</string>
+    <string name="feature_progress_metric_top_weight">Top weight</string>
+    <string name="feature_progress_metric_volume">Volume</string>
+    <string name="feature_progress_range_4w">4W</string>
+    <string name="feature_progress_range_3m">3M</string>
+    <string name="feature_progress_range_6m">6M</string>
+    <string name="feature_progress_range_1y">1Y</string>
+    <string name="feature_progress_range_all">All</string>
+    <string name="feature_progress_chart_empty">No sessions in this range yet.</string>
+    <string name="feature_progress_change_in_range">%1$s in this range</string>
+    <string name="feature_progress_strength_chart_desc">%1$s chart for %2$s</string>
+
+    <string name="feature_progress_records_title">Personal records</string>
+    <string name="feature_progress_records_desc">Every PR with when and how you set it.</string>
+    <string name="feature_progress_records_empty">Records appear after your first workout. Beat them to earn badges.</string>
+    <string name="feature_progress_record_set">%1$s × %2$d</string>
+
+    <string name="feature_progress_volume_title">Weekly volume</string>
+    <string name="feature_progress_this_week">This week</string>
+    <string name="feature_progress_week_of">Week of %1$s</string>
+    <string name="feature_progress_previous_week">Previous week</string>
+    <string name="feature_progress_next_week">Next week</string>
+    <string name="feature_progress_volume_heatmap_desc">Muscles trained this week, brighter means more sets</string>
+    <string name="feature_progress_volume_empty">No workouts this week.</string>
+    <string name="feature_progress_volume_target">Working sets per muscle. %1$d–%2$d a week is a good range for growth.</string>
+    <string name="feature_progress_sets_value">%1$s sets</string>
+
+    <string name="feature_progress_body_title">Body &amp; measurements</string>
+    <string name="feature_progress_body_weight">Body weight</string>
+    <string name="feature_progress_body_open">Weight history &amp; measurements</string>
+    <string name="feature_progress_log_weight">Log today\'s weight</string>
+    <string name="feature_progress_weight_empty">Log your weight to see your trend. Daily ups and downs are normal; the 7-day average tells the story.</string>
+    <string name="feature_progress_weight_change">%1$s over the last 90 days (7-day average)</string>
+    <string name="feature_progress_logged_on">Logged %1$s</string>
+    <string name="feature_progress_weight_chart_desc">Body weight chart with 7-day average</string>
+    <string name="feature_progress_trend_legend">Solid: weigh-ins · Dashed: 7-day average</string>
+    <string name="feature_progress_measurements">Measurements</string>
+    <string name="feature_progress_measurements_hint">Tap a measurement to log today\'s value.</string>
+    <string name="feature_progress_log_measurement">Log %1$s</string>
+
+    <string name="feature_progress_photos_title">Progress photos</string>
+    <string name="feature_progress_photos_desc">Private photos that never leave your phone, with side-by-side compare.</string>
+    <string name="feature_progress_photos_hint">Tap two photos to compare them. Photos stay on this device and are left out of backups.</string>
+    <string name="feature_progress_photos_empty">No photos yet. Same pose, light and time of day make the best comparisons.</string>
+    <string name="feature_progress_all_poses">All</string>
+    <string name="feature_progress_add_photo">Add photo</string>
+    <string name="feature_progress_choose_pose">Which pose is this?</string>
+    <string name="feature_progress_compare">Compare</string>
+    <string name="feature_progress_before">Before</string>
+    <string name="feature_progress_after">After</string>
+    <string name="feature_progress_photo_desc">%1$s photo from %2$s</string>
+    <string name="feature_progress_photo_missing">This photo was deleted.</string>
+    <string name="feature_progress_photo_failed">Couldn\'t import that photo. Try another one.</string>
+    <string name="feature_progress_delete_photos_title">Delete selected photos?</string>
+    <string name="feature_progress_delete_photos_body">They\'ll be removed from this device. This can\'t be undone.</string>
+</resources>

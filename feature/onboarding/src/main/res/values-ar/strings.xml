@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_onboarding_tagline">تمرّن بنظام.</string>
+    <string name="feature_onboarding_welcome_body">أجب عن ثلاثة أسئلة سريعة وسنجهّز لك خطة تناسبك.</string>
+    <string name="feature_onboarding_get_started">ابدأ</string>
+    <string name="feature_onboarding_skip_setup">سأضبط ذلك لاحقًا</string>
+    <string name="feature_onboarding_continue">متابعة</string>
+    <string name="feature_onboarding_finish">ابدأ التمرين</string>
+    <string name="feature_onboarding_back">رجوع</string>
+    <string name="feature_onboarding_skip">تخطٍّ</string>
+    <string name="feature_onboarding_progress">السؤال %1$d من %2$d</string>
+    <string name="feature_onboarding_suggested">مقترح لك</string>
+    <string name="feature_onboarding_goal_title">ما هدفك الأساسي؟</string>
+    <string name="feature_onboarding_goal_body">يحدّد هذا نطاقات التكرار وأهدافك الغذائية.</string>
+    <string name="feature_onboarding_goal_build_muscle_desc">زيادة الحجم العضلي بتكرارات متوسطة وحجم تدريب أسبوعي وافر.</string>
+    <string name="feature_onboarding_goal_lose_fat_desc">حافظ على قوتك أثناء تناول سعرات أقل من حاجتك.</string>
+    <string name="feature_onboarding_goal_get_stronger_desc">تمارين مركّبة أثقل، تكرارات أقل، وزيادة منتظمة في الأوزان.</string>
+    <string name="feature_onboarding_goal_general_fitness_desc">مزيج متوازن من القوة واللياقة.</string>
+    <string name="feature_onboarding_goal_endurance_desc">تكرارات أكثر، راحة أقصر، ولياقة أكثر.</string>
+    <string name="feature_onboarding_experience_title">منذ متى وأنت تتمرّن؟</string>
+    <string name="feature_onboarding_experience_body">كن صريحًا — سنعدّل الخطة مع تسجيلك للتمارين.</string>
+    <string name="feature_onboarding_level_beginner_desc">جديد على رفع الأثقال، أو أقل من 6 أشهر من التمرين المنتظم.</string>
+    <string name="feature_onboarding_level_intermediate_desc">من 6 أشهر إلى سنتين؛ تعرف التمارين الأساسية وتتمرّن 3–5 أيام أسبوعيًا.</string>
+    <string name="feature_onboarding_level_advanced_desc">أكثر من سنتين من التمرين المنظّم؛ التقدّم يحتاج تخطيطًا دقيقًا.</string>
+    <string name="feature_onboarding_program_title">اختر برنامج البداية</string>
+    <string name="feature_onboarding_program_body">يمكنك تغييره أو إنشاء برنامجك في أي وقت.</string>
+    <string name="feature_onboarding_program_full_body_desc">ثلاث جلسات للجسم كاملًا أسبوعيًا. أسرع طريقة لبناء أساس قوي.</string>
+    <string name="feature_onboarding_program_ppl_3_desc">دفع وسحب وأرجل مرة أسبوعيًا لكل منها، مع أيام راحة بينها.</string>
+    <string name="feature_onboarding_program_ppl_6_desc">تمرين كل عضلة مرتين أسبوعيًا لأقصى حجم تدريب.</string>
+    <string name="feature_onboarding_program_custom_desc">ابدأ ببرنامج فارغ وأضف أيامك وتمارينك.</string>
+</resources>

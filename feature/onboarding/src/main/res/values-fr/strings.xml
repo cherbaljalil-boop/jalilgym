@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_onboarding_tagline">Entraînez-vous avec méthode.</string>
+    <string name="feature_onboarding_welcome_body">Répondez à trois questions rapides et nous vous proposerons un programme adapté.</string>
+    <string name="feature_onboarding_get_started">Commencer</string>
+    <string name="feature_onboarding_skip_setup">Je configurerai plus tard</string>
+    <string name="feature_onboarding_continue">Continuer</string>
+    <string name="feature_onboarding_finish">Commencer l\'entraînement</string>
+    <string name="feature_onboarding_back">Retour</string>
+    <string name="feature_onboarding_skip">Passer</string>
+    <string name="feature_onboarding_progress">Question %1$d sur %2$d</string>
+    <string name="feature_onboarding_suggested">Conseillé pour vous</string>
+    <string name="feature_onboarding_goal_title">Quel est votre objectif principal ?</string>
+    <string name="feature_onboarding_goal_body">Il détermine vos fourchettes de répétitions et vos objectifs nutritionnels.</string>
+    <string name="feature_onboarding_goal_build_muscle_desc">Prendre du muscle avec des répétitions modérées et beaucoup de volume par semaine.</string>
+    <string name="feature_onboarding_goal_lose_fat_desc">Garder votre force tout en mangeant en déficit.</string>
+    <string name="feature_onboarding_goal_get_stronger_desc">Des mouvements composés plus lourds, moins de répétitions, une charge qui monte régulièrement.</string>
+    <string name="feature_onboarding_goal_general_fitness_desc">Un mélange équilibré de force et de cardio.</string>
+    <string name="feature_onboarding_goal_endurance_desc">Plus de répétitions, des repos plus courts, plus de cardio.</string>
+    <string name="feature_onboarding_experience_title">Depuis combien de temps vous entraînez-vous ?</string>
+    <string name="feature_onboarding_experience_body">Soyez honnête — nous ajusterons au fil de vos séances.</string>
+    <string name="feature_onboarding_level_beginner_desc">Débutant en musculation, ou moins de 6 mois d\'entraînement régulier.</string>
+    <string name="feature_onboarding_level_intermediate_desc">6 mois à 2 ans ; vous connaissez les mouvements de base et vous entraînez 3 à 5 jours par semaine.</string>
+    <string name="feature_onboarding_level_advanced_desc">Plus de 2 ans d\'entraînement structuré ; progresser demande une planification soignée.</string>
+    <string name="feature_onboarding_program_title">Choisissez votre programme de départ</string>
+    <string name="feature_onboarding_program_body">Vous pourrez en changer ou créer le vôtre à tout moment.</string>
+    <string name="feature_onboarding_program_full_body_desc">Trois séances corps entier par semaine. Le moyen le plus rapide de construire une base.</string>
+    <string name="feature_onboarding_program_ppl_3_desc">Poussée, tirage et jambes une fois par semaine chacun, avec des jours de repos entre les deux.</string>
+    <string name="feature_onboarding_program_ppl_6_desc">Chaque muscle travaillé deux fois par semaine pour un volume maximal.</string>
+    <string name="feature_onboarding_program_custom_desc">Partez d\'un programme vide et ajoutez vos propres jours et exercices.</string>
+</resources>

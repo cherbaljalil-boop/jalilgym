@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_notifications_channel_reminders">Workout reminders</string>
+    <string name="core_notifications_channel_reminders_desc">A nudge on the days you chose to train</string>
+    <string name="core_notifications_channel_summary">Weekly summary</string>
+    <string name="core_notifications_channel_summary_desc">A short recap of your week on Sunday evening</string>
+    <string name="core_notifications_reminder_title">Time to train</string>
+    <string name="core_notifications_reminder_next_day">%1$s is up next in %2$s.</string>
+    <string name="core_notifications_reminder_generic">Your next workout is waiting. Even a short session keeps the streak going.</string>
+    <string name="core_notifications_summary_title">Your week in Jalilgym</string>
+    <string name="core_notifications_summary_workouts">%1$d of %2$d workouts</string>
+    <string name="core_notifications_summary_volume">%1$s %2$s lifted</string>
+    <string name="core_notifications_summary_logged">food logged %1$d of 7 days</string>
+    <string name="core_notifications_summary_weight">weight %1$s %2$s</string>
+    <string name="core_notifications_summary_separator">" · "</string>
+</resources>

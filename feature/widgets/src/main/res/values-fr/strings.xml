@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_widgets_name">Jalilgym aujourd\'hui</string>
+    <string name="feature_widgets_description">Votre prochaine séance, vos calories, protéines et eau en un coup d\'œil</string>
+    <string name="feature_widgets_next_workout">Prochaine séance</string>
+    <string name="feature_widgets_today">Aujourd\'hui</string>
+    <string name="feature_widgets_in_progress">%1$s · en cours</string>
+    <string name="feature_widgets_trained_today">Séance faite ✓</string>
+    <string name="feature_widgets_no_program">Choisissez un programme pour commencer</string>
+    <plurals name="feature_widgets_streak">
+        <item quantity="one">Série de %1$d semaine</item>
+        <item quantity="many">Série de %1$d semaines</item>
+        <item quantity="other">Série de %1$d semaines</item>
+    </plurals>
+    <string name="feature_widgets_food">%1$d/%2$d kcal · %3$d/%4$d g de protéines</string>
+    <string name="feature_widgets_food_setup">Configurez la nutrition pour voir vos calories</string>
+    <string name="feature_widgets_water">Eau %1$s sur %2$s</string>
+    <string name="feature_widgets_add_water">+ %1$s</string>
+</resources>

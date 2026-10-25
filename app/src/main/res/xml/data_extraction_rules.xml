@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12+ backup rules. Photos and caches are private/large and are never backed up.
+     The cloud sync sign-in belongs to this device, so it is never copied either. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="file" path="photos/" />
+        <exclude domain="file" path="food_cache/" />
+        <exclude domain="sharedpref" path="jalilgym_cloud.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="file" path="food_cache/" />
+        <exclude domain="sharedpref" path="jalilgym_cloud.xml" />
+    </device-transfer>
+</data-extraction-rules>

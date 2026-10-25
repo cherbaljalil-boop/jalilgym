@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_onboarding_tagline">Train with structure.</string>
+    <string name="feature_onboarding_welcome_body">Answer three quick questions and we\'ll set you up with a plan that fits.</string>
+    <string name="feature_onboarding_get_started">Get started</string>
+    <string name="feature_onboarding_skip_setup">I\'ll set it up later</string>
+    <string name="feature_onboarding_continue">Continue</string>
+    <string name="feature_onboarding_finish">Start training</string>
+    <string name="feature_onboarding_back">Back</string>
+    <string name="feature_onboarding_skip">Skip</string>
+    <string name="feature_onboarding_progress">Question %1$d of %2$d</string>
+    <string name="feature_onboarding_suggested">Suggested for you</string>
+
+    <string name="feature_onboarding_goal_title">What\'s your main goal?</string>
+    <string name="feature_onboarding_goal_body">This shapes your rep ranges and your nutrition targets.</string>
+    <string name="feature_onboarding_goal_build_muscle_desc">Add size with moderate reps and plenty of weekly volume.</string>
+    <string name="feature_onboarding_goal_lose_fat_desc">Keep your strength while eating in a deficit.</string>
+    <string name="feature_onboarding_goal_get_stronger_desc">Heavier compounds, lower reps, steady load increases.</string>
+    <string name="feature_onboarding_goal_general_fitness_desc">A balanced mix of strength and conditioning.</string>
+    <string name="feature_onboarding_goal_endurance_desc">Higher reps, shorter rests, more conditioning.</string>
+
+    <string name="feature_onboarding_experience_title">How long have you been training?</string>
+    <string name="feature_onboarding_experience_body">Be honest — we\'ll adjust as you log workouts.</string>
+    <string name="feature_onboarding_level_beginner_desc">New to lifting, or less than about 6 months of consistent training.</string>
+    <string name="feature_onboarding_level_intermediate_desc">6 months to 2 years; you know the main lifts and train 3–5 days a week.</string>
+    <string name="feature_onboarding_level_advanced_desc">2+ years of structured training; progress takes careful planning.</string>
+
+    <string name="feature_onboarding_program_title">Pick your starting program</string>
+    <string name="feature_onboarding_program_body">You can switch or build your own any time.</string>
+    <string name="feature_onboarding_program_full_body_desc">Three whole-body sessions a week. The fastest way to build a base.</string>
+    <string name="feature_onboarding_program_ppl_3_desc">Push, pull and legs once a week each, with rest days in between.</string>
+    <string name="feature_onboarding_program_ppl_6_desc">Each muscle trained twice a week for maximum volume.</string>
+    <string name="feature_onboarding_program_custom_desc">Start from a blank program and add your own days and exercises.</string>
+</resources>

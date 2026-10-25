@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_programs_title">Train</string>
+    <string name="feature_programs_subtitle">Programs, exercises and history</string>
+    <string name="feature_programs_library_title">Exercise library</string>
+    <string name="feature_programs_library_desc">Browse about 100 exercises, filter by muscle or equipment, or add your own.</string>
+    <string name="feature_programs_history_title">Workout history</string>
+    <string name="feature_programs_history_desc">Every session, set and PR you have logged.</string>
+    <string name="feature_programs_more">More</string>
+
+    <!-- Train tab -->
+    <string name="feature_programs_active">Active</string>
+    <string name="feature_programs_next_day">Next: %1$s · %2$s</string>
+    <string name="feature_programs_view_day">View %1$s</string>
+    <string name="feature_programs_no_days">No workouts yet</string>
+    <string name="feature_programs_none_title">No active program</string>
+    <string name="feature_programs_none_body">Pick a proven template or build your own. Jalilgym will rotate through its workouts for you.</string>
+    <string name="feature_programs_browse_templates">Browse templates</string>
+    <string name="feature_programs_my_programs">My programs</string>
+    <string name="feature_programs_from_template">From template</string>
+    <string name="feature_programs_blank_program">Blank program</string>
+    <string name="feature_programs_new_program">New program</string>
+    <string name="feature_programs_default_program_name">My program</string>
+    <string name="feature_programs_create">Create</string>
+
+    <!-- Templates -->
+    <string name="feature_programs_templates_title">Program templates</string>
+    <string name="feature_programs_templates_body">Copy a template to make it yours; you can change any day, exercise or target afterwards.</string>
+    <string name="feature_programs_template_full_body_desc">Three whole-body sessions a week, alternating workouts A and B. Ideal for building a base.</string>
+    <string name="feature_programs_template_ppl_3_desc">Push, pull and legs once a week each, with rest days in between.</string>
+    <string name="feature_programs_template_ppl_6_desc">Each muscle twice a week: heavier A days and higher-rep B days.</string>
+    <string name="feature_programs_template_upper_lower_desc">Four gym days: a heavier and a lighter upper and lower day each week. A good step up from full body.</string>
+    <string name="feature_programs_template_strength_desc">Squat, bench, press, row and deadlift for 5 sets of 5, adding weight each session. Barbell and rack needed.</string>
+    <string name="feature_programs_template_home_desc">Full body with a pair of dumbbells and a bench or floor. For training at home.</string>
+    <string name="feature_programs_template_bodyweight_desc">No equipment beyond a pull-up bar and a sturdy bench or chair. Make reps harder before adding sets.</string>
+    <string name="feature_programs_show_workouts">Show workouts</string>
+    <string name="feature_programs_hide_workouts">Hide workouts</string>
+    <string name="feature_programs_use_template">Use this program</string>
+
+    <!-- Builder -->
+    <string name="feature_programs_back">Back</string>
+    <string name="feature_programs_rename">Rename</string>
+    <string name="feature_programs_rename_program">Rename program</string>
+    <string name="feature_programs_more_options">More options</string>
+    <string name="feature_programs_duplicate_program">Duplicate program</string>
+    <string name="feature_programs_delete_program">Delete program</string>
+    <string name="feature_programs_copy_name">%1$s (copy)</string>
+    <string name="feature_programs_program_missing">This program no longer exists.</string>
+    <string name="feature_programs_active_program">Active program</string>
+    <string name="feature_programs_make_active">Make this my active program</string>
+    <string name="feature_programs_days_per_week_label">Days per week</string>
+    <string name="feature_programs_days_per_week_hint">Your weekly target, used for scheduling and streaks.</string>
+    <string name="feature_programs_workouts_in_rotation">Workouts in rotation</string>
+    <string name="feature_programs_day_number">Day %1$d</string>
+    <string name="feature_programs_day_empty">No exercises yet</string>
+    <string name="feature_programs_day_options">Options for %1$s</string>
+    <string name="feature_programs_duplicate">Duplicate</string>
+    <string name="feature_programs_move_up">Move up</string>
+    <string name="feature_programs_move_down">Move down</string>
+    <string name="feature_programs_delete">Delete</string>
+    <string name="feature_programs_cancel">Cancel</string>
+    <string name="feature_programs_save">Save</string>
+    <string name="feature_programs_add">Add</string>
+    <string name="feature_programs_add_day">Add workout day</string>
+    <string name="feature_programs_default_day_name">Day %1$d</string>
+    <string name="feature_programs_rename_day">Rename day</string>
+    <string name="feature_programs_delete_day_title">Delete %1$s?</string>
+    <string name="feature_programs_delete_day_body">The day and its exercises are removed from this program. Workouts you already logged are kept.</string>
+    <string name="feature_programs_delete_program_title">Delete %1$s?</string>
+    <string name="feature_programs_delete_program_body">The program is removed. Workouts you already logged are kept.</string>
+
+    <!-- Day editor -->
+    <string name="feature_programs_add_exercises">Add exercises</string>
+    <string name="feature_programs_day_missing">This workout no longer exists.</string>
+    <string name="feature_programs_day_empty_title">No exercises yet</string>
+    <string name="feature_programs_day_empty_body">Tap “Add exercises” to build this workout.</string>
+    <string name="feature_programs_link_superset">Superset with next</string>
+    <string name="feature_programs_unlink_superset">Unlink superset</string>
+    <string name="feature_programs_exercise_options">Options for %1$s</string>
+    <string name="feature_programs_edit_targets">Edit targets</string>
+    <string name="feature_programs_remove">Remove</string>
+    <string name="feature_programs_target_reps">%1$d × %2$s</string>
+    <string name="feature_programs_target_seconds">%1$d × %2$s s</string>
+    <string name="feature_programs_target_meters">%1$d × %2$s m</string>
+    <string name="feature_programs_target_with_rest">%1$s · %2$s rest</string>
+
+    <!-- Prescription sheet -->
+    <string name="feature_programs_sets">Sets</string>
+    <string name="feature_programs_min">Min %1$s</string>
+    <string name="feature_programs_max">Max %1$s</string>
+    <string name="feature_programs_unit_reps">reps</string>
+    <string name="feature_programs_unit_seconds">seconds</string>
+    <string name="feature_programs_unit_meters">meters</string>
+    <string name="feature_programs_rest">Rest</string>
+    <string name="feature_programs_target_rpe">Target RPE</string>
+    <string name="feature_programs_rpe_none">None</string>
+    <string name="feature_programs_progression">Progression</string>
+    <string name="feature_programs_rule_double">Double progression</string>
+    <string name="feature_programs_rule_linear">Linear</string>
+    <string name="feature_programs_rule_none">Manual</string>
+    <string name="feature_programs_rule_double_desc">Add reps until every working set reaches the top of the range, then add %1$s and start again at the bottom. Two missed sessions in a row trigger a 10%% deload.</string>
+    <string name="feature_programs_rule_linear_desc">Add %1$s after every session where all working sets hit their target.</string>
+    <string name="feature_programs_rule_none_desc">Weights stay as you log them; no automatic changes.</string>
+    <string name="feature_programs_increment">Weight jump</string>
+    <string name="feature_programs_decrease">Decrease %1$s</string>
+    <string name="feature_programs_increase">Increase %1$s</string>
+
+    <!-- Day preview -->
+    <string name="feature_programs_edit_day">Edit workout</string>
+    <string name="feature_programs_up_next">Up next</string>
+    <string name="feature_programs_make_next">Do this workout next</string>
+    <string name="feature_programs_start_workout">Start workout</string>
+    <string name="feature_programs_resume_workout">Resume workout in progress</string>
+    <string name="feature_programs_workout_in_progress">“%1$s” is still in progress. Finish it before starting another.</string>
+    <string name="feature_programs_start_empty">Start an empty workout</string>
+    <string name="feature_programs_empty_workout_name">Workout</string>
+
+    <plurals name="feature_programs_exercise_count">
+        <item quantity="one">%1$d exercise</item>
+        <item quantity="other">%1$d exercises</item>
+    </plurals>
+    <plurals name="feature_programs_set_count">
+        <item quantity="one">%1$d set</item>
+        <item quantity="other">%1$d sets</item>
+    </plurals>
+    <plurals name="feature_programs_days_per_week">
+        <item quantity="one">%1$d day a week</item>
+        <item quantity="other">%1$d days a week</item>
+    </plurals>
+</resources>
